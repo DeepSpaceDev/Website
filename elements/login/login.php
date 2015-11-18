@@ -1,0 +1,106 @@
+<dom-module id="login-login">
+
+	<template>
+		<style>
+			paper-material {
+				display: inline-block;
+				padding: 15px 40px 25px 40px;
+				background-color: white;
+				border-radius: 2px;
+				margin-left: -17px;
+			}
+
+			#loginpage {
+				padding-top: 75px;
+				vertical-align: center;
+				width: 260px;
+				height: 190px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			paper-input {
+				width: 220px;
+				margin-top: -10px;
+			}
+
+			#lbuttons {
+				font-size: 14px;
+				margin-top: 10px;
+				float: right;
+			}
+
+			#login {
+				background-color: var(--paper-indigo-500);
+				color: #ffffff;
+			}
+
+		</style>
+
+		<section>
+			<div id="loginpage">
+				<paper-material elevation="4">
+					<form action="" id="loginform" method="POST" onSubmit="login(this); return false;">
+					<paper-input id="user" name="user" type="text" onkeypress="keyevent(13, subloginform, event)" label="Username" required></paper-input>
+					<paper-input id="pw" name="pw" type="password" onkeypress="keyevent(13, subloginform, event)" label="Password" required></paper-input>
+
+					<div id="lbuttons">
+						<paper-button id="register" onClick="href('register');" elevation="2" raised noink>Register</paper-button>
+						<paper-button id="login" elevation="2" onClick="subloginform();" raised>Login</paper-button>
+					</div>
+					</form>
+				</paper-material>
+			</div>
+		</section>
+
+	</template>
+
+	<script>
+		Polymer({
+			is: "login-login",
+
+			properties: {
+
+			}
+
+		});
+		
+		function login(form){
+			loginResetErrors();		
+			var result = $.ajax({
+				type: "POST",
+				url: "scripts/login/login.php",
+				data: $(form).serialize(),
+				async: false
+			}).responseText;
+			var toastl = "";
+			var showtoast = false;
+			var okbutton = true;
+			
+			if(result == "falsemail"){
+				toastl += "Your user was not registered."; $("#user").attr("invalid", true); showtoast = true;
+			}
+			else if(result == "falsepw"){
+				toastl += "False password! <span class='link' style='color: #FF9800; float: right; margin-left: 10px;' onClick='document.querySelector(\"#toast\").hide(); href(\"login/pwreset\");'>Reset password</span>"; 
+				$("#pw").attr("invalid"); 
+				okbutton = false; 
+				showtoast = true;
+			}
+			else if(result == "true"){
+				href("https://sese7.de/account/settings");
+			}
+
+			if(showtoast){toast(toastl, 5000, okbutton);}
+		}
+		
+		function loginResetErrors(){
+			$("#user").removeAttr("invalid");
+			$("#pw").removeAttr("invalid");
+		}
+		
+		function subloginform(){
+			$("#loginform").submit();
+		}
+	</script>
+
+</dom-module>
