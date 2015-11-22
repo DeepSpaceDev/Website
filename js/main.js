@@ -20,7 +20,13 @@ $(document).ready(function(){
 			setTimeout(function(){finishLoading(loadtimer);},loadtime);
 		}
 	});
+
+	$("html").on("contextmenu",function(e){
+        alert("Nope");
+        e.preventDefault();
+    });
 });	
+
 $.getMultiScripts = function(arr) {
     var _arr = $.map(arr, function(scr) {
         return $.getScript( ("") + scr );

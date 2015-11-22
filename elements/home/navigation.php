@@ -58,12 +58,22 @@
 				fill: #A4C639;
 			}			
 			
+			.recht{
+				font-size: 12px;
+				margin-top: 20px;
+			}
+
 			#drawer-drawer {
 				border-right: 1px solid var(--paper-grey-500);
 			}
 			
 			#menuicon {
 				margin-right: 14px;
+			}
+
+			#menu-main {
+				margin: 0 auto -50px;
+   				min-height: 100%;
 			}
 			
 			#menu-login {
@@ -78,7 +88,7 @@
 		</style>
 		<section>
 			<?php session_start(); ?>
-			<paper-menu>
+			<paper-menu id="menu-main">
 				
 				<?php
 					if(!isset($_SESSION["login"])){ ?>
@@ -141,10 +151,16 @@
 						<div secondary>Need to be installed</div>
 					</paper-item-body>
 				</paper-icon-item>
-					
+
+				<!--<paper-item class="recht" disabled>
+					<div>
+						<span class="link" onClick="href('');">About</span>
+						<span class="link" onClick="href('/privacy');">Privacy</span>
+					</div>
+				</paper-item>	-->
+
 			</paper-menu>
 
-			<!-- Sticky footer! -><div style="bottom: 0; position: absolute;">Impressum</div>-->
 		</section>
 	</template>
 	
