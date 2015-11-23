@@ -23,8 +23,8 @@ $(document).ready(function(){
 
 	$("html").on("contextmenu",function(e){
         e.preventDefault();
-        var pageX = e.pageX - 35;
-        var pageY = e.pageY - 20;
+        var pageX = e.pageX - 40;
+        var pageY = e.pageY - 25;
         $("#rightclickd").css({top: pageY , left: pageX});
         document.querySelector("#rightclickd").open();
 

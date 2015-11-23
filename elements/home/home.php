@@ -44,7 +44,7 @@
 					<!--<div style="float: right;"><paper-icon-button id="menuicon" icon="refresh"></paper-icon-button></div>-->
 				</paper-toolbar>
 				
-				<div id="content"><content></content></div>
+				<div id="content"><content><!--<home-profile></home-profile>--></content></div>
 			</paper-header-panel>
     	</paper-drawer-panel>
 
