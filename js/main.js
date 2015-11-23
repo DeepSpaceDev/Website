@@ -22,8 +22,12 @@ $(document).ready(function(){
 	});
 
 	$("html").on("contextmenu",function(e){
-        alert("Nope");
         e.preventDefault();
+        var pageX = e.pageX - 35;
+        var pageY = e.pageY - 20;
+        $("#rightclickd").css({top: pageY , left: pageX});
+        document.querySelector("#rightclickd").open();
+
     });
 });	
 

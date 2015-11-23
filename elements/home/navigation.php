@@ -151,14 +151,6 @@
 						<div secondary>Need to be installed</div>
 					</paper-item-body>
 				</paper-icon-item>
-
-				<!--<paper-item class="recht" disabled>
-					<div>
-						<span class="link" onClick="href('');">About</span>
-						<span class="link" onClick="href('/privacy');">Privacy</span>
-					</div>
-				</paper-item>	-->
-
 			</paper-menu>
 
 		</section>
