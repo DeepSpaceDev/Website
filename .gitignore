@@ -6,4 +6,4 @@ old
 .editorconfig
 .htaccess
 scripts/pw.php
-media/dl
+media/dl/
