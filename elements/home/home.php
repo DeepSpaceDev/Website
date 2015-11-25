@@ -38,7 +38,7 @@
 			</paper-header-panel>
 			
 			<paper-header-panel id="main-drawer" main>
-				<paper-toolbar>
+				<paper-toolbar id="menu-toolbar">
 					<paper-icon-button id="menuicon" icon="menu" paper-drawer-toggle></paper-icon-button>
 					<div id="toolbar-title">{{title}}</div>
 					<!--<div style="float: right;"><paper-icon-button id="menuicon" icon="refresh"></paper-icon-button></div>-->

@@ -1,0 +1,36 @@
+<dom-module id="embed-element">
+	<template>
+		<style>
+			.container {
+				min-height: 100%;
+				width: 100%;
+			}
+		</style>
+		<section>
+			<div class="container">
+				<embed
+					id = "embed-element"
+					src="{{src}}"
+					type="{{type}}"
+					height="100%"
+					width="100%"
+				/>
+			</div>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'embed-element',
+
+			properties: {
+				src: String,
+				type: String
+			},
+
+			ready: function(){
+				var height = document.getElementById("main-drawer").offsetHeight - document.getElementById("menu-toolbar").offsetHeight - 20; //20 debug
+				document.getElementById("embed-element").style.height = height + "px";
+			}
+		});
+	</script>
+</dom-module>

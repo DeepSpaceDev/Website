@@ -18,6 +18,7 @@ function content(params){
 			switch(params[1]){
 				case "zoo-app": site = "<zoo-app></zoo-app>"; break;
 			} break;
+		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
 		case "login": 
 			switch(params[1]){
 				case "pwreset": site = ""; break;
