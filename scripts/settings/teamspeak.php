@@ -17,16 +17,31 @@
 
 
 	$function = $_POST["function"];
-	$uid = hex2bin($_POST["uid"]);
 	$custom = $_POST["custom"];
 
+	$uid = hex2bin($_POST["uid"]);
 	$clid = $tsAdmin->clientGetIds($uid)['data'][0]['clid'];
+	$dbid = $tsAdmin->clientGetDbIdFromUid($uid)['data']['cldbid'];
 
 	if($function == "name"){
 		echo json_encode($tsAdmin->clientGetNameFromUid($uid));
 	}
 	else if($function == "kick"){
 		echo json_encode($tsAdmin->clientKick($clid, $custom));
+	}
+	else if($function == "group"){;
+		$grnr = null;
+		switch($custom){
+			case "lol": $grnr = 17; break;
+		}
+
+		$add = $_POST["add"];
+		if($add == "true"){
+			echo json_encode($tsAdmin->serverGroupAddClient($grnr, $dbid));
+		}
+		else{
+			echo json_encode($tsAdmin->serverGroupDeleteClient($grnr, $dbid));
+		}
 	}
 	
 	$tsAdmin->logout();

@@ -17,6 +17,17 @@
 				max-width: 900px;	
 			}
 
+			img {
+				margin-right: 20px;
+				height: 22px;
+				display: inline-block;
+				float: left;
+			}
+
+			paper-toggle-button {
+				padding-top: 3px;
+			}
+
 			.grey-600 {
 				fill: var(--paper-grey-600);
 			}
@@ -62,6 +73,9 @@
   					</paper-menu>
 				</paper-dropdown-menu>
 				<paper-button class="pbutton" onClick="getData('kick');">OK</paper-button>
+				<br /><br />
+				Groups:<br /><br />
+				<img src="../../img/icons/teamspeak/lol.png" /><paper-toggle-button id="t-lol" onClick="grchange(this);"></paper-toggle-button>
 			</paper-material>
 
 		</section>
@@ -92,7 +106,6 @@
 				async: false
 				}).responseText;		
 			var response = JSON.parse(responset);
-			l(responset);
 
 			if(type == "load" && response['success']){
 				name = response['data']['name'];
@@ -108,6 +121,25 @@
 				return false;
 			}
 			
+		}
+
+		function grchange(button){
+			var response = JSON.parse($.ajax({
+				type: "POST",
+				url: "scripts/settings/teamspeak.php",
+				data: "function=group&custom=" 
+					+ $(button).attr("id").split("-")[1] 
+					+ "&uid=" + $("#tsuid").val().hexEncode().replace(/00/g /*global*/, "")
+					+ "&add=" + !button.checked, //onclick ist der button das gegenteil
+				async: false
+			}).responseText);
+			if(response['success']){
+				toast("OK", 500);
+				return true;
+			}
+			else{
+				toast("Something went wrong, please try again", 3000);
+			}			
 		}
 
 		function saveUid(){

@@ -60,7 +60,6 @@
 			is: "login-login",
 
 			properties: {
-
 			}
 
 		});
