@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var loadtime = 2000;
+	var loadtime = 0;
 	var loadtimer = setInterval(function(){loadtime = loadtime - 100;}, 100);	
 
 	var scripts = getScripts();
@@ -13,7 +13,8 @@ $(document).ready(function(){
 	
 	$.getMultiScripts(scripts, 'js/').done(function() {
 		if(slowLoading){
-			window.addEventListener('WebComponentsReady', function(e) {
+			$("content").html('<div style="background-color: #00adef; height: 100%; width: 100%; text-align: center;"><img src="img/loading_squid.gif" style="margin-top: 100px;" width="50%" alt="loading"></div>');
+			window.addEventListener('HTMLImportsLoaded', function(e) {
 				setTimeout(function(){finishLoading(loadtimer);},loadtime);			
 			});			
 		} else{

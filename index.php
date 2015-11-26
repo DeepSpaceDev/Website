@@ -40,9 +40,6 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 	</head>
 	<body>	
 		<content>
-			<div style="background-color: #00adef; height: 100%; width: 100%; text-align: center;">
-				<img src="img/loading_squid.gif" style="margin-top: 100px;" width="50%" alt="loading">
-			</div>
 		</content>
 		<?php
 			if(isset($_GET["p"])){
