@@ -1,0 +1,31 @@
+<dom-module id="object-element">
+	<template>
+		<style>
+			.container {
+				min-height: 100%;
+				width: 100%;
+			}
+		</style>
+		<section>
+			<div class="container">
+				<object	id="object-element" codetype="{{type}}" archive="{{archive}}" classid="{{cid}}" width="100%"></object>
+			</div>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'object-element',
+
+			properties: {
+				archive: String,
+				type: String,
+				cid: String
+			},
+
+			ready: function(){
+				var height = document.getElementById("main-drawer").offsetHeight - document.getElementById("menu-toolbar").offsetHeight - 20; //20 debug
+				document.getElementById("object-element").style.height = height + "px";
+			}
+		});
+	</script>
+</dom-module>

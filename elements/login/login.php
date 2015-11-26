@@ -46,7 +46,7 @@
 
 					<div id="lbuttons">
 						<paper-button id="register" onClick="href('register');" elevation="2" raised noink>Register</paper-button>
-						<paper-button id="login" elevation="2" onClick="subloginform();" raised>Login</paper-button>
+						<paper-button id="login" elevation="2" onClick="login('#loginform');" raised>Login</paper-button>
 					</div>
 					</form>
 				</paper-material>
@@ -89,6 +89,10 @@
 			else if(result == "true"){
 				href("https://sese7.de/account/settings");
 			}
+			else{
+				toastl = "Something went wrong please contact the webmaster"
+				showtoast = true;
+			}
 
 			if(showtoast){toast(toastl, 5000, okbutton);}
 		}
@@ -96,10 +100,6 @@
 		function loginResetErrors(){
 			$("#user").removeAttr("invalid");
 			$("#pw").removeAttr("invalid");
-		}
-		
-		function subloginform(){
-			$("#loginform").submit();
 		}
 	</script>
 
