@@ -44,9 +44,8 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 		<?php
 			if(isset($_GET["p"])){
 				$p = $_GET["p"];
-				echo "<script>var isdialog = true;</script><paper-dialog id='dialog'><span id='dialogcontent'>$p</span></paper-dialog>";
+				echo "<script>var isdialog = true;</script><paper-dialog with-backdrop id='dialog'><span id='dialogcontent'>$p</span></paper-dialog>";
 			}
-		?>
-		
+		?>		
 	</body>
 </html>
