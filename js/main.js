@@ -28,7 +28,6 @@ $(document).ready(function(){
         var pageY = e.pageY - 25;
         $("#rightclickd").css({top: pageY , left: pageX});
         document.querySelector("#rightclickd").open();
-
     });
 });	
 
@@ -45,17 +44,14 @@ $.getMultiScripts = function(arr) {
 }
 function finishLoading(loader){
 	clearInterval(loader);
-	
-	var showdialog = ((typeof isdialog === 'undefined') ? false : isdialog);
-	if(showdialog){document.querySelector("#dialog").open();}
+	if(((typeof isdialog === 'undefined') ? false : isdialog)){document.querySelector("#dialog").open();} //falls notification dialog existiert öffnen
 	$("content").html(site());
 	
 	console.log("Loaded - Copyright 2015 Sebastian Schneider");
 }
 function getScripts(){
 	return [
-	//"https://www.google.com/recaptcha/api.js?render=explicit",
-	
+	//"https://www.google.com/recaptcha/api.js?render=explicit",	
 	"js/analytics.js", 
 	"js/elements.js", 
 	"js/site.js", 

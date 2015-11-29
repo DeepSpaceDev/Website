@@ -37,6 +37,14 @@ function getUrl(){
 function l(msg){
 	console.log(msg);
 }
+function ajax(url, data){
+	return $.ajax({
+		type: "POST",
+		url: url,
+		data: data,
+		async: false
+		}).responseText;
+}
 
 String.prototype.hexEncode = function(){
     var hex, i;

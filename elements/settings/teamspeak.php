@@ -26,6 +26,8 @@
 
 			paper-toggle-button {
 				padding-top: 3px;
+				padding-right: 35px;
+				float: left;
 			}
 
 			.grey-600 {
@@ -72,10 +74,15 @@
     					<paper-item>Channel</paper-item>
   					</paper-menu>
 				</paper-dropdown-menu>
-				<paper-button class="pbutton" onClick="getData('kick');">OK</paper-button>
+				<paper-button class="pbutton" onClick="scdo('kick');">OK</paper-button>
 				<br /><br />
 				Groups:<br /><br />
-				<img src="../../img/icons/teamspeak/lol.png" /><paper-toggle-button id="t-lol" onClick="grchange(this);"></paper-toggle-button>
+				<div><img src="../../img/icons/teamspeak/lol.png" /><paper-toggle-button id="t-17" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/osu.png" /><paper-toggle-button id="t-34" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/minecraft.png" /><paper-toggle-button id="t-22" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/rocketleague.png" /><paper-toggle-button id="t-18" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<br />
+				&nbsp;
 			</paper-material>
 
 		</section>
@@ -84,27 +91,30 @@
 
 	<script>
 		function tsuidsubmit(){
-			if(getData("load")){
+			if(scdo("load")){
 				saveUid();
 				$("#tsuser").slideDown();
 			}
 		}
 
-		function getData(type){
+		function scdo(type, cus){
 			var typed = ((type == "load") ? "name" : type);
 			var custom = "";
 			var name = "";
 
-			if(type == "kick"){
-				var custom = "&custom=" + ((document.querySelector("#kicktypemenu").selected == "0") ? "server" : "channel");
+			if(type == "load"){
+				scdo("group-get");
+			}
+			else if(type == "kick"){
+				custom = "&custom=" + ((document.querySelector("#kicktypemenu").selected == "0") ? "server" : "channel");
+			}
+			else if(type == "group-set"){
+				custom = "&custom=" + $(cus).attr("id").split("-")[1]
+					+ "&add=" + !cus.checked; //onclick ist der button das gegenteil
 			}
 
-			var responset = $.ajax({
-				type: "POST",
-				url: "scripts/settings/teamspeak.php",
-				data: "function=" + typed + "&uid=" + $("#tsuid").val().hexEncode().replace(/00/g /*global*/, "") + custom,
-				async: false
-				}).responseText;		
+			var data = "function=" + typed + "&uid=" + $("#tsuid").val().hexEncode().replace(/00/g /*global*/, "") + custom;
+			var responset = ajax("scripts/settings/teamspeak.php", data);
 			var response = JSON.parse(responset);
 
 			if(type == "load" && response['success']){
@@ -112,8 +122,14 @@
 				$("#tsuser h2").html(name);
 				return true;
 			}
+			else if(type == "group-get" && response['success']){
+				var groups = response['data'];
+				for(i = 0; i < groups.length; i++){
+					$("#t-" + groups[i]['sgid']).attr("checked", true);
+				}
+			}
 			else if(response['success']){
-				toast("Success", 3000);
+				toast("Success", 1000);
 				return true;
 			}
 			else{
@@ -123,32 +139,8 @@
 			
 		}
 
-		function grchange(button){
-			var response = JSON.parse($.ajax({
-				type: "POST",
-				url: "scripts/settings/teamspeak.php",
-				data: "function=group&custom=" 
-					+ $(button).attr("id").split("-")[1] 
-					+ "&uid=" + $("#tsuid").val().hexEncode().replace(/00/g /*global*/, "")
-					+ "&add=" + !button.checked, //onclick ist der button das gegenteil
-				async: false
-			}).responseText);
-			if(response['success']){
-				toast("OK", 500);
-				return true;
-			}
-			else{
-				toast("Something went wrong, please try again", 3000);
-			}			
-		}
-
 		function saveUid(){
-			var response = $.ajax({
-				type: "POST",
-				url: "scripts/sql.php",
-				data: "function=ts-saveuid&uid=" + $("#tsuid").val().hexEncode().replace(/00/g /*global*/, ""),
-				async: false
-				}).responseText;
+			var response = ajax("scripts/sql.php", "function=ts-saveuid&uid=" + $("#tsuid").val().hexEncode().replace(/00/g, ""));
 			if(response == "true"){
 				toast("UID saved", 3000);
 			}
@@ -156,6 +148,7 @@
 				toast("Something went wrong, please try again", 3000);
 			}
 		}
+
 	</script>
 
 	<?php } else { ?>
@@ -168,7 +161,7 @@
 		is: 'setting-teamspeak'<?php if($_SESSION["tsuid"] != ""){echo ",
 		
 		ready: function(){
-			getData('load');
+			scdo('load');
 		}
 		";}?>
 	});
