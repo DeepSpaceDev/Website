@@ -1,12 +1,13 @@
 <?php
 error_reporting(e_error);
 require("../connect.php");
+require("../pw.php");
 
 $returner = "";
 
 //Recaptcha
 $url = 'https://www.google.com/recaptcha/api/siteverify';
-$push = 'secret=6LfN4Q0TAAAAAIhvSpgQExdy7xQrYwgytNJvBarz&response=' . $_POST["g-recaptcha-response"];
+$push = 'secret=' . $grecaptcha_secret . '&response=' . $_POST["g-recaptcha-response"];
 
 $ch = curl_init( $url );
 curl_setopt( $ch, CURLOPT_POST, 1);
