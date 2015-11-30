@@ -100,6 +100,10 @@
 		Polymer({
 			is: 'login-register',
 
+			behaviors: [
+			    Polymer.IronA11yKeysBehavior
+		    ],
+
 			properties: {
 				meth: {
 					type: String,
@@ -109,6 +113,14 @@
 			
 			listeners: {
 				'regmethod.paper-radio-group-changed' : 'webRegChange'
+			},
+
+			keyBindings: {
+				'enter': '_register'
+			},
+
+			_register: function(event) {
+				subform();
 			},
 			
 			webRegChange: function(e){
