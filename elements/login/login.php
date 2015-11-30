@@ -59,7 +59,20 @@
 		Polymer({
 			is: "login-login",
 
+			behaviors: [
+			    Polymer.IronA11yKeysBehavior
+		    ],
+
 			properties: {
+			},
+
+			keyBindings: {
+				'enter': '_login'
+			},
+
+			_login: function(event) {
+				var form = document.querySelector('#loginform');
+				login(form);
 			}
 
 		});
