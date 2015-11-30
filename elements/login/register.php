@@ -81,7 +81,7 @@
 							<h2>General Information</h2>
 							More specific account options located in settings.<br /><br />
 						</div>
-						<div id="regcaptcha" class="g-recaptcha" onLoad="$.getScript('https://www.google.com/recaptcha/api.js');" data-sitekey="6LfN4Q0TAAAAALNBPYQO1YOa-bobqU3Qnl_1OWT1"></div>
+						<div id="regcaptcha" class="g-recaptcha" onLoad="$.getScript('https://www.google.com/recaptcha/api.js');" data-sitekey="6LdbGBITAAAAAM4qXAXdW7QnCFAJL-Wm-w2Lj3yn"></div>
 						<paper-input id="mail" name="mail" label="Mail"></paper-input>
 						<paper-input id="pw" name="pw" type="password" label="Password"></paper-input>
 						<paper-input id="pwrepeat" name="pwrepeat" type="password" label="Repeat password"></paper-input>
