@@ -1,11 +1,12 @@
 $(document).ready(function(){
-	var loadtime = 0;
+	$("content").html('<div style="background-color: #00adef; height: 100%; width: 100%; text-align: center;"><img src="img/loading_squid.gif" style="margin-top: 100px;" width="50%" alt="loading"></div>');
+	var loadtime = 1000;
 	var loadtimer = setInterval(function(){loadtime = loadtime - 100;}, 100);	
 
 	var scripts = getScripts();
 	var slowLoading = false;
 	
-	if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents supported
+	if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
 		console.log("Unsupported Browerser loading WebComponents");
 		scripts.push("../bower_components/webcomponentsjs/webcomponents-lite.min.js");
 		slowLoading = true;
@@ -13,7 +14,6 @@ $(document).ready(function(){
 	
 	$.getMultiScripts(scripts, 'js/').done(function() {
 		if(slowLoading){
-			$("content").html('<div style="background-color: #00adef; height: 100%; width: 100%; text-align: center;"><img src="img/loading_squid.gif" style="margin-top: 100px;" width="50%" alt="loading"></div>');
 			window.addEventListener('HTMLImportsLoaded', function(e) {
 				setTimeout(function(){finishLoading(loadtimer);},loadtime);			
 			});			
@@ -50,10 +50,8 @@ function finishLoading(loader){
 	console.log("Loaded - Copyright 2015 Sebastian Schneider");
 }
 function getScripts(){
-	return [
-	//"https://www.google.com/recaptcha/api.js?render=explicit",	
+	return [	
 	"js/analytics.js", 
-	"js/elements.js", 
 	"js/site.js", 
 	"js/tools.js"
 	];

@@ -23,7 +23,6 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 		<meta name="description" content="Website for all sorts of content, particularly about coding">
 		<meta name="keywords" content="Coding,Web,Android,Java,Teampeak">
 		<meta name="author" content="Sese Schneider">
-		<meta name="google-site-verification" content="dACYoqNjWSx53HC7RQbbHQJ-rBcd0qCZQSr8d-iUXas" />
 		
 		<title>Sese7.de</title>
 				
@@ -41,11 +40,13 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 	<body>	
 		<content>
 		</content>
+		<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'>
 		<?php
 			if(isset($_GET["p"])){
 				$p = $_GET["p"];
-				echo "<script>var isdialog = true;</script><paper-dialog with-backdrop id='dialog'><span id='dialogcontent'>$p</span></paper-dialog>";
+				echo "<script>var isdialog = true;</script>$p";
 			}
-		?>		
+		?>	
+		</span></paper-dialog>	
 	</body>
 </html>

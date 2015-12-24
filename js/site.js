@@ -1,7 +1,8 @@
 function site(){	
 	var params = getUrl();	
 	var returner = "";
-	returner += "<home-home title='" + title(params) + "'>" + content(params) + "</home-home>";
+	var nomenu = (params[0] == "ts" && params[1] != "c") ? true : false;
+	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "'>" + content(params) + "</home-home>";
 	returner += "<paper-toast id='toast'></paper-toast>";								
 	
 	return returner;
@@ -31,6 +32,7 @@ function content(params){
 				selmet = "meth='" + params[1] + "'";
 			}
 			site = "<login-register " + selmet + "></login-register>"; break;
+		case "ts": site = "<site-teamspeak></site-teamspeak>"; break;
 		default: document.querySelector("#pdp");
 	}
 	return site;
@@ -51,6 +53,7 @@ function title(params){
 		case "login": title = "Login"; break;
 		case "privacy": title = "Privacy"; break;
 		case "register": title = "Register"; break;
+		case "ts": title = "Teamspeak"; break;
 	}
 	return title;	
 }

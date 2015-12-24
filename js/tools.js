@@ -45,7 +45,16 @@ function ajax(url, data){
 		async: false
 		}).responseText;
 }
-
+function shuffle(array){
+    for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+    return array;
+}
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key].toLowerCase(); var y = b[key].toLowerCase();
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
 String.prototype.hexEncode = function(){
     var hex, i;
 

@@ -136,7 +136,16 @@
 						<paper-item class="submenu link">Snake</paper-item>
 					</paper-menu>
 				</paper-submenu>
-					
+
+				<paper-submenu class="sub">
+					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>Other</paper-icon-item>
+					<paper-menu class="menu-content">
+						<paper-item onClick="href('az');" class="submenu link">AZ</paper-item>
+						<paper-item onClick="href('ts/c');" class="submenu link">Teamspeak</paper-item>
+					</paper-menu>
+				</paper-submenu>
+
+				<!--***********************************-->					
 					
 				<paper-item class="menu-header-item" disabled>
 					<paper-item-body >
@@ -161,7 +170,6 @@
 			is: "home-navigation",
 
 			properties: {
-
 			}
 
 		});

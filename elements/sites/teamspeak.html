@@ -1,0 +1,102 @@
+<dom-module id="site-teamspeak">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-material {
+				display: block;
+				margin: 15px auto;
+				padding: 15px 40px 30px 40px;
+				background-color: white;
+				border-radius: 2px;
+				vertical-align: center;
+				max-width: 900px;
+			}
+			h2{
+				margin-top: 10px;
+				font-weight: 700;
+			}
+			.list{
+				font-size: 18px;
+			}
+			.green{
+				color: #0D47A1;
+				font-weight: 700;
+			}
+		</style>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+		<section>
+			<paper-material>
+				<h1>About us:</h1>
+			</paper-material>
+
+			<paper-material>			
+				<h2 style="color: red;">Owner</h2>
+				<div class="list" id="ts-owner"></div>
+
+				<br />
+
+				<h2 style="color: blue;">Dev</h2>
+				<div class="list" id="ts-dev"></div>
+
+				<br />
+
+				<h2 style="color: orange;">Admin</h2>
+				<div class="list" id="ts-admin"></div>
+
+				<br />
+
+				<h2 style="color: green;">Mod</h2>
+				<div class="list" id="ts-mod"></div>
+
+				<br /><br />
+
+				<h2 style="color: grey;">Member</h2>
+				<div class="list" id="ts-member"></div>
+
+				<br /><br />
+				<span style="font-size: 14px;" class="green">Online</span>
+			</paper-material>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'site-teamspeak',
+
+			attached: function(){
+				$("#dialogcontent").html("Loading...");
+				document.querySelector("#dialog").open();
+				this.async(function(){
+					var response = JSON.parse(ajax("scripts/sites/teamspeak.php", ""));
+					var bull = " &bull; ";
+
+					sortByKey(response, 'name');
+					for(var i = 0; i < response.length; i++){
+						var grids = [];
+						for(var x = 0; x < response[i]['groups'].length; x++){
+							grids[x] = response[i]['groups'][x]['sgid'];
+						}
+						if($.inArray("6", grids) != -1){
+							$("#ts-owner").html( $("#ts-owner").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+						}
+						else if($.inArray("14", grids) != -1){
+							$("#ts-dev").html( $("#ts-dev").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+						}
+						else if($.inArray("29", grids) != -1 || $.inArray("30", grids) != -1 ){
+							$("#ts-admin").html( $("#ts-admin").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+						}
+						else if($.inArray("16", grids) != -1){
+							$("#ts-mod").html( $("#ts-mod").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+						}
+						else{
+							$("#ts-member").html( $("#ts-member").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+						}
+					}
+					document.querySelector("#dialog").close();
+					toast("Hover over members ;)", 5000);
+				}, 100);
+			}
+		});
+	</script>
+</dom-module>

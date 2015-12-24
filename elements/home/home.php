@@ -57,7 +57,19 @@
 	<script>
 		
 		Polymer({		
-			is: "home-home"
+			is: "home-home",
+
+			properties: {
+				noMenu: {
+					type: String
+				}
+			},
+
+			attached: function(){
+				if(this.noMenu == "true"){
+					$("#menuicon").attr("disabled", "true");
+				}
+			}
 		});
 
 	</script>
