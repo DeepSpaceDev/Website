@@ -50,7 +50,6 @@
 			groups => $tsAdmin->serverGroupsByClientID($dat['cldbid'])['data']
 		));
 	}
-	#array_push($returner, $onlinecount);
 
 	echo json_encode($returner);
 

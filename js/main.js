@@ -44,8 +44,8 @@ $.getMultiScripts = function(arr) {
 }
 function finishLoading(loader){
 	clearInterval(loader);
-	if(((typeof isdialog === 'undefined') ? false : isdialog)){document.querySelector("#dialog").open();} //falls notification dialog existiert öffnen
 	$("content").html(site());
+	if(((typeof isdialog === 'undefined') ? false : isdialog)){$("#dialogcontent").html(dialogcontent); document.querySelector("#dialog").open();} //falls notification dialog existiert öffnen
 	
 	console.log("Loaded - Copyright 2015 Sebastian Schneider");
 }

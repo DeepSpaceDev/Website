@@ -31,6 +31,7 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 		<link type="text/css" rel="stylesheet" href="css/style.css">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="js/main.js"></script>
+		<?php if(isset($_GET["p"])){echo "<script>var isdialog = true; var dialogcontent = '" . $_GET["p"] . "';</script>";}?>	
 
 		<noscript>
 			<meta http-equiv="refresh" content="0;url=errors/javascript_disabled.html">
@@ -39,14 +40,6 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 	</head>
 	<body>	
 		<content>
-		</content>
-		<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'>
-		<?php
-			if(isset($_GET["p"])){
-				$p = $_GET["p"];
-				echo "<script>var isdialog = true;</script>$p";
-			}
-		?>	
-		</span></paper-dialog>	
+		</content>	
 	</body>
 </html>
