@@ -71,7 +71,7 @@
 
 			attached: function(){
 				if(this.noMenu == "true"){
-					$("#menuicon").attr("disabled", "true");
+					$("#menuicon").css("display", "none");
 				}
 			}
 		});
