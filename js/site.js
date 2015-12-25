@@ -11,6 +11,7 @@ function content(params){
 	var site = "";
 	/*Seite*/
 	switch(params[0]){
+		case "": break;
 		case "account":
 			switch(params[2]){
 				case "teamspeak": site = "<setting-teamspeak></setting-teamspeak>"; break;
@@ -33,7 +34,7 @@ function content(params){
 			}
 			site = "<login-register " + selmet + "></login-register>"; break;
 		case "ts": site = "<site-teamspeak></site-teamspeak>"; break;
-		default: document.querySelector("#pdp");
+		default: site = "<not-found></not-found>";
 	}
 	return site;
 }
