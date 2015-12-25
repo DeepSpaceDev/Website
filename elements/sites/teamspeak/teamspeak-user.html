@@ -1,0 +1,49 @@
+<dom-module id="ts-user">
+	<template>
+		<style>
+			:host {
+				display: inline-block;
+				font-size: 18px;
+				cursor: default;
+			}
+			.online{
+				color: #0D47A1;
+				font-weight: 700;
+			}
+			.userGroups{
+				position: absolute;
+				height: 50px;
+				width: 100px;
+				display: none;
+				background-color: red;
+			}
+		</style>
+		<section>
+			<div class$='{{userOnline}}' on-mouseover='onHovered' on-mouseout='onUnhovered'><content></content></div>
+			<div class='userGroups'></div>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'ts-user',
+
+			properties: {
+				userOnline: {
+					type: String,
+					notify: true
+				},
+				userGroups: {
+					type: String,
+					notify: true
+				}
+			},
+
+			onHovered: function() {
+		    	this.querySelector(".userGroups").style.display = 'block';
+		    },
+		    onUnhovered: function() {
+		    	this.querySelector(".userGroups").style.display = 'none';
+		    }
+		});
+	</script>
+</dom-module>

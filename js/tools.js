@@ -31,6 +31,9 @@ function keyevent(gkeycode, func, e){
 		func();
 	}
 }
+function qs(elem){
+	return document.querySelector(elem);
+}
 function getUrl(){
 	return window.location.pathname.split('/').slice(1);
 }

@@ -71,27 +71,42 @@
 					var response = JSON.parse(ajax("scripts/sites/teamspeak.php", ""));
 					var bull = " &bull; ";
 
+					var owner = "";
+					var member = "";
+					var admin = "";
+					var mod = "";
+					var dev = "";
+
 					sortByKey(response, 'name');
+					l(response);
 					for(var i = 0; i < response.length; i++){
 						var grids = [];
+						var gridsu = "";
 						for(var x = 0; x < response[i]['groups'].length; x++){
 							grids[x] = response[i]['groups'][x]['sgid'];
+							gridsu += response[i]['groups'][x]['sgid'] + "-";
 						}
 						if($.inArray("6", grids) != -1){
-							$("#ts-owner").html( $("#ts-owner").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+							owner += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
 						}
 						else if($.inArray("14", grids) != -1){
-							$("#ts-dev").html( $("#ts-dev").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+							dev += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
 						}
 						else if($.inArray("29", grids) != -1 || $.inArray("30", grids) != -1 ){
-							$("#ts-admin").html( $("#ts-admin").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+							admin += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
 						}
 						else if($.inArray("16", grids) != -1){
-							$("#ts-mod").html( $("#ts-mod").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+							mod += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
 						}
 						else{
-							$("#ts-member").html( $("#ts-member").html() + "<span class='site-teamspeak " + ((response[i]['online']) ? "green" : "") + "'>" + response[i]['name'] + "</span>" + bull );
+							member += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
 						}
+						qs("#ts-owner").innerHTML = owner;
+						qs("#ts-dev").innerHTML = dev;
+						qs("#ts-admin").innerHTML = admin;
+						qs("#ts-mod").innerHTML = mod;
+						qs("#ts-member").innerHTML = member;
+
 					}
 					document.querySelector("#dialog").close();
 					toast("Hover over members ;)", 5000);
