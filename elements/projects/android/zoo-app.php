@@ -4,7 +4,9 @@
 			.centerer{
 				text-align: center;
 			}
-
+			paper-material {
+				min-height: 250px;
+			}
 			#appicon {
 				margin: 0 20px 10px 0;
 				display: inline-block;
