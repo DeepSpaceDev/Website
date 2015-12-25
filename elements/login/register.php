@@ -2,17 +2,7 @@
 
 	<template>
 		
-		<style>
-			paper-material {
-				display: block;
-				margin: 15px auto;
-				padding: 15px 40px 25px 40px;
-				background-color: white;
-				border-radius: 2px;
-				vertical-align: center;
-				max-width: 900px;				
-			}
-			
+		<style>	
 			paper-input {
 				margin-top: -10px;
 			}

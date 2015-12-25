@@ -1,17 +1,6 @@
 <dom-module id="zoo-app">
 	<template>
 		<style>
-			paper-material {
-				display: block;
-				margin: 15px auto;
-				padding: 15px 40px 15px 40px;
-				background-color: white;
-				border-radius: 2px;
-				vertical-align: center;
-				max-width: 900px;
-				min-height: 250px;	
-			}
-
 			.centerer{
 				text-align: center;
 			}

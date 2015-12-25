@@ -7,16 +7,6 @@
 		?>
 		
 		<style>
-			paper-material {
-				display: block;
-				margin: 15px auto;
-				padding: 15px 40px 35px 40px;
-				background-color: white;
-				border-radius: 2px;
-				vertical-align: center;
-				max-width: 900px;	
-			}
-
 			img {
 				margin-right: 20px;
 				height: 22px;
