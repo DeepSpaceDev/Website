@@ -57,3 +57,11 @@ function title(params){
 	}
 	return title;	
 }
+function lsite(){
+	$("content").html(site());
+	if(((typeof isdialog === 'undefined') ? false : isdialog)){$("#dialogcontent").html(dialogcontent); document.querySelector("#dialog").open();} //falls notification dialog existiert öffnen	
+}
+function refresh(){
+	$("#content").fadeOut(200).html(content(getUrl())).fadeIn(200);
+	if(((typeof isdialog === 'undefined') ? false : isdialog)){$("#dialogcontent").html(dialogcontent); document.querySelector("#dialog").open();} //falls notification dialog existiert öffnen	
+}

@@ -11,6 +11,7 @@
 				margin-left: 5px;
 				font-size: 20px;
 				font-weight: 500;
+				flex: 1;
 			}
 
 			#rightclickd {
@@ -41,10 +42,11 @@
 				<paper-toolbar id="menu-toolbar">
 					<paper-icon-button id="menuicon" icon="menu" paper-drawer-toggle></paper-icon-button>
 					<div id="toolbar-title">{{title}}</div>
-					<!--<div style="float: right;"><paper-icon-button id="menuicon" icon="refresh"></paper-icon-button></div>-->
+
+					<div style="float: right;"><paper-icon-button onClick='refresh()' id="refreshicon" icon="refresh"></paper-icon-button></div>
 				</paper-toolbar>
 				
-				<div id="content"><content><!--<home-profile></home-profile>--></content></div>
+				<div id="content"><content id='sitecontent'><!--<home-profile></home-profile>--></content></div>
 			</paper-header-panel>
     	</paper-drawer-panel>
 
