@@ -15,10 +15,12 @@ function content(params){
 		case "account":
 			switch(params[2]){
 				case "teamspeak": site = "<setting-teamspeak></setting-teamspeak>"; break;
+				default: site = "<not-found></not-found>";
 			} break;
 		case "android":
 			switch(params[1]){
 				case "zoo-app": site = "<zoo-app></zoo-app>"; break;
+				default: site = "<not-found></not-found>";
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
 		case "login": 
