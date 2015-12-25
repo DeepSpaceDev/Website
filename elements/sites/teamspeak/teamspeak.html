@@ -78,7 +78,6 @@
 					var dev = "";
 
 					sortByKey(response, 'name');
-					l(response);
 					for(var i = 0; i < response.length; i++){
 						var grids = [];
 						var gridsu = "";
@@ -109,7 +108,7 @@
 
 					}
 					document.querySelector("#dialog").close();
-					toast("Hover over members ;)", 5000);
+					toast("Hover or click on members!", 5000);
 				}, 100);
 			}
 		});

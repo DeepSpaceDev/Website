@@ -6,21 +6,25 @@
 				font-size: 18px;
 				cursor: default;
 			}
+			img{
+				margin: 10px 8px 7px 8px;
+				height: 22px;
+			}
 			.online{
 				color: #0D47A1;
 				font-weight: 700;
 			}
 			.userGroups{
+				background-color: #fff;
 				position: absolute;
-				height: 50px;
-				width: 100px;
+				border: 1px solid #aaa;
+				border-radius: 3px;
 				display: none;
-				background-color: red;
 			}
 		</style>
 		<section>
 			<div class$='{{userOnline}}' on-mouseover='onHovered' on-mouseout='onUnhovered'><content></content></div>
-			<div class='userGroups'></div>
+			<paper-material elevation='5' class='userGroups'></paper-material>
 		</section>
 	</template>
 	<script>
@@ -39,6 +43,26 @@
 			},
 
 			onHovered: function() {
+				var vgroups = "";
+				var groups = this.userGroups.split("-");
+				for(var i = 0; i < groups.length - 1; i++){
+					var icon = "";
+					switch(groups[i]){
+						case '41': icon = 'csgo'; break;
+						case '26': icon = 'gtav'; break;
+						case '34': icon = 'osu'; break;
+						case '35': icon = 'diablo'; break;
+						case '55': icon = 'ark'; break;
+						case '18': icon = 'rocketleague'; break;
+						case '22': icon = 'minecraft'; break;
+						case '61': icon = 'wow'; break;
+						case '17': icon = 'lol'; break;
+					}
+					if(icon != ""){
+						vgroups += '<img class="ts-user style-scope" src="img/icons/teamspeak/' + icon + '.png" alt="' + icon + '" />';
+					}
+				}
+				this.querySelector(".userGroups").innerHTML = vgroups;
 		    	this.querySelector(".userGroups").style.display = 'block';
 		    },
 		    onUnhovered: function() {
