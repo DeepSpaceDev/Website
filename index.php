@@ -21,7 +21,7 @@ if($browser == "MSIE" || $browser == "IEMobile"){
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 		<meta name="description" content="Website for all sorts of content, particularly about coding">
-		<meta name="keywords" content="Coding,Web,Android,Java,Teampeak">
+		<meta name="keywords" content="Coding, Web, Android, Java, Teamspeak">
 		<meta name="author" content="Sese Schneider">
 		
 		<title>Sese7.de</title>

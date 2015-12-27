@@ -5,6 +5,9 @@
 			paper-toolbar {
 				background-color: var(--paper-indigo-500);
 			}
+			paper-menu .sub{
+				padding: 0;
+			}
 
 			.menu-header-item {
 				margin-top: 50px;
@@ -21,12 +24,19 @@
 			.submenu {
 				padding-left: 40px;
 			}
-			.submenu:hover {
+			.subsubmenu{
+				padding-left: 80px;
+			}
+			.submenu:hover, .subsubmenu:hover {
 				background-color: var(--paper-grey-100);
 			}
 			
 			.border {
 				border-top: 2px solid var(--paper-grey-200);
+			}
+
+			.subborder {
+				border-top: 2px dotted var(--paper-grey-200);
 			}
 			
 			.primary {
@@ -66,10 +76,6 @@
 			#drawer-drawer {
 				border-right: 1px solid var(--paper-grey-500);
 			}
-			
-			#menuicon {
-				margin-right: 14px;
-			}
 
 			#menu-main {
 				margin: 0 auto -50px;
@@ -106,6 +112,8 @@
 					</paper-submenu>
 				<?php } ?>
 				
+				<!--***********************-->
+
 				<paper-item class="menu-header-item" disabled>
 					<paper-item-body two-line>
 						<div class="primary">Projects</div>
@@ -136,6 +144,24 @@
 						<paper-item class="submenu link">Snake</paper-item>
 					</paper-menu>
 				</paper-submenu>
+
+				<!--<paper-submenu class="sub">
+					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>Other</paper-icon-item>
+					
+					<paper-submenu class="menu-content">
+						<paper-item class="menu-trigger subborder copy submenu" class="submenu link">A</paper-item>
+						<paper-menu class="menu-content sub">
+							<paper-item onClick="href('az');" class="subsubmenu link">AZ</paper-item>
+						</paper-menu>
+					</paper-submenu>
+					
+					<paper-submenu class="menu-content">
+						<paper-item class="menu-trigger subborder copy submenu" class="submenu link">T</paper-item>
+						<paper-menu class="menu-content sub">
+							<paper-item onClick="href('ts/c');" class="subsubmenu link">Teamspeak</paper-item>
+						</paper-submenu>
+					</paper-menu>
+				</paper-submenu>-->
 
 				<paper-submenu class="sub">
 					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>Other</paper-icon-item>
