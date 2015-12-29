@@ -49,9 +49,8 @@ function finishLoading(loader){
 	console.log("Loaded - Copyright 2015 Sebastian Schneider");
 }
 function getScripts(){
-	return [
-	"js/lib/html2canvas.js",	
-	"js/lib/analytics.js", 
+	return [	
+	"js/analytics.js", 
 	"js/site.js", 
 	"js/tools.js"
 	];

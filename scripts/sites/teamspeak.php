@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ERROR|E_WARNING);
+	error_reporting(0);
 
 	require_once("../tools/ts3admin.class.php");
 	require_once("../pw.php");
@@ -50,6 +50,7 @@
 			groups => $tsAdmin->serverGroupsByClientID($dat['cldbid'])['data']
 		));
 	}
+
 	echo json_encode($returner);
 
 	$tsAdmin->logout();
