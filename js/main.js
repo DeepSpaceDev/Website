@@ -50,7 +50,8 @@ function finishLoading(loader){
 }
 function getScripts(){
 	return [	
-	"js/analytics.js", 
+	"js/lib/analytics.js",
+	"js/lib/html2canvas.js", 
 	"js/site.js", 
 	"js/tools.js"
 	];
