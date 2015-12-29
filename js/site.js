@@ -28,6 +28,11 @@ function content(params){
 				case "pwreset": site = ""; break;
 				default: site = "<login-login></login-login>";
 			} break;
+		case "other":
+			switch(params[1]){
+				case "starwars-cards": site = "<starwars-cards></starwars-cards>"; break;
+				default: site = "<not-found></not-found>";
+			} break;
 		case "privacy": site = "<recht-privacy></recht-privacy>"; break;
 		case "register":
 			var selmet = "";
@@ -54,6 +59,10 @@ function title(params){
 				case "zoo-app": title = "Zoo App"; break;
 			} break;
 		case "login": title = "Login"; break;
+		case "other":
+			switch(params[1]){
+				case "starwars-cards": title = "Starwars Cards"; break;
+			} break;
 		case "privacy": title = "Privacy"; break;
 		case "register": title = "Register"; break;
 		case "ts": title = "Teamspeak"; break;

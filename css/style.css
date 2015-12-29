@@ -28,3 +28,5 @@ paper-material {
 	padding: 10px;
 	border-radius: 5px;
 }
+
+@font-face { font-family: Starwars; src: url('font/Starwars.ttf') format('truetype'); } 

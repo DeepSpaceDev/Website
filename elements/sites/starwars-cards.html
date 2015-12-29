@@ -1,0 +1,63 @@
+<dom-module id="starwars-cards">
+	<template>
+		<style>
+			#card {
+				background-color: #000;
+				border-radius: 0.4cm;
+				box-shadow: 0.2cm 0.2cm 0.2cm #bbb;
+				height: 9.8cm;
+				width: 6.2cm;
+				margin: 0 auto;
+				line-height: 1.0;
+			}
+			#innercard {
+				padding: 6%;
+			}
+
+			.blue {
+				background-color: #3f51b5;
+				color: #fff;
+			}
+			.white {
+				fill: #fff;
+			}
+			.cardp {
+				
+			}
+		</style>
+		<section>
+			<paper-material>
+				<paper-button onClick="starwars_save()" class="blue" raised><iron-icon class="white" icon="file-download"></iron-icon>Save as png</paper-button>
+			</paper-material>
+
+			<paper-material class='cardp'>
+				<div id="card">
+					<div id="innercard">
+						<img style="float: left" width="43%" src="../../img/sites/starwars/title.png" />
+						<div style="float: right; text-align: right; color: #dfe0e2; font-size: 13px; text-transform: uppercase; font-weight: 500; margin-right: 4%">
+							<span>Darth</span><br />
+							<span>Vader</span>
+						</div>
+					</div>
+				</div>	
+			</paper-material>
+
+			<div id="vcanvas" style="display: none;" download="starwarscard.png"></div>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'starwars-cards'
+		});
+
+		function starwars_save(){
+			html2canvas($('#card'), {
+ 				onrendered: function(canvas) {
+    				var img = canvas.toDataURL();
+    				window.location.href = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+    				window.open(img);
+ 				}
+			});
+		}
+	</script>
+</dom-module>
