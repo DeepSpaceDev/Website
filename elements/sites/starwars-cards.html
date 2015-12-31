@@ -16,12 +16,16 @@
 			#innercard {
 				padding: 5%;
 			}
+			#innercard div{
+				position: relative;
+			}
 			#dropimgcont{
 				height: 4.2cm;
 				border: 2px solid #dfdfdf;
-				margin-top: 25%;
+				margin-top: 10%;
 			}
 			#dropimg{
+				margin: 2px;
 				max-width: 100%;
 				max-height: 100%;
 			}
@@ -47,6 +51,7 @@
 				<paper-input id="class" onChange="ccard(this);" type="text" label="Class" style="width: 100%; float: left; margin-top: -10px;" required></paper-input>
 
 				<paper-button onClick="starwars_save()" class="save" raised><iron-icon class="white" icon="file-download"></iron-icon>Save as png</paper-button>
+				<span style="float: left; font-size: 11px; color: #aaa;"><br />Bugs are not visible in rendered version.</span>
 			</paper-material>
 
 			<paper-material class='cardp'>
@@ -55,16 +60,16 @@
 						<img style="float: left" width="48%" src="../../img/sites/starwars/title.png" />
 						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%">
 							<span class="tname"></span><br />
-							<span class="bname"></span>
-						</div>
-						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%; font-style: italic; padding-top: 4%; color: #aaa;">
+							<span class="bname"></span><br />
+						</div><br /><br />
+						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%; font-weight: 500; font-style: italic; color: #aaa;">
 							<span class="class"></span>
 						</div>
-
+						
 						<!--<span style="position: relative; float: left; margin: 70px 0 0 45px; color: #fff;">Drop image here.</span>-->
 						<div id="dropimgcont"></div>
 					</div>
-				</div>	
+				</div>
 			</paper-material>
 			
 			<a id="vcanvas" download="StarWarsCard.png"></a>
