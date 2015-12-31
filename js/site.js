@@ -2,7 +2,7 @@ function site(){
 	var params = getUrl();	
 	var returner = "";
 	var nomenu = (params[0] == "ts" && params[1] != "c") ? true : false;
-	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "'>" + content(params) + "</home-home>";
+	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
 	returner += "<paper-toast id='toast'></paper-toast>";								
 	
 	return returner;
