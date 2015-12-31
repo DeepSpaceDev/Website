@@ -10,11 +10,16 @@
 				margin: 0 auto;
 				line-height: 1.0;
 			}
+			#cardselect {
+				min-height: 300px;
+			}
 			#innercard {
-				padding: 6%;
+				padding: 5%;
 			}
 
-			.blue {
+			.save {
+				margin-top: 10px;
+				float: right;
 				background-color: #3f51b5;
 				color: #fff;
 			}
@@ -26,17 +31,25 @@
 			}
 		</style>
 		<section>
-			<paper-material>
-				<paper-button onClick="starwars_save()" class="blue" raised><iron-icon class="white" icon="file-download"></iron-icon>Save as png</paper-button>
+			<paper-material id="cardselect">
+				<paper-input id="tname" onChange="ccard(this);" type="text" label="Top Name" style="width: 48%; float: left;" required></paper-input>
+				<paper-input id="bname" onChange="ccard(this);" type="text" label="Bottom Name" style="width: 48%; float: right;" required></paper-input>
+
+				<paper-input id="class" onChange="ccard(this);" type="text" label="Class" style="width: 100%; float: left; margin-top: -10px;" required></paper-input>
+
+				<paper-button onClick="starwars_save()" class="save" raised><iron-icon class="white" icon="file-download"></iron-icon>Save as png</paper-button>
 			</paper-material>
 
 			<paper-material class='cardp'>
 				<div id="card">
 					<div id="innercard">
-						<img style="float: left" width="43%" src="../../img/sites/starwars/title.png" />
-						<div style="float: right; text-align: right; color: #dfe0e2; font-size: 13px; text-transform: uppercase; font-weight: 500; margin-right: 4%">
-							<span>Darth</span><br />
-							<span>Vader</span>
+						<img style="float: left" width="48%" src="../../img/sites/starwars/title.png" />
+						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%">
+							<span class="tname"></span><br />
+							<span class="bname"></span>
+						</div>
+						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%; font-style: italic; padding-top: 4%; color: #aaa;">
+							<span class="class"></span>
 						</div>
 					</div>
 				</div>	
@@ -54,10 +67,13 @@
 			html2canvas($('#card'), {
  				onrendered: function(canvas) {
     				var img = canvas.toDataURL();
-    				window.location.href = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+    				/*window.location.href = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');*/
     				window.open(img);
  				}
 			});
+		}
+		function ccard(elem){
+			$("." + elem.id).html(elem.value);
 		}
 	</script>
 </dom-module>
