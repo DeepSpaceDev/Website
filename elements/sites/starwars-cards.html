@@ -16,6 +16,15 @@
 			#innercard {
 				padding: 5%;
 			}
+			#dropimgcont{
+				height: 4.2cm;
+				border: 2px solid #dfdfdf;
+				margin-top: 25%;
+			}
+			#dropimg{
+				max-width: 100%;
+				max-height: 100%;
+			}
 
 			.save {
 				margin-top: 10px;
@@ -51,24 +60,94 @@
 						<div style="float: right; line-height: 1; text-align: right; color: #dfe0e2; font-size: 12px; text-transform: uppercase; font-weight: 500; margin-right: 4%; font-style: italic; padding-top: 4%; color: #aaa;">
 							<span class="class"></span>
 						</div>
+
+						<!--<span style="position: relative; float: left; margin: 70px 0 0 45px; color: #fff;">Drop image here.</span>-->
+						<div id="dropimgcont"></div>
 					</div>
 				</div>	
 			</paper-material>
-
-			<div id="vcanvas" style="display: none;" download="starwarscard.png"></div>
+			
+			<a id="vcanvas" download="StarWarsCard.png"></a>
 		</section>
 	</template>
 	<script>
 		Polymer({
-			is: 'starwars-cards'
+			is: 'starwars-cards',
+
+			attached: function(){
+                var handleDrag = function(e) {
+                    //kill any default behavior
+                    e.stopPropagation();
+                    e.preventDefault();
+                };
+                var handleDrop = function(e) {
+                	$("dropimgcont").html("");
+                    //kill any default behavior
+                    e.stopPropagation();
+                    e.preventDefault();
+                    //console.log(e);
+                    //get x and y coordinates of the dropped item
+                    x = e.clientX;
+                    y = e.clientY;
+                    //drops are treated as multiple files. Only dealing with single files right now, so assume its the first object you're interested in
+                    var file = e.dataTransfer.files[0];
+                    //don't try to mess with non-image files
+                    if (file.type.match('image.*')) {
+                        //then we have an image,
+
+                        //we have a file handle, need to read it with file reader!
+                        var reader = new FileReader();
+
+                        // Closure to capture the file information.
+                        reader.onload = (function(theFile) {
+                            //get the data uri
+                            var dataURI = theFile.target.result;
+                            //make a new image element with the dataURI as the source
+                            var img = document.createElement("img");
+                            img.src = dataURI;
+                            img.setAttribute('id', "dropimg");
+
+                            //Insert the image at the carat
+
+                            // Try the standards-based way first. This works in FF
+                            if (document.caretPositionFromPoint) {
+                                var pos = document.caretPositionFromPoint(x, y);
+                                range = document.createRange();
+                                range.setStart(pos.offsetNode, pos.offset);
+                                range.collapse();
+                                range.insertNode(img);
+                            }
+                            // Next, the WebKit way. This works in Chrome.
+                            else if (document.caretRangeFromPoint) {
+                                range = document.caretRangeFromPoint(x, y);
+                                range.insertNode(img);
+                            }
+
+                            if(img.width > img.height){
+                            	img.setAttribute('class', 'starwars-cards vcenter');
+                            }
+                            else{
+                            	img.setAttribute('class', 'starwars-cards hcenter');
+                            }
+
+                        });
+                        //this reads in the file, and the onload event triggers, which adds the image to the div at the carat
+                        reader.readAsDataURL(file);
+                    }
+                };
+
+                var dropZone = document.getElementById('dropimgcont');
+                dropZone.addEventListener('dragover', handleDrag, false);
+                dropZone.addEventListener('drop', handleDrop, false);
+			}
 		});
 
 		function starwars_save(){
 			html2canvas($('#card'), {
  				onrendered: function(canvas) {
-    				var img = canvas.toDataURL();
-    				/*window.location.href = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');*/
-    				window.open(img);
+    				var img = canvas.toDataURL("image/png");
+    				qs("#vcanvas").setAttribute('href', img);
+    				qs("#vcanvas").click()
  				}
 			});
 		}
