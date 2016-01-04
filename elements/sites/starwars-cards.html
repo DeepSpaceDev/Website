@@ -35,7 +35,7 @@
 				float: left;
 			}
 			.lore{
-				margin-top: 6px;
+				margin-top: 4px;
 				font-size: 9px;
 				color: #999;
 			}
@@ -48,13 +48,13 @@
 			.stat{
 				z-index: 100;
 				border-bottom: 1.5px solid #dfdfdf;
-				margin-top: 17px;
+				margin-top: 15px;
 				width: 100%;
 			}
 			.statc{
 				padding: 0 10px 0 10px;
-				margin-top: -14px;
-				font-size: 12px;
+				margin-top: -12.5px;
+				font-size: 11px;
 				color: #fff;
 			}
 			.white {
@@ -71,17 +71,21 @@
 
 				<paper-input id="class" onChange="ccard(this);" type="text" label="Class" style="width: 100%; float: left; margin-top: -10px;" required></paper-input>
 
-				<paper-input id="height" onChange="ccard(this);" type="text" label="Height" style="width: 18%; float: left;" required></paper-input>
-				<paper-input id="intell" onChange="ccard(this);" type="text" label="Intelligence" style="width: 18%; float: left; margin-left: 2.5%" required></paper-input>
-				<paper-input id="darkside" onChange="ccard(this);" type="text" label="Dark Side" style="width: 18%; float: left; margin-left: 2.5%" required></paper-input>
-				<paper-input id="power" onChange="ccard(this);" type="text" label="Power" style="width: 18%; float: left; margin-left: 2.5%" required></paper-input>
-				<paper-input id="macht" onChange="ccard(this);" type="text" label="Force" style="width: 18%; float: left; margin-left: 2.5%" required></paper-input>
+				<paper-input id="height" onChange="ccard(this);" type="text" label="Height" style="width: 15%; float: left;" required></paper-input>
+				<paper-input id="intell" onChange="ccard(this);" type="text" label="Intelligence" style="width: 15%; float: left; margin-left: 2%" required></paper-input>
+				<paper-input id="darkside" onChange="ccard(this);" type="text" label="Dark Side" style="width: 15%; float: left; margin-left: 2%" required></paper-input>
+				<paper-input id="jedipower" onChange="ccard(this);" type="text" label="Jedi Power" style="width: 15%; float: left; margin-left: 2%" required></paper-input>
+				<paper-input id="power" onChange="ccard(this);" type="text" label="Power" style="width: 15%; float: left; margin-left: 2%" required></paper-input>
+				<paper-input id="macht" onChange="ccard(this);" type="text" label="Force" style="width: 15%; float: left; margin-left: 2%" required></paper-input>
 
 				<paper-textarea onChange="ccard(this);" label="Lore" id="lore"></paper-textarea>
 
 				<paper-button onClick="starwars_save()" class="save" raised><iron-icon class="white" icon="file-download"></iron-icon>Save as png</paper-button>
 
-				<span style="float: left; font-size: 11px; color: #aaa;"><br />Bugs are not visible in rendered version.</span>
+				<span style="float: left; font-size: 11px; color: #aaa;"><br />
+					Bugs are not visible in rendered version.<br />
+					Rendering recommended in Firefox, other browersers are quite buggy.
+				</span>
 			</paper-material>
 
 			<paper-material class='cardp'>
@@ -109,8 +113,12 @@
 							<span class="intell statc" style="float: right"></span>
 						</div>
 						<div class="stat">
-							<span class="statc" style="float: left;">Dunle Seite</span>
+							<span class="statc" style="float: left;">Dunkle Seite</span>
 							<span class="darkside statc" style="float: right"></span>
+						</div>
+						<div class="stat">
+							<span class="statc" style="float: left;">Jedi Power</span>
+							<span class="jedipower statc" style="float: right"></span>
 						</div>
 						<div class="stat">
 							<span class="statc" style="float: left;">Kampfkraft</span>
