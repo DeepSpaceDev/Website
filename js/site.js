@@ -1,12 +1,7 @@
 function site(){	
 	var params = getUrl();	
 	var returner = "";
-	var nomenu = ((
-		params[0] == "ts" && params[1] != "c") || (
-		params[0] == "video")) ? true : false;
-	var notopbar = ((
-		params[0] == "video")) ? true : false;
-	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "' no-topbar='" + notopbar + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
+	returner += "<home-home title='" + title(params) + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
 	returner += "<paper-toast id='toast'></paper-toast>";								
 	
 	return returner;
@@ -73,6 +68,14 @@ function title(params){
 		case "ts": title = "Teamspeak"; break;
 	}
 	return title;	
+}
+function getIsToolbar(){
+	return ((getUrl()[0] == "video")) ? true : false;
+}
+function getIsMenu(){
+	return ((
+		getUrl()[0] == "ts" && getUrl()[1] != "c") || (
+		getUrl()[0] == "video")) ? true : false;
 }
 function lsite(){
 	$("content").html(site());

@@ -64,16 +64,33 @@
 			is: "home-home",
 
 			properties: {
-				noMenu: String,
-				noTopbar: String				
+				noMenu: {
+					type: String,
+					observer: 'updater'
+				},
+				noTopbar: {
+					type: String,
+					observer: 'updater'
+				}				
 			},
 
 			attached: function(){
-				if(this.noMenu == "true"){
+				this.updater();
+			},
+
+			updater: function(){
+				if(getIsMenu()){
 					$("#menuicon").css("display", "none");
 				}
-				if(this.noTopbar == "true"){
+				else{
+					$("#menuicon").css("display", "block");
+				}
+
+				if(getIsToolbar()){
 					$("#menu-toolbar").css("display", "none");
+				}
+				else{
+					$("#menu-toolbar").css("display", "block");
 				}
 			}
 		});

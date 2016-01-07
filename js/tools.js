@@ -12,7 +12,8 @@ function href(loc, type){
 	}
 	else{
 		history.pushState("", "", loc + "/");
-		document.querySelector("#pdp").closeDrawer();
+		qs("#pdp").closeDrawer();
+		qs("home-home").updater();
 		if(type != "nochange"){
 			$("#toolbar-title").html(title(loc.split("/")));
 			$("#content").fadeOut(250, function(){$("#content").html(content(loc.split("/"))).fadeIn(250);});
