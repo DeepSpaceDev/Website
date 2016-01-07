@@ -24,12 +24,12 @@ paper-material {
 }
 
 .hcenter{
-	position: relative;
+	position: absolute;
 	left: 50%;
     transform: translateX(-50%);
 }
 .vcenter{
-	position: relative;
+	position: absolute;
     top: 50%;
     transform: translateY(-50%);
 }

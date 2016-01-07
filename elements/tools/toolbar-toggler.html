@@ -1,0 +1,21 @@
+<dom-module id="toolbar-toggler">
+	<template>
+		<style>
+			:host {
+				display: block;
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				cursor: pointer;
+			}
+		</style>
+
+		<iron-icon style="fill: #ffffff" id="altmenu" icon="menu" onClick="qs('#pdp').togglePanel();"></iron-icon>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'toolbar-toggler'
+		});
+	</script>
+</dom-module>
