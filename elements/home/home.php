@@ -64,14 +64,16 @@
 			is: "home-home",
 
 			properties: {
-				noMenu: {
-					type: String
-				}
+				noMenu: String,
+				noTopbar: String				
 			},
 
 			attached: function(){
 				if(this.noMenu == "true"){
 					$("#menuicon").css("display", "none");
+				}
+				if(this.noTopbar == "true"){
+					$("#menu-toolbar").css("display", "none");
 				}
 			}
 		});

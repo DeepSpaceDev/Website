@@ -1,8 +1,12 @@
 function site(){	
 	var params = getUrl();	
 	var returner = "";
-	var nomenu = (params[0] == "ts" && params[1] != "c") ? true : false;
-	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
+	var nomenu = ((
+		params[0] == "ts" && params[1] != "c") || (
+		params[0] == "video")) ? true : false;
+	var notopbar = ((
+		params[0] == "video")) ? true : false;
+	returner += "<home-home title='" + title(params) + "' no-menu='" + nomenu + "' no-topbar='" + notopbar + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
 	returner += "<paper-toast id='toast'></paper-toast>";								
 	
 	return returner;
@@ -41,6 +45,7 @@ function content(params){
 			}
 			site = "<login-register " + selmet + "></login-register>"; break;
 		case "ts": site = "<site-teamspeak></site-teamspeak>"; break;
+		case "video": site = "<youtube-video video-url='" + params[1] + "''></youtube-video>"; break;
 		default: site = "<not-found></not-found>";
 	}
 	return site;
