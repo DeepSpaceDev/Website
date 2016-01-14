@@ -46,7 +46,7 @@ function finishLoading(loader){
 	clearInterval(loader);
 	lsite();
 
-	console.log("Loaded - Copyright 2015 Sebastian Schneider");
+	console.log("Loaded - Copyright 2015 DeepSpace Development");
 }
 function getScripts(){
 	return [	

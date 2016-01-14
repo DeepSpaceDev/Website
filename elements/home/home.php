@@ -51,7 +51,7 @@
     	</paper-drawer-panel>
 
     	<paper-dialog id="rightclickd" onClick="this.close();">
-    		<paper-item class="link" onClick="href('http://www.github.com/xeselaro/sese7.de', 'parent')">Source Code</paper-item>
+    		<paper-item class="link" onClick="href('http://www.github.com/deepspacedev/website', 'parent')">Source Code</paper-item>
     	</paper-dialog>
 
     	<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'></span></paper-dialog>

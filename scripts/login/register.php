@@ -51,20 +51,20 @@ $userkey = md5($mail);
 if($returner == ""){
 	$pwmd5 = md5($pw);
 	mysqli_query($db, "INSERT INTO user_main (mail, userkey, pw) VALUES ('$mail', '$userkey', '$pwmd5')");
-	mysqli_query($db, "INSERT INTO user_persmissions (userkey) VALUES ('$userkey')");
+	mysqli_query($db, "INSERT INTO user_permissions (userkey) VALUES ('$userkey')");
 	
 	//send mail
 	$empfaenger = $mail;
-	$absendername = "Sese7.de Registration";
-	$absendermail = "no-reply@sese7.de";
-	$betreff = "SESE7.de - Verification E-mail";
-	$text = "<h2>Thank you for registering at <a href='https://sese7.de/'>Sese7.de</a></h2><br />
-		Visit <a href='https://www.sese7.de/scripts/login/vermail.php?r=$userkey'>https://www.sese7.de/scripts/login/vermail.php?r=$userkey</a> to verify your E-mail adress.<br />
+	$absendername = "Deepspace.onl Registration";
+	$absendermail = "no-reply@deepspace.onl";
+	$betreff = "DeepSpace Development - Verification E-mail";
+	$text = "<h2>Thank you for registering at <a href='https://deepspace.onl/'>DeepSpace.onl</a></h2><br />
+		Visit <a href='https://www.deepspace.onl/scripts/login/vermail.php?r=$userkey'>https://www.deepspace.onl/scripts/login/vermail.php?r=$userkey</a> to verify your E-mail adress.<br />
 		<br /><br />
 		
-		Your Sese7.de Team<br /><br />
+		Your DeepSpace Development Team<br /><br />
 		
-		<span style='font-size: 10px; color: grey;'>Please do not reply directly to this mail. Use <a href='mailto:info@sese7.de'>info@sese7.de</a></span>.
+		<span style='font-size: 10px; color: grey;'>Please do not reply directly to this mail. Use <a href='mailto:info@deepspace.onl'>info@deepspace.onl</a></span>.
 	";
 
 	$from = "From: $absendername <$absendermail>\r\n";

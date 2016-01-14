@@ -99,7 +99,7 @@
 				showtoast = true;
 			}
 			else if(result == "true"){
-				href("https://sese7.de/account/settings");
+				href("https://deepspace.onl/account/settings");
 			}
 			else{
 				toastl = "Something went wrong please contact the webmaster"
