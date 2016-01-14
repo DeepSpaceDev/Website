@@ -1,13 +1,13 @@
 $(document).ready(function(){
-	$("content").html('<div style="background-color: #00adef; height: 100%; width: 100%; text-align: center;"><img src="img/loading_squid.gif" style="margin-top: 100px;" width="50%" alt="loading"></div>');
-	var loadtime = 1000;
+	$("content").html('<div style="position: absolute; top: calc(50% - 80px); left: calc(50% - 62px);"><img src="img/loader/loader.GIF" alt="loading"></div>');
+	var loadtime = 0;
 	var loadtimer = setInterval(function(){loadtime = loadtime - 100;}, 100);	
 
 	var scripts = getScripts();
 	var slowLoading = false;
 	
 	if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
-		console.log("Unsupported Browerser loading WebComponents");
+		console.log("Unsupported Browser loading WebComponents");
 		scripts.push("../bower_components/webcomponentsjs/webcomponents-lite.min.js");
 		slowLoading = true;
 	}
