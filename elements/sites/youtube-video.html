@@ -28,6 +28,10 @@
 		
 	</template>
 	<script>
+		var player;
+		var pauseon = [3, 28, 58, 72, 90, 96, 104, 108, 113, 117, 119, 129, 136, 143, 150, 177, 183, 208, 214, 220, 229, 240, 250, 256, 265];
+		var skipto = [12, 20, 160, 168, 194, 205, 287, 211] //[from, to, from2, to2, ...]
+		
 		Polymer({
 			is: 'youtube-video',
 
@@ -36,10 +40,7 @@
 			},
 
 			attached: function(){
-				var player = qs('#vid');
-				var pauseon = [3, 28, 58, 72, 90, 96, 104, 108, 113, 117, 119, 129, 136, 143, 150, 177, 183, 208, 214, 220, 229, 240, 250, 256, 265];
-				var skipto = [12, 20, 160, 168, 194, 205, 287, 211] //[from, to, from2, to2, ...]
-
+				player = document.querySelector('#vid');
 				player.addEventListener("google-youtube-ready", function(){
 					player.mute();
 					setInterval(function(){
@@ -56,7 +57,7 @@
 							skipto.shift();
 						}
 
-					}, 100);
+					}, 50);
 				});
 			}
 		});
@@ -68,7 +69,7 @@
 		Polymer({
 			is: 'youtube-video',
 
-			properies: {
+			properties: {
 				videoUrl: String,
 				videoTime: {
 					type: Number,
