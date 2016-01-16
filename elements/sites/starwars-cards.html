@@ -185,7 +185,7 @@
                                 range = document.caretRangeFromPoint(x, y);
                                 range.insertNode(img);
                             }
-                            if(img.width / 62 > img.height / 98){
+                            if(img.width > img.height){
                             	img.setAttribute('class', 'starwars-cards vcenter');
                             }
                             else{
