@@ -1,0 +1,61 @@
+<dom-module id="projects-project">
+	<template>
+		<style>
+			section {
+				cursor: pointer;
+				width: 300px;
+				margin: 13px 10px;
+				display: inline-block;
+				border: 1px solid #efefef;
+			}
+			img {
+				max-width: 300px;
+				max-height: 169px;
+			}
+			.imgwrapper {
+				width: 300px;
+				height: 169px;
+				display: table-cell;
+ 				text-align: center;
+  				vertical-align: middle;
+			}
+			.subtitle {
+				position: relative;
+				color: #fff;
+				margin-top: 2px;
+				height: 50px;
+			}
+			.subtext {
+				font-size: 18px;
+				font-weight: bold;
+				margin-left: 20px;
+				left: 0;
+			}
+			.subauthor {
+				font-size: 16px;
+				margin-right: 20px;
+				color: #efefef;
+				right: 0;
+			}
+		</style>
+		<section>
+			<div class="imgwrapper"><img src$="{{imgsrc}}"></div>
+			<div style$="background-color: {{color}}" class="subtitle">
+					<span class="subtext vcenter">{{ptitle}}</span><span class="subauthor vcenter">{{author}}</span>
+				</div>
+			</div>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'projects-project',
+
+			properties: {
+				author: String,
+				imgsrc: String,
+				ptitle: String,
+				color: String
+			}
+		});
+	</script>
+</dom-module>

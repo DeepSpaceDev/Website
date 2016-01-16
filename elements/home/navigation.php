@@ -25,10 +25,6 @@
 				padding-top: 7px;
 				padding-bottom: 7px;
 			}
-
-			.hiddensm {
-				display: none;
-			}
 							
 			.submenu {
 				padding-left: 40px;
@@ -154,36 +150,9 @@
 					<paper-menu class="menu-content">
 						<paper-item class="submenu link">Snake</paper-item>
 					</paper-menu>
-				</paper-submenu>
+				</paper-submenu>					
 
-				<?php } else { /*****************************************/?>
-				
-				<span class="a" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">A</paper-material></span>
-				<span class="b" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">B</paper-material></span>
-				<span class="c" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">C</paper-material></span>
-				<span class="d" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">D</paper-material></span>
-				<span class="e" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">E</paper-material></span>
-				<span class="f" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">F</paper-material></span>
-				<span class="g" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">G</paper-material></span>
-				<span class="h" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">H</paper-material></span>
-				<span class="i" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">I</paper-material></span>
-				<span class="j" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">J</paper-material></span>
-				<span class="k" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">K</paper-material></span>
-				<span class="l" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">L</paper-material></span>
-				<span class="m" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">M</paper-material></span>
-				<span class="n" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">N</paper-material></span>
-				<span class="o" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">O</paper-material></span>
-				<span class="p" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">P</paper-material></span>
-				<span class="q" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">Q</paper-material></span>
-				<span class="r" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">R</paper-material></span>
-				<span class="s" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">S</paper-material></span>
-				<span class="t" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">T</paper-material></span>
-				<span class="u" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">U</paper-material></span>
-				<span class="v" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">V</paper-material></span>
-				<span class="w" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">W</paper-material></span>
-				<span class="x" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">X</paper-material></span>
-				<span class="y" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">Y</paper-material></span>
-				<span class="z" onClick="openSubmenu(this);"><paper-material elevation="2" class="menutrigger custom">Z</paper-material></span>
+				<?php }/* else { /****************************************?>
 
 				<br /><br /><br />
 
@@ -203,7 +172,10 @@
 						<paper-item onClick="href('android/zoo-app');" class="submenu link">Zoo App</paper-item>
 					</div>
 
-				<?php } ?>
+				<?php }*/ ?>
+
+				<paper-icon-item onClick="href('projects');" class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>
+
 
 				<!--<paper-submenu class="sub">
 					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>Other</paper-icon-item>

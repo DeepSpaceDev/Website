@@ -1,8 +1,7 @@
 function site(){	
 	var params = getUrl();	
 	var returner = "";
-	returner += "<home-home title='" + title(params) + "'>" + content(params).replace('>', ' title="">') + "</home-home>";
-	returner += "<paper-toast id='toast'></paper-toast>";								
+	returner += "<home-home title='" + title(params) + "'>" + content(params).replace('>', ' title="">') + "</home-home>";								
 	
 	return returner;
 }
@@ -10,7 +9,7 @@ function content(params){
 	var site = "";
 	/*Seite*/
 	switch(params[0]){
-		case "": break;
+		case "": site = "<home-projects></home-projects>"; break;
 		case "account":
 			switch(params[2]){
 				case "teamspeak": site = "<setting-teamspeak></setting-teamspeak>"; break;
@@ -33,6 +32,7 @@ function content(params){
 				default: site = "<not-found></not-found>";
 			} break;
 		case "privacy": site = "<recht-privacy></recht-privacy>"; break;
+		case "projects": site = "<home-projects></home-projects>"; break;
 		case "register":
 			var selmet = "";
 			if(params[1] != "" && params[1] != undefined){
@@ -49,6 +49,7 @@ function title(params){
 	var title = "";
 	/*Titel*/
 	switch(params[0]){
+		case "": title = "DeepSpace Development - Projects"; break;
 		case "account":
 			switch(params[2]){
 				case "teamspeak": title = "Settings - Teamspeak"; break;
@@ -64,18 +65,19 @@ function title(params){
 				case "starwars-cards": title = "Starwars Cards"; break;
 			} break;
 		case "privacy": title = "Privacy"; break;
+		case "projects": title = "Projects"; break;
 		case "register": title = "Register"; break;
 		case "ts": title = "Teamspeak"; break;
 	}
 	return title;	
 }
 function getIsToolbar(){
-	return ((getUrl()[0] == "video")) ? true : false;
+	return ((getUrl()[0] == "video") /*|| (
+		getUrl()[0] == "az")*/) ? true : false;
 }
 function getIsMenu(){
 	return ((
-		getUrl()[0] == "ts" && getUrl()[1] != "c") || (
-		getUrl()[0] == "video")) ? true : false;
+		getUrl()[0] == "ts" && getUrl()[1] != "c")) ? true : false;
 }
 function lsite(){
 	$("content").html(site());

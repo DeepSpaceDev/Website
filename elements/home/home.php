@@ -56,6 +56,8 @@
 
     	<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'></span></paper-dialog>
 
+    	<paper-toast id='toast'></paper-toast>
+
 	</template>
 
 	<script>
