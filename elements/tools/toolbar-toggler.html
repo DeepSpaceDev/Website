@@ -10,12 +10,16 @@
 			}
 		</style>
 
-		<iron-icon style="fill: #ffffff" id="altmenu" icon="menu" onClick="qs('#pdp').togglePanel();"></iron-icon>
+		<iron-icon style$="fill: {{tcolor}}" id="altmenu" icon="menu" onClick="qs('#pdp').togglePanel();"></iron-icon>
 
 	</template>
 	<script>
 		Polymer({
-			is: 'toolbar-toggler'
+			is: 'toolbar-toggler',
+
+			properties: {
+				tcolor: String
+			}
 		});
 	</script>
 </dom-module>
