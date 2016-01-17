@@ -5,7 +5,7 @@ html, body {
 	width: 100%;
 	font-family: 'Roboto', sans-serif;
 }
-paper-material:not(.custom){
+paper-material.content{
 	margin: 15px auto;
 	padding: 15px 40px 25px 40px;
 	background-color: white;

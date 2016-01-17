@@ -25,7 +25,7 @@
 			
 		</style>
 		<section>
-			<paper-material>
+			<paper-material class="content">
 				<div>
 					<div class="centerer"><img id="appicon" width="200px" src="../../../img/projects/android/zooapp_icon.png" /></div>
 					<span id="apptitle">

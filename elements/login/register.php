@@ -52,7 +52,7 @@
 		</style>
 
 		<section>
-			<paper-material id="regvia">
+			<paper-material class="content" id="regvia">
 					<h3>Register on Sese7.de via:</h3>
 					<paper-radio-group id="regmethod" selected="{{meth}}">
 						<paper-radio-button id="reggoogle" name="g">Google</paper-radio-button>
@@ -60,7 +60,7 @@
 					</paper-radio-group>
 			</paper-material>
 
-			<paper-material id="reggooglecard">
+			<paper-material class="content" id="reggooglecard">
 				<google-signin client-id="222483067566-rg4ki08ppvj2vplqshohb6tp7tvq8rl4.apps.googleusercontent.com" scopes="https://www.googleapis.com/auth/drive" disabled></google-signin>
 			</paper-material>
 

@@ -6,7 +6,7 @@
 			}
 		</style>
 		<section>
-			<paper-material>
+			<paper-material class="content">
 				<h4>Please <span class="link" onClick="href('login');">login</span> to view this site!</h4>	
 			</paper-material>
 		</section>

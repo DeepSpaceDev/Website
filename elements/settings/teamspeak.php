@@ -43,7 +43,7 @@
 			}
 		</style>
 		<section>
-			<paper-material>
+			<paper-material class="content">
 				<div style="width: 100%;">
 					<span title="">
 						<iron-icon id="uidhelp" icon="icons:help-outline" class="grey-600"></iron-icon>
@@ -52,7 +52,7 @@
 					<paper-input id="tsuid" label="Teamspeak UID" <?php if($_SESSION["tsuid"] != ""){echo "value='" . $_SESSION["tsuid"] . "'";}?>></paper-input>
 					<paper-button onClick="tsuidsubmit();" id="tsuidsubmit" class="pbutton indigo-500">OK</paper-button>
 				</div>
-			</paper-material>
+			</paper-material class="content">
 
 			<paper-material id="tsuser">
 				<h2></h2>
