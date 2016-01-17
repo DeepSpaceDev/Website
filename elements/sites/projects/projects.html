@@ -4,9 +4,36 @@
 			section {
 				text-align: center;
 			}
+			#projectssorter{
+				width: 100%;
+				background-color: #fff;
+				text-align: center;
+			}
+			#sortby{
+				border-radius: 50px;
+				margin-left: 10px;
+				padding: 2px;
+				background-color: #3f51b5;
+				color: #fff;
+				cursor: pointer;
+			}
 		</style>
 		<section>
+			<paper-material id="projectssorter" class="custom">
+
+				<paper-dropdown-menu label="Order by" id="orderby">
+					<paper-menu class="dropdown-content" selected="0">
+						<paper-item>Alphabet</paper-item>
+						<paper-item>Author</paper-item>
+					</paper-menu>
+				</paper-dropdown-menu>
+
+				<iron-icon onclick="changesortdir();" icon="icons:arrow-drop-down" id="sortby">
+
+			</paper-material>
+			
 			<br />
+			
 			<projects-project onclick="href('az')" imgsrc="../../img/projects/show/az.png" color="#F44336" ptitle="AZ" author="DeepSpace"></projects-project>
 
 			<projects-project onclick="href('http://www.apnea-core.com/', 'parent')" imgsrc="../../img/projects/show/apnea-core.png" color="#0285CE" ptitle="Apnea CORE" author="Sese"></projects-project>
@@ -25,5 +52,16 @@
 		Polymer({
 			is: 'home-projects'
 		});
+
+		function changesortdir(){
+			var elem = $('#sortby');
+			
+			if(elem.attr('icon') == "icons:arrow-drop-down"){
+				elem.attr('icon', 'icons:arrow-drop-up');
+			}
+			else{
+				elem.attr('icon', 'icons:arrow-drop-down');
+			}
+		}
 	</script>
 </dom-module>
