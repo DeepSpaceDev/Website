@@ -11,7 +11,7 @@ function href(loc, type){
 		}
 	}
 	else{
-		history.pushState("", "", loc + "/");
+		history.pushState(null, null, loc);
 		qs("#pdp").closeDrawer();
 		qs("home-home").updater();
 		if(type != "nochange"){

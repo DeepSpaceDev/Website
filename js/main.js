@@ -5,6 +5,8 @@ $(document).ready(function(){
 
 	var scripts = getScripts();
 	var slowLoading = false;
+
+	var cUrl = window.location.pathname;
 	
 	if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
 		console.log("Unsupported Browser loading WebComponents");
@@ -22,13 +24,20 @@ $(document).ready(function(){
 		}
 	});
 
-	$("html").on("contextmenu",function(e){
+	$(window).on("contextmenu",function(e){
         e.preventDefault();
         var pageX = e.pageX - 40;
         var pageY = e.pageY - 25;
         $("#rightclickd").css({top: pageY , left: pageX});
         document.querySelector("#rightclickd").open();
     });
+
+    setInterval(function(){
+    	if(cUrl != window.location.pathname){
+    		cUrl = window.location.pathname;
+    		lsite();
+    	}
+    }, 250);
 });	
 
 $.getMultiScripts = function(arr) {
@@ -43,6 +52,7 @@ $.getMultiScripts = function(arr) {
     return $.when.apply($, _arr);
 }
 function finishLoading(loader){
+
 	clearInterval(loader);
 	lsite();
 
@@ -51,7 +61,7 @@ function finishLoading(loader){
 function getScripts(){
 	return [	
 	"js/lib/analytics.js",
-	"js/lib/html2canvas.js", 
+	"js/lib/html2canvas.js",
 	"js/site.js", 
 	"js/tools.js"
 	];
