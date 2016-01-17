@@ -133,7 +133,7 @@
 					<paper-icon-item class="menu-trigger mainselect copy"><iron-icon icon="av:web" class="orange-500" item-icon></iron-icon>Web</paper-icon-item>
 					<paper-menu class="menu-content">
 						<paper-item onClick="href('http://www.apnea-core.com/', 'parent')" class="submenu link">Apnea CORE</paper-item>
-						<paper-item onClick="href('https://www.sese7.de/', 'parent')" class="submenu link">Sese7.de</paper-item>
+						<paper-item onClick="href('https://www.deepspace.onl/', 'parent')" class="submenu link">DeepSpace.onl</paper-item>
 					</paper-menu>
 				</paper-submenu>
 					
