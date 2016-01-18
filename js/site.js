@@ -21,6 +21,13 @@ function content(params){
 				default: site = "<not-found></not-found>";
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
+		case "law": 
+			switch(params[1]){
+				case "disclaimer": site = "<law-disclaimer></law-disclaimer>"; break;
+				case "impress": site = "<law-impress></law-impress>"; break;
+				case "privacy": site = "<law-privacy></law-privacy>"; break;
+				case "terms": site = "<law-terms></law-terms>"; break;
+			} break;
 		case "login": 
 			switch(params[1]){
 				case "pwreset": site = ""; break;
@@ -31,7 +38,6 @@ function content(params){
 				case "starwars-cards": site = "<starwars-cards></starwars-cards>"; break;
 				default: site = "<not-found></not-found>";
 			} break;
-		case "privacy": site = "<recht-privacy></recht-privacy>"; break;
 		case "projects": site = "<home-projects></home-projects>"; break;
 		case "register":
 			var selmet = "";
@@ -59,12 +65,18 @@ function title(params){
 				case "test-app": title = "Test App"; break;
 				case "zoo-app": title = "Zoo App"; break;
 			} break;
+		case "law": 
+			switch(params[1]){
+				case "disclaimer": title = "Disclaimer"; break;
+				case "impress": title = "Impress"; break;
+				case "privacy": title = "Privacy"; break;
+				case "terms": title = "Terms of condition"; break;
+			} break;
 		case "login": title = "Login"; break;
 		case "other":
 			switch(params[1]){
 				case "starwars-cards": title = "Starwars Cards"; break;
 			} break;
-		case "privacy": title = "Privacy"; break;
 		case "projects": title = "Projects"; break;
 		case "register": title = "Register"; break;
 		case "ts": title = "Teamspeak"; break;

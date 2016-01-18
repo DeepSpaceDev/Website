@@ -96,6 +96,15 @@
 			#menu-login:hover {
 				background-color: var(--paper-grey-100);
 			}
+
+			#footer{
+				margin-top: 75px;
+				padding-left: 5px;
+				font-size: 13px;
+				width: 100%;
+				color: #aaa;
+				text-align: center;
+			}
 		</style>
 		<section>
 			<?php session_start(); ?>
@@ -152,41 +161,9 @@
 					</paper-menu>
 				</paper-submenu>					
 
-				<?php }/* else { /****************************************?>
+				<?php } ?>
 
-				<br /><br /><br />
-
-					<div class="hiddensm" id="sm-a">
-						<paper-item onClick="href('http://www.apnea-core.com/', 'parent')" class="submenu link">Apnea CORE</paper-item>
-						<paper-item onClick="href('az');" class="submenu link">AZ</paper-item>
-					</div>
-					<div class="hiddensm" id="sm-s">
-						<paper-item onClick="href('https://www.sese7.de/', 'parent')" class="submenu link">Sese7.de</paper-item>
-						<paper-item onClick="href('other/starwars-cards');" class="submenu link">Starwars Cards</paper-item>
-					</div>
-					<div class="hiddensm" id="sm-t">
-						<paper-item onClick="href('ts/c');" class="submenu link">Teamspeak</paper-item>
-						<paper-item class="submenu link" disabled>Test App</paper-item>
-					</div>
-					<div class="hiddensm" id="sm-z">
-						<paper-item onClick="href('android/zoo-app');" class="submenu link">Zoo App</paper-item>
-					</div>
-
-				<?php }*/ ?>
-
-				<paper-icon-item onClick="href('projects');" class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>
-
-
-				<!--<paper-submenu class="sub">
-					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>Other</paper-icon-item>
-					<paper-menu class="menu-content">
-						<paper-item onClick="href('az');" class="submenu link">AZ</paper-item>
-						<paper-item onClick="href('other/starwars-cards');" class="submenu link">Starwars Cards</paper-item>
-						<paper-item onClick="href('ts/c');" class="submenu link">Teamspeak</paper-item>
-					</paper-menu>
-				</paper-submenu>-->
-
-				<!--***********************************-->					
+				<paper-icon-item onClick="href('projects');" class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>				
 					
 				<paper-item class="menu-header-item" disabled>
 					<paper-item-body >
@@ -202,6 +179,20 @@
 					</paper-item-body>
 				</paper-icon-item>
 			</paper-menu>
+
+			<div id="footer">
+				<span class="link" onclick="href('law/impress')">Impress</span>
+				&bull;
+				<span class="link" onclick="href('law/privacy')">Privacy</span>
+				&bull;
+				<span class="link" onclick="href('law/disclaimer')">Disclaimer</span>
+				&bull;
+				<span class="link" onclick="href('law/terms')">Terms</span>
+
+				<br />
+
+				&copy; 2012-2016 DeepSpace Development <br /> All rights reserved.
+			</div>
 
 		</section>
 	</template>
