@@ -52,9 +52,9 @@
 					<paper-input id="tsuid" label="Teamspeak UID" <?php if($_SESSION["tsuid"] != ""){echo "value='" . $_SESSION["tsuid"] . "'";}?>></paper-input>
 					<paper-button onClick="tsuidsubmit();" id="tsuidsubmit" class="pbutton indigo-500">OK</paper-button>
 				</div>
-			</paper-material class="content">
+			</paper-material>
 
-			<paper-material id="tsuser">
+			<paper-material class="content" id="tsuser">
 				<h2></h2>
 				
 				Kick:&nbsp;&nbsp;
