@@ -43,7 +43,7 @@
 					require('../../../scripts/pw.php');
 					require('../../../scripts/connect.php');
 
-					$query = mysqli_query($db, "SELECT * FROM projects");
+					$query = mysqli_query($db, "SELECT * FROM projects ORDER BY title, author");
 
 					while($row = mysqli_fetch_assoc($query)){
 						echo "<projects-project onclick=\"href('" . $row["href"] 
