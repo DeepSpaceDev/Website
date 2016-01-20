@@ -8,7 +8,7 @@ require_once("scripts/tools/UserAgendParser.php");
 //https://donatstudios.com/PHP-Parser-HTTP_USER_AGENT
 $browser = parse_user_agent()['browser'];
 $platform = parse_user_agent()['platform'];
-if($browser == "MSIE" || $browser == "IEMobile"){
+if(($browser == "MSIE" || $browser == "IEMobile") && $_GET["MSIE"] == true){
 	header("Location: https://www.deepspace.onl/errors/unsupported_browser.html");
 	exit();
 }
