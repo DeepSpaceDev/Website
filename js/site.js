@@ -10,6 +10,7 @@ function content(params){
 	/*Seite*/
 	switch(params[0]){
 		case "": site = "<home-projects></home-projects>"; break;
+		case "about-us": site = "<home-profile></home-profile>"; break;
 		case "account":
 			switch(params[2]){
 				case "teamspeak": site = "<setting-teamspeak></setting-teamspeak>"; break;
@@ -21,6 +22,7 @@ function content(params){
 				default: site = "<not-found></not-found>";
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
+		case "btv": site = "<binarytree-visualisation></binarytree-visualisation>"; break;
 		case "law": 
 			switch(params[1]){
 				case "disclaimer": site = "<law-disclaimer></law-disclaimer>"; break;
@@ -65,6 +67,7 @@ function title(params){
 	/*Titel*/
 	switch(params[0]){
 		case "": title = "DeepSpace Development - Projects"; break;
+		case "about-us": title = "About DeepSpace Development"; break;
 		case "account":
 			switch(params[2]){
 				case "teamspeak": title = "Settings - Teamspeak"; break;

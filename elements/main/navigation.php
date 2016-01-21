@@ -56,6 +56,10 @@
 			.blue-500 {
 				fill: var(--paper-blue-500);
 			}
+
+			.teal-500 {
+				fill: var(--paper-teal-500);
+			}
 			
 			.orange-500 {
 				fill: var(--paper-orange-500);
@@ -88,7 +92,7 @@
 			}
 			
 			#menu-login {
-				margin: 25px 0 25px 0;
+				margin: 25px 0 0 0;
 			}
 			#menu-logout {
 				margin: 25px 0 0 0;
@@ -117,6 +121,10 @@
 						<iron-icon icon="icons:account-box" class="blue-500" item-icon></iron-icon>
 						Login
 					</paper-icon-item>
+					<paper-icon-item onClick="href('about-us')" class="mainselect link">
+						<iron-icon icon="social:group" class="teal-500" item-icon></iron-icon>
+						About us
+					</paper-icon-item>
 				<?php } else { ?>
 					<paper-submenu>
 						<paper-icon-item class="menu-trigger mainselect copy" id="menu-logout"><iron-icon icon="icons:settings" class="grey-500" item-icon></iron-icon>Settings</paper-icon-item>
@@ -142,8 +150,8 @@
 				<paper-submenu>
 					<paper-icon-item class="menu-trigger mainselect copy"><iron-icon icon="av:web" class="orange-500" item-icon></iron-icon>Web</paper-icon-item>
 					<paper-menu class="menu-content">
-						<paper-item onClick="href('http://www.apnea-core.com/', 'parent')" class="submenu link">Apnea CORE</paper-item>
-						<paper-item onClick="href('https://www.deepspace.onl/', 'parent')" class="submenu link">DeepSpace.onl</paper-item>
+						<paper-item onClick="href('http://www.apnea-core.com/', 'blank')" class="submenu link">Apnea CORE</paper-item>
+						<paper-item onClick="href('https://www.deepspace.onl/', 'blank')" class="submenu link">DeepSpace.onl</paper-item>
 					</paper-menu>
 				</paper-submenu>
 					

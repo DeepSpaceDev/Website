@@ -2,12 +2,79 @@
 	<template>
 		<style>
 			.avatar{
-				border-radius: 50px;
+				border-radius: 100px;
+			}
+
+			.imgcontainer{
+				float: left;
+			}
+
+			.data {
+				float: left;
+			}
+
+			.name{
+				font-size: 25px;
+				font-weight: bold;
+			}
+			.gebdate{
+				font-size: 14px;
+				color: #aaa;
+			}
+
+			.content{
+				min-height: 300px;
+			}
+
+			@media all and (max-width: 500px){
+				.imgcontainer{
+					margin-bottom: 20px;
+				}
+				.centered{
+					width: 100%;
+					text-align: center;
+				}
+				.content{
+					padding: 30px 0 0 0;
+				}
+
+				.gebdate{
+					display: block;
+				}
+			}
+			@media all and (min-width: 500px){
+				.content{
+					padding: 30px 0 0 40px;
+				}
+				.data {
+					margin-left: 50px;
+				}
+
+				.gebdate{
+					margin-left: 20px;
+				}
 			}
 		</style>
 		<section>
 			<paper-material class="content">
-				<img src="http://www.gravatar.com/avatar/6a115029944e1dc6643b101fc86a6cb1?s=200" class="avatar" />
+				<div class="centered imgcontainer">
+					<img width="200px" height="200px" src="https://www.gravatar.com/avatar/6a115029944e1dc6643b101fc86a6cb1?s=1024" class="avatar" />
+				</div>
+				<div class="centered data">
+						<span class="name">Sebastian Schneider</span>
+						<span class="gebdate">05 January 1999</span>
+				</div>
+
+			</paper-material>
+			<paper-material class="content">
+				<div class="centered imgcontainer">
+					<img width="200px" height="200px" src="https://www.gravatar.com/avatar/bfed60303d4f70c108a113ed6783f91d?s=1024" class="avatar" />
+				</div>
+				<div class="centered data">
+						<span class="name">Dennis Kugelmann</span>
+						<span class="gebdate">08 May 1998</span>
+				</div>
+
 			</paper-material>
 		</section>
 	</template>
