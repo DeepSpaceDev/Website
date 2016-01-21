@@ -75,8 +75,9 @@
 						<paper-input id="mail" name="mail" label="Mail"></paper-input>
 						<paper-input id="pw" name="pw" type="password" label="Password"></paper-input>
 						<paper-input id="pwrepeat" name="pwrepeat" type="password" label="Repeat password"></paper-input>
-						<br />
-						<div style="width: 100%; text-align: right; margin-top: 50px;">
+						<br /><br /><br />
+						With creating of an account you accept our <span style="color: blue;" class="link" onClick="href('law/privacy');">privacy</span>.
+						<div style="width: 100%; text-align: right;">
 							<paper-button onClick="subform();" id="submitbutton" elevation="2" raised>Submit</paper-button>
 						</div>
 					</paper-material>

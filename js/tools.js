@@ -3,7 +3,7 @@ function href(loc, type){
 		console.log(loc);
 		if(type != null){
 			switch(type){
-				case "parent": window.open(loc, '_blank'); break;
+				case "blank": window.open(loc, '_blank'); break;
 			}
 		}
 		else{
