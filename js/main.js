@@ -52,9 +52,14 @@ $.getMultiScripts = function(arr) {
     return $.when.apply($, _arr);
 }
 function finishLoading(loader){
-
 	clearInterval(loader);
 	lsite();
+
+	//Show cookie message if visitor isn't a returning Visitor
+	if(getCookie('returningVisitor') == ""){
+		setTimeout(function(){toast("This website is using cookies, with proceeding you agree with that.", 10000, true);}, 500);
+		setCookie('returningVisitor', 'true', 1000);
+	}	
 
 	console.log("Loaded - Copyright 2015 DeepSpace Development");
 }
