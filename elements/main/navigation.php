@@ -100,6 +100,7 @@
 			#footer{
 				margin-top: 75px;
 				padding-left: 5px;
+				padding-bottom: 10px;
 				font-size: 13px;
 				width: 100%;
 				color: #aaa;
