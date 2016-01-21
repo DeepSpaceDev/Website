@@ -10,94 +10,122 @@
 				height: 100%;
 				width: 100%;
 			}
-			#altmenu{
-				position: fixed;
-				top: 20px;
-				left: 20px;
-			}
 			section{
 				width: 100%;
 				height: 100%;
 			}
 		</style>
-
-		<section>
-			<google-youtube currenttime="{{videoTime}}" hl="en" cc_load_policy="0" autoplay="1" id="vid" width="100%" height="99.5%" video-id="{{videoUrl}}" chromeless></google-youtube>
-			<toolbar-toggler tcolor="#ffffff"></toolbar-toggler>
-		</section>
-		
+		<google-youtube currenttime="{{time}}" hl="en" cc_load_policy="0" 
+						autoplay="1" id="vid" width="100%" 
+						height="99.5%" video-id="{{videoId}}" chromeless>
+		</google-youtube>
+		<toolbar-toggler tcolor="#ffffff"></toolbar-toggler>
 	</template>
 	<script>
-		var player;
-		var pauseon = [3, 28, 58, 72, 90, 96, 104, 108, 113, 117, 119, 129, 136, 143, 150, 177, 183, 208, 214, 220, 229, 240, 250, 256, 265];
-		var skipto = [12, 20, 160, 168, 194, 205, 287, 211] //[from, to, from2, to2, ...]
-		
 		Polymer({
 			is: 'youtube-video',
-
-			properies: {
-				videoUrl: String
-			},
-
-			attached: function(){
-				player = document.querySelector('#vid');
-				player.addEventListener("google-youtube-ready", function(){
-					player.mute();
-					setInterval(function(){
-
-						if(player.currenttime == pauseon[0]){
-							player.pause();
-							pauseon.shift(); //remove first element
-						}
-
-						if(player.currenttime == skipto[0]){
-							player.pause();
-							skipto.shift(); //remove first element
-							player.seekTo(skipto[0]);
-							skipto.shift();
-						}
-
-					}, 50);
-				});
-			}
-		});
-
-				/*var player;
-		var pauseon = [3, 28, 58, 72, 90, 96, 104, 108, 113, 117, 119, 129, 136, 143, 150, 177, 183, 208, 214, 220, 229, 240, 250, 256, 265];
-		var skipto = [12, 20, 160, 168, 194, 205, 287, 211] //[from, to, from2, to2, ...]
-
-		Polymer({
-			is: 'youtube-video',
-
 			properties: {
-				videoUrl: String,
-				videoTime: {
+				/**
+				 * The Youtube Video Id
+				 * @attribute videoId
+				 * @type String
+				 */
+				videoId: {
+					type: String,
+					value: ''
+				},
+				/**
+				 * The current time of the Video
+				 * @attribute time
+				 * @type Number
+				 */
+				time: {
 					type: Number,
-					observer: 'timeChanged'
+					observer: '_timeChanged',
+					value: 0
+				},
+				/**
+				 * Whether the audio should be muted by default
+				 * @attribute mute
+				 * @type Boolean
+				 */
+				mute: {
+					type: Boolean,
+					value: false
+				},
+				/**
+				 * Breakpoints where to stop the video automatically
+				 * @attribute pauseon
+				 * @type Array
+				 */
+				pauseon: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				/**
+				 * Which points to skip automatically
+				 * @attribute videoId
+				 * @type String
+				 */
+				skipto: {
+					type: Array,
+					value: function() {
+						return [];
+					}
 				}
 			},
-
-			attached: function(){
-				player = qs('#vid');
-				player.addEventListener("google-youtube-ready", function(){
-					player.mute();
+			listeners: {
+				'google-youtube-ready': '_onYoutubeReady'
+			},
+			_onYoutubeReady: function() {
+				if(this.mute)
+					this.$.vid.mute();
+			},
+			_timeChanged: function(time){
+				var player = this.$.vid;
+				if (this.pauseon) {
+					console.log(time);
+					if(time === this.pauseon[0]){
+						player.pause();
+						this.shift('pauseon'); //remove first element
+					}
+				}
+				if(this.skipto)
+					if(time === this.skipto[0]){
+						player.pause();
+						this.shift('skipto'); //remove first element
+						player.seekTo(this.skipto[0]);
+						this.shift('skipto');
+					}
+			},
+			/**
+			 * Add breakpoint at the correct position.
+			 * 
+			 * Will be ignored, when breakpoint lies before the current video time.
+			 * 
+			 * @param {number} breakpoint The time code in seconds where to pause.
+			 */
+			addBreakpoint: function(breakpoint) {
+				if(this.time < breakpoint)
+					this.push('pauseon', breakpoint);
+				this.pauseon.sort(function(a, b) {
+					return a - b;
 				});
 			},
-
-			timeChanged: function(){
-				l('observer');
-				if(player.currenttime == pauseon[0]){
-					player.pause();
-					pauseon.shift(); //remove first element
-				}
-
-				if(player.currenttime == skipto[0]){
-					player.pause();
-					skipto.shift(); //remove first element
-					player.seekTo(skipto[0]);
-					skipto.shift();
-				}
+			/**
+			 * Adds a part of the video to skip.
+			 * 
+			 * Will be ignored, when `from` lies before the current video time.
+			 * 
+			 * @param {number} from The position where to pause the video and to skip from.
+			 * @param {number} to The position to skip to.
+			 */
+			addSkip: function(from, to) {
+				if(this.time < from)
+					this.push('skipto', from, to);
 			}
-		});*/	
+		});	
 	</script>
 </dom-module>

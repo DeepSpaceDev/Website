@@ -46,7 +46,16 @@ function content(params){
 			}
 			site = "<login-register " + selmet + "></login-register>"; break;
 		case "ts": site = "<site-teamspeak></site-teamspeak>"; break;
-		case "video": site = "<youtube-video video-url='" + params[1] + "''></youtube-video>"; break;
+		case "video": 
+			if(params[1] == "ZW3aV7U-aik"){
+				site = "<youtube-video video-id='ZW3aV7U-aik' mute='true' pauseon='[3, 28, 58, 72, 90, 96, 104, 108, 113, 117, 119, 129, 136, 143, 150, 177, 183, 208, 214, 220, 229, 240, 250, 256, 265]' skipto='[12, 20, 160, 168, 194, 205, 287, 211]'></youtube-video>";
+			}
+			else if(params[1] == "sNhhvQGsMEc"){
+				site = "<youtube-video video-id='sNhhvQGsMEc' mute='true' pauseon='[102, 172, 212, 306]' skipto='[34, 41, 76, 82, 357, 381]'></youtube-video>";
+			}
+			else{
+				site = "<youtube-video video-id='" + params[1] + "'></youtube-video>";
+			} break;
 		default: site = "<not-found></not-found>";
 	}
 	return site;
