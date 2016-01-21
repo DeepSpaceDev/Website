@@ -66,7 +66,7 @@
 
 			<div id="regpagecard">
 				<form action="" onSubmit="handleRegisterRequest(this); return false;" method="POST" id="regform">
-					<paper-material id="general">
+					<paper-material id="general" class="content">
 						<div id="regwebheader">
 							<h2>General Information</h2>
 							More specific account options located in settings.<br /><br />
