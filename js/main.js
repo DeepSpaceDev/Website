@@ -59,9 +59,9 @@ function finishLoading(loader){
 	if(getCookie('returningVisitor') == ""){
 		setTimeout(function(){toast("This website is using cookies, with proceeding you agree with that.", 10000, true);}, 500);
 		setCookie('returningVisitor', 'true', 1000);
-	}	
-
-	console.log("Loaded - Copyright 2015 DeepSpace Development");
+	}
+	
+	l("Loaded - Copyright 2015 DeepSpace Development");
 }
 function getScripts(){
 	return [	
