@@ -24,6 +24,7 @@
 				min-height: 25px;
 				font-family: Source Code Pro, sans-serif;
 				font-size: 14px;
+				line-height: 1.0;
 				height: 30px;
 				border-bottom: 1px solid var(--paper-grey-300);
 			}

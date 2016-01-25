@@ -28,6 +28,12 @@ $(document).ready(function(){
         e.preventDefault();
         var pageX = e.pageX - 40;
         var pageY = e.pageY - 25;
+        if(pageX + 150 > window.innerWidth){
+        	pageX = window.innerWidth - 175;
+        }
+        if(pageY + 50 > window.innerHeight){
+        	pageY = window.innerHeight - 55;
+        }
         $("#rightclickd").css({top: pageY , left: pageX});
         document.querySelector("#rightclickd").open();
     });
