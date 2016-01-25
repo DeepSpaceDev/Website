@@ -11,6 +11,7 @@ function href(loc, type){
 		}
 	}
 	else{
+		loc = ((loc.split("")[loc.split("").length - 1] == '/') ? loc + '' : loc + '/'); //URL beautify --> example.com/abc -> example.com/abc/
 		history.pushState(null, null, loc);
 		qs("#pdp").closeDrawer();
 		qs("home-home").updater();
