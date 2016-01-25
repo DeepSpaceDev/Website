@@ -20,9 +20,15 @@
 		<section>
 			<paper-material class="content">
 				<h1>About us:</h1>
+				We are a gaming community/clan open for everybody. Join us now and play with us!<br /><br />
+				Our games are (only selected shown): <br />League of Legends, Counter Strike: Global Offensive, Diablo, World of Warcraft, OSU!, Ark Survival Evolved, Rocket League, Garrys Mod, Grand Theft Auto V, Minecraft.<br /><br />
+
+				<span style="color: blue" class="link" onClick="href('ts3server://deepspace.onl');">Click here to join us now</span> (Teamspeak installation required) or connect to <span style="color: green">deepspace.onl</span> .
 			</paper-material>
 
-			<paper-material class="content">			
+			<paper-material class="content">
+				<h1>User<span id="ts-membercounter"></span>:</h1>
+
 				<h2 style="color: red;">Owner</h2>
 				<div class="list" id="ts-owner"></div>
 
@@ -68,6 +74,8 @@
 					var mod = "";
 					var dev = "";
 
+					qs("#ts-membercounter").innerHTML = ' (' + response.length + ')';
+
 					sortByKey(response, 'name');
 					for(var i = 0; i < response.length; i++){
 						var grids = [];
@@ -99,7 +107,7 @@
 
 					}
 					document.querySelector("#dialog").close();
-					toast("Hover or click on members!", 5000);
+					toast("Hover or click on members!", 15000);
 				}, 100);
 			}
 		});

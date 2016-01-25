@@ -24,7 +24,7 @@ if(($browser == "MSIE" || $browser == "IEMobile") && $_GET["MSIE"] == true){
 		<meta name="keywords" content="Coding, Web, Android, Java, Teamspeak">
 		<meta name="author" content="Sese Schneider, Dennis Kugelmann">
 		
-		<title>DeepSpace Development</title>
+		<title>DeepSpace</title>
 				
 		<link rel="shortcut icon" href="img/favicon.png">
 		<link rel="import" href="elements/elements.html">
