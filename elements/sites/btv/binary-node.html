@@ -1,0 +1,109 @@
+<dom-module id="binary-node">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+    </style>
+    <canvas id="node" width="50" height="50"></canvas>
+  </template>
+  <script>
+    Polymer({
+      is: 'binary-node',
+      properties: {
+        value: {
+          observer: 'valueChanged',
+          value: ''
+        },
+        left: {
+          type: Boolean,
+          value: false
+        },
+        right: {
+          type: Boolean,
+          value: false
+        },
+        x: {
+          type: Number
+        },
+        y: {
+          type: Number
+        },
+        _x: {
+          type: Number,
+          readOnly: true
+        }
+      },
+      listeners: {
+        'click': '_handleClick',
+        'track': '_onTrack'
+      },
+      observers: ['_translationChanged(x, y)'],
+      valueChanged: function(value) {
+        this.repaint();
+      },
+      _handleClick: function (e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        var leftXMin = 6;
+        var leftXMax = 16;
+        var rightXMin = 34;
+        var rightXMax = 44;
+        var yMin = 34;
+        var yMax = 44;
+        if(y > yMin && y < yMax) {
+          if(x > leftXMin && x < leftXMax && !this.left) {
+            this.fire('addChild', {
+              right: false,
+              left: true
+            });
+          }
+          if(x > rightXMin && x < rightXMax  && !this.right) {
+            this.fire('addChild', {
+              right: true,
+              left: false
+            });
+          }
+        }
+      },
+      _onTrack: function(e) {
+        if(this.id === 'tree')
+          return;
+        var state = e.detail.state;
+        var dx = e.detail.dx;
+        if(state === 'start') {
+          this._set_x(this.x);
+          return;
+        }
+        this.x = this._x + dx;
+        this.fire('nodeMoved');
+      },
+      _translationChanged: function(x, y) {
+        this.style.left = 'calc(50% - 25px + ' + x + 'px)';
+        this.style.top = y + 'px';
+      },
+      attached: function () {
+        this.repaint();
+      },
+      repaint: function() {
+        var canvas = this.$.node;
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(25, 25, 15, 0, 2 * Math.PI, false);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(11, 39, 5, 0, 2 * Math.PI, false);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(39, 39, 5, 0, 2 * Math.PI, false);
+        ctx.stroke();
+        if(this.value && this.value !== '')
+          ctx.strokeText(this.value, 22, 28);
+      }
+    });
+  </script>
+</dom-module>
