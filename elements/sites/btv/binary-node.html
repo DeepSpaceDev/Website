@@ -14,53 +14,97 @@
     Polymer({
       is: 'binary-node',
       properties: {
+        /**
+         * The value of the node
+         * @attribute value
+         */
         value: {
           observer: 'valueChanged',
           value: ''
         },
+        /**
+         * If left node is connected
+         * @attribute left
+         * @type Boolean
+         */
         left: {
           type: Boolean,
           value: false
         },
+        /**
+         * If right node is connected
+         * @attribute right
+         * @type Boolean
+         */
         right: {
           type: Boolean,
           value: false
         },
+        /**
+         * The x translation of the node
+         * @attribute x
+         * @type Number
+         */
         x: {
           type: Number
         },
+        /**
+         * The y translation of the Node
+         * @attribute y
+         * @type Number
+         */
         y: {
           type: Number
         },
+        /**
+         * The previous x translation
+         * @attribute _x
+         * @type Number
+         */
         _x: {
           type: Number,
           readOnly: true
         }
       },
       listeners: {
+        'contextmenu': '_onContextMenu',
         'click': '_handleClick',
         'track': '_onTrack'
       },
       observers: ['_translationChanged(x, y)'],
+       /**
+       * Repaints the canvas when the value changes
+       * @param value The new value
+       */
       valueChanged: function(value) {
         this.repaint();
       },
+       /**
+       * Handle a click on the canvas
+       * @param {Object} e
+       */
       _handleClick: function (e) {
+        // Get position of the click
         var x = e.offsetX;
         var y = e.offsetY;
+        // Define min and max x values of the hitting areas
         var leftXMin = 6;
         var leftXMax = 16;
         var rightXMin = 34;
         var rightXMax = 44;
+        // Define min and max y values of the hitting areas
         var yMin = 34;
         var yMax = 44;
+        // Check if the click was in the correct height of the hitting areas
         if(y > yMin && y < yMax) {
+          // Check if the click was in the correct width of the left hitting area
           if(x > leftXMin && x < leftXMax && !this.left) {
             this.fire('addChild', {
               right: false,
               left: true
             });
           }
+          // Check if the click was in the correct width of the right hitting area
           if(x > rightXMin && x < rightXMax  && !this.right) {
             this.fire('addChild', {
               right: true,
@@ -69,40 +113,72 @@
           }
         }
       },
+       /**
+       * Handle the tracking of the node
+       * @param {Object} e
+       */
       _onTrack: function(e) {
+        // Dirty check if the node is the root node and prevent moving it
         if(this.id === 'tree')
           return;
         var state = e.detail.state;
         var dx = e.detail.dx;
+        // Save previous x translation of the node, when tracking starts
         if(state === 'start') {
           this._set_x(this.x);
           return;
         }
+        // Translate the node horizontally, relative to the position, when tracking started
         this.x = this._x + dx;
         this.fire('nodeMoved');
       },
+      /**
+       * Update the translation of the node
+       * @param {Number} x The x translation
+       * @param {Number} y The y translation
+       */
       _translationChanged: function(x, y) {
         this.style.left = 'calc(50% - 25px + ' + x + 'px)';
         this.style.top = y + 'px';
       },
+      _onContextMenu: function(e) {
+        e.preventDefault();
+        this.fire('nodeContext', {
+          x: e.clientX,
+          y: e.clientY
+        });
+      },
       attached: function () {
         this.repaint();
       },
+      /**
+       * Repaints the canvas
+       */
       repaint: function() {
         var canvas = this.$.node;
         var ctx = canvas.getContext('2d');
+        // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.arc(25, 25, 15, 0, 2 * Math.PI, false);
-        ctx.stroke();
+        // Draw Node
+        handDrawCircle(ctx, 25, 25, 15, 2);
+        // ctx.beginPath();
+        // ctx.arc(25, 25, 15, 0, 2 * Math.PI, false);
+        // tx.stroke();
+        // Draw right node add button
         ctx.beginPath();
         ctx.arc(11, 39, 5, 0, 2 * Math.PI, false);
         ctx.stroke();
+        // Draw left node add button
         ctx.beginPath();
         ctx.arc(39, 39, 5, 0, 2 * Math.PI, false);
         ctx.stroke();
-        if(this.value && this.value !== '')
-          ctx.strokeText(this.value, 22, 28);
+        // Draw text
+        if(this.value && this.value !== '') {
+          ctx.font = 'Roboto 10px';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.strokeText(this.value, 25, 25);
+        }
       }
     });
   </script>

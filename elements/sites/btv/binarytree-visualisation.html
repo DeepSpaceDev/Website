@@ -5,6 +5,7 @@
         display: block;
         width: 100%;
         height: 100%;
+        color: #7F7F7F;
         box-sizing: border-box;
         --paper-header-panel-body {
           background: #E0E0E0;
@@ -18,10 +19,16 @@
       paper-dialog {
         padding: 16px;
       }
+      paper-item {
+        cursor: default;
+      }
       paper-fab {
         position: absolute;
         bottom: 32px;
         right: 32px;
+      }
+      iron-icon {
+        margin: 8px;
       }
       section {
         width: calc(100% + 16px)
@@ -35,93 +42,123 @@
         margin-top: -8px;
       }
     </style>
-        <paper-toast id="noVal" text="Please provide an value"></paper-toast>
-        <paper-toast id="noTree" text="No tree found to traverse"></paper-toast>
-        <paper-toast id="traverseResult" class="fit-bottom" duration="0">
-          <span role="button" id="toast-button" tabindex="0" on-tap="_closeResult">OK</span>
-        </paper-toast>
+    <paper-toast id="noVal" text="Please provide an value"></paper-toast>
+    <paper-toast id="noTree" text="No tree found to traverse"></paper-toast>
+    <paper-toast id="traverseResult" class="fit-bottom" duration="0">
+      <span role="button" id="toast-button" tabindex="0" on-tap="closeTraverseResult">OK</span>
+    </paper-toast>
 
-        <paper-dialog id="addTreeDialog" modal>
-          <h2>Please insert a value and a name for the root node</h2>
-          <paper-dialog-scrollable>
-            <paper-input label="name" value="{{_name}}" required></paper-input>
-            <paper-input label="value" value="{{_value}}" required></paper-input>
-          </paper-dialog-scrollable>
-          <div class="buttons">
-            <paper-button dialog-dismiss>Cancel</paper-button>
-            <paper-button dialog-confirm>Add Tree</paper-button>
+    <paper-dialog id="addTreeDialog" modal>
+      <h2>Please insert a value and a name for the root node</h2>
+      <paper-dialog-scrollable>
+        <paper-input label="name" value="{{_name}}" required></paper-input>
+        <paper-input label="value" value="{{_value}}" required></paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm>Add Tree</paper-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="traverseDialog" modal>
+      <h2>Please select some properties for traversing:</h2>
+      <paper-dialog-scrollable>
+        <paper-input label="Tree" value="{{_treeToTrav}}"></paper-input>
+        <paper-radio-group selected="{{_travMode}}">
+          <paper-radio-button name="pre">Pre-Order</paper-radio-button>
+          <paper-radio-button name="in">In-Order</paper-radio-button>
+          <paper-radio-button name="post">Post-Order</paper-radio-button>
+        </paper-radio-group>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm>Traverse</paper-button>
+      </div>
+    </paper-dialog>
+
+    <feedback-dialog id="feedbackDialog" repo="binarytree-visualisation"></feedback-dialog>
+
+    <paper-drawer-panel force-narrow>
+      <paper-header-panel drawer>
+        <paper-toolbar>
+          <paper-icon-button 
+            icon="arrow-back" 
+            style="color: white;"
+            paper-drawer-toggle>
+          </paper-icon-button>
+        </paper-toolbar>
+        <paper-item>
+          <canvas id="root" width="48" height="48" item-icon></canvas>
+          <div>
+            Root
+            <paper-tooltip position="right">The only node in a finite tree without parent</paper-tooltip>
           </div>
-        </paper-dialog>
-
-        <paper-dialog id="traverseDialog" modal>
-          <h2>Please select some properties for traversing:</h2>
-          <paper-dialog-scrollable>
-            <paper-input label="Tree" value="{{_treeToTrav}}"></paper-input>
-            <paper-radio-group selected="{{_travMode}}">
-              <paper-radio-button name="pre">Pre-Order</paper-radio-button>
-              <paper-radio-button name="in">In-Order</paper-radio-button>
-              <paper-radio-button name="post">Post-Order</paper-radio-button>
-            </paper-radio-group>
-          </paper-dialog-scrollable>
-          <div class="buttons">
-            <paper-button dialog-dismiss>Cancel</paper-button>
-            <paper-button dialog-confirm>Traverse</paper-button>
+        </paper-item>
+        <paper-item>
+          <canvas id="node" width="48" height="48" item-icon></canvas>
+          <div>
+            Node
+            <paper-tooltip position="right">A container for a specific value</paper-tooltip>
           </div>
-        </paper-dialog>
+        </paper-item>
+        <paper-item>
+          <canvas id="branch" width="48" height="48" item-icon></canvas>
+          <div>
+            Branch
+            <paper-tooltip position="right">A connection between two nodes</paper-tooltip>
+          </div>
+        </paper-item>
+        <paper-item>
+          <canvas id="parent" width="48" height="48" item-icon></canvas>
+          <div>
+            Parent
+            <paper-tooltip position="right">A node extending to another node</paper-tooltip>
+          </div>
+        </paper-item>
+        <paper-item>
+          <canvas id="child" width="48" height="48" item-icon></canvas>
+          <div>
+            Child
+            <paper-tooltip position="right">A node extending from another node</paper-tooltip>
+          </div>
+        </paper-item>
+        <paper-item>
+          <canvas id="sibling" width="48" height="48" item-icon></canvas>
+          <div>
+            Sibling
+            <paper-tooltip position="right">Two nodes connecting to the same parent</paper-tooltip>
+          </div>
+        </paper-item>
+        <paper-item>
+          <canvas id="leaf" width="48" height="48" item-icon></canvas>
+          <div>
+            Leaf
+            <paper-tooltip position="right">A node with no children</paper-tooltip>
+          </div>
+        </paper-item>
+        <paper-item
+          on-tap="openFeedbackDialog"
+          style="position: absolute; bottom: 0; width: 100%; cursor: pointer;">
+          <iron-icon icon="feedback"></iron-icon>
+          Feedback geben
+        </paper-item>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar>
+          <paper-icon-button icon="view-list" paper-drawer-toggle>
+          </paper-icon-button>
+          <paper-button on-tap="requestTraverse">Traverse</paper-button>
+        </paper-toolbar>
+        <section id="treeContainer">
+          
+        </section>
+      </paper-header-panel>
+    </paper-drawer-panel>
 
-        <paper-drawer-panel force-narrow>
-          <paper-header-panel drawer>
-            <paper-toolbar>
-              <paper-icon-button 
-                icon="arrow-back" 
-                style="color: white;"
-                paper-drawer-toggle>
-              </paper-icon-button>
-            </paper-toolbar>
-            <paper-item>
-              <canvas id="root" width="48" height="48" item-icon></canvas>
-              <div>Root</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="node" width="48" height="48" item-icon></canvas>
-              <div>Node</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="branch" width="48" height="48" item-icon></canvas>
-              <div>Branch</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="parent" width="48" height="48" item-icon></canvas>
-              <div>Parent</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="child" width="48" height="48" item-icon></canvas>
-              <div>Child</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="sibling" width="48" height="48" item-icon></canvas>
-              <div>Sibling</div>
-            </paper-item>
-            <paper-item>
-              <canvas id="leaf" width="48" height="48" item-icon></canvas>
-              <div>Leaf</div>
-            </paper-item>
-          </paper-header-panel>
-          <paper-header-panel main>
-            <paper-toolbar>
-              <paper-icon-button icon="view-list" paper-drawer-toggle>
-              </paper-icon-button>
-              <paper-button on-tap="requestTraverse">Traverse</paper-button>
-            </paper-toolbar>
-            <section id="treeContainer">
-              
-            </section>
-          </paper-header-panel>
-        </paper-drawer-panel>
-
-        <paper-fab icon="add" on-tap="addTree"></paper-fab>
+    <paper-fab icon="add" on-tap="addTree"></paper-fab>
   </template>
 
+  <script type="text/javascript" src="main.js"></script>
   <script>
     Polymer({
       is: 'binarytree-visualisation',
@@ -134,9 +171,13 @@
       listeners: {
         'iron-overlay-closed': '_onIronOverlayClosed'
       },
+      /**
+       * Opens a dialog for selecting some options for traversing a tree.
+       */
       requestTraverse: function() {
         var treeContainer = this.$.travTrees;
         var trees = this.querySelectorAll('binary-tree');
+        // Check if there are trees
         if(trees.length === 0) {
           this.$.noTree.show();
           return;
@@ -150,6 +191,12 @@
         }*/
         this.$.traverseDialog.open();
       },
+      /**
+       * Traverses a tree with a specified mode
+       * @param {Object} tree The tree object to travers
+       * @param {String} mode the mode of traversing to be performed
+       * @return An Array of elements in traversed order
+       */
       traverse: function(tree, mode) {
         switch(mode) {
           case 'in': var result = this.inOrder(tree); break;
@@ -157,12 +204,13 @@
           case 'post':
           default: var result = this.postOrder(tree);
         }
-        console.log(result);
         this.$.traverseResult.text = 
           mode.charAt(0).toUpperCase() + mode.slice(1) + ': ' + result.join(', ');
         this.$.traverseResult.show();
+        return result;
       },
       attached: function() {
+        // Draw all Icons for the map legend
         drawRoot(this.$.root);
         drawNode(this.$.node);
         drawBranch(this.$.branch);
@@ -171,73 +219,113 @@
         drawSibling(this.$.sibling);
         drawLeaf(this.$.leaf);
       },
+      /**
+       * Opens a dialog to create a new tree
+       */
       addTree: function() {
         this.$.addTreeDialog.open();
       },
       _onIronOverlayClosed: function (e) {
+        // Callback for Dialog to add a tree
         if(e.target.id === 'addTreeDialog') {
           if(e.detail.confirmed && this._value !== '') {
+            // Create Tree element and assign default values to it
             var tree = document.createElement('binary-tree');
             tree.$.tree.value = this._value;
             tree.tree.value = this._value;
             tree.name = this._name;
             this.$.treeContainer.appendChild(tree);
+            // Reset dialog values
             this._value = '';
             this._name = '';
           } else {
             if(this._value === '' && e.detail.confirmed)
+              // Show warning for missing root value
               this.$.noVal.show();
           }
         }
+        // Callback for the traverse dialog
         if(e.target.id === 'traverseDialog') {
           if(e.detail.confirmed) {
             var trees = this.querySelectorAll('binary-tree');
+            // Search for tree with specified value
             for(var i=0; i<trees.length; i++) {
               if(trees[i].name === this._treeToTrav) {
+                // Traverse
                 this.traverse(trees[i].tree, this._travMode);
+                // Reset dialog values
                 this._treeToTrav = '';
                 this._travMode = 'in';
                 return;
               }
             }
+            // Reset dialog values
             this._treeToTrav = '';
             this._travMode = 'in';
+            // Show waring for wrong tree name
             this.$.noTree.show();
           }
         }
       },
-      searchForElement: function (value) {
-        
-      },
+      /**
+       * Performs a Pre-Order Traversing to the given node
+       * @param {Object} node The node object to travers
+       * @return An Array of elements in traversed order
+       */
       preOrder: function(node) {
         var result = [];
+        // Node
         result.push(node.value);
+        // Left
         if(node.left)
           result = result.concat(this.preOrder(node.left));
+        //Right
         if(node.right) 
           result = result.concat(this.preOrder(node.right));
         return result;
       },
+      /**
+       * Performs a In-Order Traversing to the given node
+       * @param {Object} node The node object to travers
+       * @return An Array of elements in traversed order
+       */
       inOrder: function(node) {
         var result = [];
+        // Left
         if(node.left)
           result = result.concat(this.inOrder(node.left));
+        // Node
         result.push(node.value);
+        // Right
         if(node.right)
           result = result.concat(this.inOrder(node.right));
         return result;
       },
+      /**
+       * Performs a Post-Order Traversing to the given node
+       * @param {Object} node The node object to travers
+       * @return An Array of elements in traversed order
+       */
       postOrder: function(node) {
         var result = [];
+        // Left
         if(node.left)
           result = result.concat(this.postOrder(node.left));
+        // Right
         if(node.right)
           result = result.concat(this.postOrder(node.right));
+        // Node
         result.push(node.value);
         return result;
       },
-      _closeResult: function() {
+      /**
+       * Closes the travers result snackbar
+       */
+      closeTraverseResult: function() {
         this.$.traverseResult.hide();
+      },
+      openFeedbackDialog: function() {
+        this.$.feedbackDialog.open();
       }
     });
   </script>

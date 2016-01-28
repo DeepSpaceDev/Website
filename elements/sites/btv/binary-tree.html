@@ -10,6 +10,12 @@
       paper-dialog {
         padding: 16px;
       }
+      #context {
+        position: fixed;
+        visibility: collapse;
+        background: white;
+        z-index: 1;
+      }
       #nodeContainer {
         width: 100%;
         height: 50px;
@@ -35,6 +41,17 @@
     </style>
     <paper-toast id="noVal" text="Please provide an value"></paper-toast>
 
+    <paper-material id="context">
+      <paper-item on-tap="_deleteNode">
+        <iron-icon icon="delete" style="margin-right: 8px;"></iron-icon>
+        Delete Node
+      </paper-item>
+      <paper-item on-tap="_deleteSubtree">
+        <iron-icon icon="delete" style="margin-right: 8px;"></iron-icon>
+        Delete Subtree
+      </paper-item>
+    </paper-material>
+
     <paper-dialog id="selectValue" modal>
       <h2>Please insert a value for the node</h2>
       <paper-dialog-scrollable>
@@ -59,10 +76,22 @@
     Polymer({
       is: 'binary-tree',
       properties: {
+        /**
+         * Name of the tree
+         * @attribute name
+         * @type String
+         */
         name: {
           type: String,
           value: ''
         },
+        /**
+         * The complete tree structure
+         * Each node has a `node`, a `left` and a `right` attribute,
+         * where `right` and `left` are `Objects` (with same attributes) themself
+         * @attribute tree
+         * @type Object
+         */
         tree: {
           type: Object,
           value: function () {
@@ -72,10 +101,20 @@
             }
           }
         },
+        /**
+         * If the tree is complete
+         * @attribute complete
+         * @type Boolean
+         */
         complete: {
           type: Boolean,
           value: false
         },
+        /**
+         * If the tree is full
+         * @attribute full
+         * @type Boolean
+         */
         full: {
           type: Boolean,
           value: false
@@ -84,23 +123,53 @@
       listeners: {
         'nodeMoved': 'repaintConnections',
         'addChild': '_onAddChild',
-        'iron-overlay-closed': 'addChild'
+        'iron-overlay-closed': 'addChild',
+        'nodeContext': '_onNodeContext'
       },
-      observers: ['_treeUpdated(tree.*)'],
-      computeCompletness: function () {
-        var d = this.getMaxDepth(this.tree);
-        console.log(d);
-        var children = this.getChildrenCount(this.tree);
-        console.log(children);
-        var computedChildren = Math.pow(2, d) - 1;
-        console.log(computedChildren);
-        if(children === computedChildren)
+      observers: [
+        '_treeUpdated(tree.*)',
+        '_computeCompletnessString(full, complete)'
+      ],
+      /**
+       * Set's the string indicating the completness of the tree
+       * @param {Boolean} full If the tree is full
+       * @param {Boolean} complete If the tree is complete
+       */
+      _computeCompletnessString: function(full, complete) {
+        if(complete)
           this.completness = 'complete';
-        else if(this._isFull(this.tree))
+        else if(full)
           this.completness = 'full';
         else
           this.completness = 'Not complete or full';
       },
+      /**
+       * Checks whether the tree is `complete`, `full` or `neither`
+       * @return An String indicating the completness
+       */
+      computeCompletness: function () {
+        var d = this.getMaxDepth(this.tree);
+        var children = this.getChildrenCount(this.tree);
+        var computedChildren = Math.pow(2, d) - 1;
+        if(children === computedChildren) {
+          this.complete = true;
+          this.full = true;
+          return 'complete';
+        } else if(this._isFull(this.tree)) {
+          this.complete = false;
+          this.full = true;
+          return 'full';
+        } else {
+          this.complete = false;
+          this.full = false;
+          return 'neither';
+        }
+      },
+      /**
+       * Get's the max depth of a given node
+       * @param {Object} node The node object to get the max depth from
+       * @return The 'max depth of the node' + 1
+       */
       getMaxDepth: function(node) {
         if(node) {
           var lDepth = this.getMaxDepth(node.left);
@@ -112,11 +181,21 @@
           return 0;
         }
       },
+      /**
+       * Get's the total number of children
+       * @param {Object} node The node object to get the total children number from
+       * @return The total number of children
+       */
       getChildrenCount: function(node) {
         if(node)
           return 1 + this.getChildrenCount(node.right) + this.getChildrenCount(node.left);
         return 0;
       },
+      /**
+       * Check's if each node has to children or none
+       * @param {Object} node The node object to check for
+       * @return If the tree is full
+       */
       _isFull: function(node) {
         if(!node.left && !node.right)
           return true;
@@ -129,6 +208,10 @@
       _treeUpdated: function (changeRecord) {
         this.computeCompletness();
       },
+      /**
+       * Callback for the addChild Event
+       * @param {Object} e e.detail.left/.right defines if node should be added left/right
+       */
       _onAddChild: function(e) {
         this._parent = e.target;
         if(e.detail.left) 
@@ -138,6 +221,10 @@
         this._value = '';
         this.$.selectValue.open();
       },
+      /**
+       * Callback for the addNode Dialog, adds a child
+       * @param {Object} e 
+       */
       addChild: function (e) {
         if(e.detail.confirmed && this._value !== '') {
           this._parent[this._side] = true;
@@ -150,6 +237,7 @@
             right: null,
             left: null
           });
+          // Create element and assign values to it
           var el = document.createElement('binary-node');
           el.id = path;
           el.value = this._value;
@@ -159,9 +247,56 @@
           this.repaintConnections();
         } else {
           if(this._value === '' && e.detail.confirmed)
+            // Show warning for missing node value
             this.$.noVal.show();
         }
       },
+      /**
+       * Listener method for the delete subtree context menu item
+       */
+      _deleteSubtree: function() {
+        var path = this._contextTarget.id;
+        this.deleteSubtree(path);
+      },
+      /**
+       * Deletes a whole subtree
+       * @param {String} path The path to the subtree
+       */
+      deleteSubtree: function(path) {
+        this.set(path, null);
+      },
+      /**
+       * Deletes a node
+       * @param {String} path The path to the node
+       */
+      deleteNode: function(path) {
+        var node = this.get(path);
+        console.log(this.findMin(node));
+        if(!node.right && !node.left)
+          this.set(path, null);
+        else if(!node.right && node.left)
+          this.set(path, node.left);
+        else if(node.right && !node.left)
+          this.set(path, node.right);
+        //TODO Handle case where right and left subtree are not null
+        else {
+          var min = this.findMin(node);
+          
+        }
+      },
+      findMin: function(node) {
+        if (!node) 
+          return null;
+        if(!node.left) 
+          return node;
+        return this.findMin(node.left);
+      },
+      /**
+       * Count the occurrences of type type in an array
+       * @param {Array} array The array to search in
+       * @param type The variable to search in the array
+       * @return The occurrences of the type
+       */
       countOccurrences: function(array, type) {
         var result = 0;
         for(var i = 0; i< array.length; i++) {
@@ -170,6 +305,17 @@
         }
         return result;
       },
+      _onNodeContext: function(e) {
+        this._contextTarget = e.target;
+        this.$.context.style.left = e.detail.x + 'px';
+        this.$.context.style.top = e.detail.y + 'px';
+        this.$.context.style.visibility = 'visible';
+      },
+      /**
+       * Callback for the resize callback
+       * Resizes the canvas height and width
+       * @param {Object} e 
+       */
       _onResize: function (e) {
         var nodes = this.querySelectorAll('binary-node');
         var maxY = 0;
@@ -186,6 +332,9 @@
           canvas.height = target.height;
         }
       },
+      /**
+       * Repaints all branches between the nodes
+       */
       repaintConnections: function() {
         this._onResize();
         var nodes = this.querySelectorAll('binary-node');
@@ -223,6 +372,12 @@
           }
         }
       },
+      /**
+       * Get's an element by id in the base array
+       * @param {Array} base The array to search in for the suitable id
+       * @param {String} id The id to search for
+       * @return The node with the id 
+       */
       getElementById: function(base, id) {
         for(var i=0; i< base.length; i++) {
           if(base[i].id === id)
@@ -230,12 +385,21 @@
         }
         return null;
       },
+      closeContextMenu: function(e) {
+        if(this.$.context.style.visibility === 'visible') {
+          if(e.target.parentNode === this.$.context || e.target.parentNode.parentNode === this.$.context)
+            return;
+          this.$.context.style.visibility = 'collapse';
+        }
+      },
       attached: function() {
         window.addEventListener('resize', this.repaintConnections.bind(this));
+        window.addEventListener('click', this.closeContextMenu.bind(this));
         this._onResize();
       },
       detached: function() {
-        window.removeEventListener('resize', this.repaintConnections.bind(this));
+        window.removeEventListener('resize', this.repaintConnections);
+        window.removeEventListener('click', this.closeContextMenu);
       }
     });
   </script>
