@@ -17,7 +17,7 @@
 		</style>
 		<google-youtube currenttime="{{time}}" hl="en" cc_load_policy="0" 
 						autoplay="1" id="vid" width="100%" 
-						height="99.5%" video-id="{{videoId}}" chromeless>
+						height="99.5%" video-id="{{videoId}}" chromeless="{{chromeless}}">
 		</google-youtube>
 		<toolbar-toggler tcolor="#ffffff"></toolbar-toggler>
 	</template>
@@ -50,6 +50,15 @@
 				 * @type Boolean
 				 */
 				mute: {
+					type: Boolean,
+					value: false
+				},
+				/**
+				 * Whether the timeline of the video should be hidden
+				 * @attribute chromeless
+				 * @type Boolean
+				 */
+				chromeless: {
 					type: Boolean,
 					value: false
 				},
