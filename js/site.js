@@ -2,7 +2,8 @@ function site(){
 	var params = getUrl();	
 	var returner = "";
 	returner += "<home-home stitle='" + title(params) + "'>" + content(params).replace('>', ' title=" ">') + "</home-home>";	
-	//returner += "<service-worker></service-worker>";						
+	//returner += "<service-worker></service-worker>";		
+	returner += "<feedback-dialog></feedback-dialog>";					
 	
 	return returner;
 }

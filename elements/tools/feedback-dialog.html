@@ -1,0 +1,175 @@
+<dom-module id="feedback-dialog">
+	<style>
+		paper-dialog {
+			padding: 16px;
+			border-radius: 5px;
+			max-width: 520px;
+		}
+		paper-checkbox.red {
+			--paper-checkbox-checked-color: #D50000;
+			--paper-checkbox-unchecked-color: #D50000;
+		}
+		paper-checkbox.green {
+			--paper-checkbox-checked-color: #4CAF50;
+			--paper-checkbox-unchecked-color: #4CAF50;
+		}
+		paper-checkbox.pink {
+			--paper-checkbox-checked-color: #E91E63;
+			--paper-checkbox-unchecked-color: #E91E63;
+		}
+		paper-checkbox.purple {
+			--paper-checkbox-checked-color: #AB47BC;
+			--paper-checkbox-unchecked-color: #AB47BC;
+		}
+		paper-checkbox.blue {
+			--paper-checkbox-checked-color: #0D47A1;
+			--paper-checkbox-unchecked-color: #0D47A1;
+		}
+		paper-checkbox.light-blue {
+			--paper-checkbox-checked-color: #03A9F4;
+			--paper-checkbox-unchecked-color: #03A9F4;
+		}
+		paper-button {
+			margin-top: 10px;
+		}
+		paper-button.green {
+			color: #4CAF50;
+		}
+	</style>
+	<template>
+		<paper-toast id="sent" text="Feedback sent"></paper-toast>
+		<iron-ajax
+			id="ajax"
+			method="post"
+			content-type="application/json"
+		 	url="https://deepspace.onl/scripts/tools/feedback.php"
+		 	handle-as="json">
+		 </iron-ajax>
+		  <paper-dialog id="feedbackdialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+	      <h2>Feedback</h2>
+	      <paper-dialog-scrollable>
+	        <paper-input id="issueTitle" 
+				label="Titel" 
+				name="title"
+				required>
+			</paper-input>
+			<paper-input id="issueEmail" 
+				label="Email (notwendig zur Kontaktaufnahme)" 
+				name="email">
+			</paper-input>
+			<paper-textarea id="issueBody" 
+				label="Body"
+				on-input="resizeDialog"
+				name="body">
+			</paper-textarea>
+			<p>Wähle <span style="font-weight: 500;">alle</span> passende Labels aus:</p>
+			<paper-checkbox id="bug" 
+				class="red" 
+				name="labels"
+				value="bug">
+				Bug/Fehler
+			</paper-checkbox><br>
+			<paper-checkbox id="help" 
+				class="green" 
+				name="labels"
+				value="help">
+				Hilfe
+			</paper-checkbox><br>
+			<paper-checkbox id="question" 
+				class="pink"
+				name="labels" 
+				value="question">
+				Frage
+			</paper-checkbox><br>
+			<paper-checkbox id="feature" 
+				class="purple"
+				name="labels"
+				value="feature">
+				Feature
+			</paper-checkbox><br>
+			<paper-checkbox id="enhancement" 
+				class="blue"
+				name="labels"
+				value="enhancement">
+				Verbesserung
+			</paper-checkbox><br>
+			<paper-checkbox id="design" 
+				class="light-blue" 
+				name="labels"
+				value="design">
+				Design Vorschlag
+			</paper-checkbox>
+	      </paper-dialog-scrollable>
+	      <div class="buttons">
+	        <paper-button dialog-dismiss>Cancel</paper-button>
+	        <paper-button dialog-confirm on-tap="submitHandler" class="green ripple" raised>Send Feedback</paper-button>
+	      </div>
+	    </paper-dialog>
+	</template>
+	<script>
+		Polymer({
+			is: 'feedback-dialog',
+			properties: {
+				url: {
+					type: String,
+					readOnly: true,
+					computed: 'computeUrl(user, repo)'
+				},
+				user: {
+					type: String,
+					value: 'DeepSpaceDev'
+				},
+				repo: {
+					type: String,
+					value: 'Website'
+				}
+			},
+			computeUrl: function(user, repo) {
+				return 'https://api.github.com/repos/' + user + '/' + repo + '/issues';
+			},
+			resizeDialog: function() {
+				this.$.feedbackdialog.notifyResize();
+			},
+			open: function() {
+				this.$.feedbackdialog.open();
+			},
+			close: function() {
+				this.$.feedbackdialog.close();
+			},
+			submitHandler: function() {
+				var labels = [];
+				if(this.$.bug.checked)
+					labels.push('bug');
+				if(this.$.design.checked)
+					labels.push('design');
+				if(this.$.enhancement.checked)
+					labels.push('enhancement');
+				if(this.$.feature.checked)
+					labels.push('feature');
+				if(this.$.help.checked)
+					labels.push('help');
+				if(this.$.question.checked)
+					labels.push('question');
+				var issueBody = this.$.issueBody.value + '\n' + this.$.issueEmail.value;
+				var body = {
+					title: this.$.issueTitle.value,
+					body: issueBody,
+					labels: labels,
+					url: this.url
+				};
+				this.$.ajax.body = body;
+				this.$.ajax.generateRequest();
+				this.$.issueTitle.value = '';
+				this.$.issueEmail.value = '';
+				this.$.issueBody.value = '';
+				this.$.bug.checked = false;
+				this.$.help.checked = false;
+				this.$.question.checked = false;
+				this.$.feature.checked = false;
+				this.$.enhancement.checked = false;
+				this.$.design.checked = false;
+				this.$.sent.show();
+			}   	
+		});
+	</script>
+</dom-module>

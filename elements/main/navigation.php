@@ -179,7 +179,11 @@
 						<div class="primary">Contact</div>
 					</paper-item-body>
 				</paper-item>					
-					
+				
+				<paper-icon-item onClick="openFeedback()" class="mainselect link" id="menu-login" >
+						<iron-icon icon="icons:feedback" class="orange-500" item-icon></iron-icon>
+						Feedback
+				</paper-icon-item>
 				<paper-icon-item onClick="href('ts3server://178.254.29.109/')" class="mainselect link small">
 					<iron-icon src="../../img/logos/teamspeak.png" item-icon></iron-icon>
 					<paper-item-body two-line>

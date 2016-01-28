@@ -63,7 +63,7 @@ function finishLoading(loader){
 
 	//Show cookie message if visitor isn't a returning Visitor
 	if(getCookie('returningVisitor') == ""){
-		setTimeout(function(){toast("This website is using cookies, with proceeding you agree with that.", 10000, true);}, 500);
+		setTimeout(function(){toast("This website is using cookies, with proceeding you agree with that.", 100000, true);}, 500);
 		setCookie('returningVisitor', 'true', 1000);
 	}
 	
@@ -74,6 +74,7 @@ function getScripts(){
 	"js/lib/analytics.js",
 	"js/lib/html2canvas.js",
 	"js/projects/btv.js",
+	"js/functions.js",
 	"js/site.js", 
 	"js/tools.js"
 	];
