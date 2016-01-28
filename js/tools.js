@@ -11,7 +11,8 @@ function href(loc, type){
 		}
 	}
 	else{
-		loc = ((loc.split("")[loc.split("").length - 1] == '/') ? loc + '' : loc + '/'); //URL beautify --> example.com/abc -> example.com/abc/
+
+		loc = beautifyUrl(loc);
 		history.pushState(null, null, loc);
 		qs("#pdp").closeDrawer();
 		qs("home-home").updater();
@@ -20,6 +21,12 @@ function href(loc, type){
 			$("#content").fadeOut(250, function(){$("#content").html(content(loc.split("/"))).fadeIn(250);});
 		}
 	}
+}
+function beautifyUrl(loc){
+	if(loc.split("")[loc.split("").length - 1] != '/'){
+		return loc + "/";
+	}
+	return loc;
 }
 function toast(msg, dur, hide){
 	dur = ((dur == null) ? 3000 : dur);

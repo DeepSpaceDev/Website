@@ -1,0 +1,244 @@
+<dom-module id="binarytree-visualisation">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        --paper-header-panel-body {
+          background: #E0E0E0;
+        }
+        --primary-color: #FBC02D;
+        --dark-primary-color: #FBC02D;
+        --light-primary-color: #FFF9C4;
+        --accent-color: #00BCD4;
+        --default-primary-color: var(--primary-color);
+      }
+      paper-dialog {
+        padding: 16px;
+      }
+      paper-fab {
+        position: absolute;
+        bottom: 32px;
+        right: 32px;
+      }
+      section {
+        width: calc(100% + 16px)
+      }
+      #toast-button {
+        color: #D2FD00;
+        margin: 10px;
+        right: 8px;
+        position: absolute;
+        top: 50%;
+        margin-top: -8px;
+      }
+    </style>
+        <paper-toast id="noVal" text="Please provide an value"></paper-toast>
+        <paper-toast id="noTree" text="No tree found to traverse"></paper-toast>
+        <paper-toast id="traverseResult" class="fit-bottom" duration="0">
+          <span role="button" id="toast-button" tabindex="0" on-tap="_closeResult">OK</span>
+        </paper-toast>
+
+        <paper-dialog id="addTreeDialog" modal>
+          <h2>Please insert a value and a name for the root node</h2>
+          <paper-dialog-scrollable>
+            <paper-input label="name" value="{{_name}}" required></paper-input>
+            <paper-input label="value" value="{{_value}}" required></paper-input>
+          </paper-dialog-scrollable>
+          <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm>Add Tree</paper-button>
+          </div>
+        </paper-dialog>
+
+        <paper-dialog id="traverseDialog" modal>
+          <h2>Please select some properties for traversing:</h2>
+          <paper-dialog-scrollable>
+            <paper-input label="Tree" value="{{_treeToTrav}}"></paper-input>
+            <paper-radio-group selected="{{_travMode}}">
+              <paper-radio-button name="pre">Pre-Order</paper-radio-button>
+              <paper-radio-button name="in">In-Order</paper-radio-button>
+              <paper-radio-button name="post">Post-Order</paper-radio-button>
+            </paper-radio-group>
+          </paper-dialog-scrollable>
+          <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm>Traverse</paper-button>
+          </div>
+        </paper-dialog>
+
+        <paper-drawer-panel force-narrow>
+          <paper-header-panel drawer>
+            <paper-toolbar>
+              <paper-icon-button 
+                icon="arrow-back" 
+                style="color: white;"
+                paper-drawer-toggle>
+              </paper-icon-button>
+            </paper-toolbar>
+            <paper-item>
+              <canvas id="root" width="48" height="48" item-icon></canvas>
+              <div>Root</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="node" width="48" height="48" item-icon></canvas>
+              <div>Node</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="branch" width="48" height="48" item-icon></canvas>
+              <div>Branch</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="parent" width="48" height="48" item-icon></canvas>
+              <div>Parent</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="child" width="48" height="48" item-icon></canvas>
+              <div>Child</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="sibling" width="48" height="48" item-icon></canvas>
+              <div>Sibling</div>
+            </paper-item>
+            <paper-item>
+              <canvas id="leaf" width="48" height="48" item-icon></canvas>
+              <div>Leaf</div>
+            </paper-item>
+          </paper-header-panel>
+          <paper-header-panel main>
+            <paper-toolbar>
+              <paper-icon-button icon="view-list" paper-drawer-toggle>
+              </paper-icon-button>
+              <paper-button on-tap="requestTraverse">Traverse</paper-button>
+            </paper-toolbar>
+            <section id="treeContainer">
+              
+            </section>
+          </paper-header-panel>
+        </paper-drawer-panel>
+
+        <paper-fab icon="add" on-tap="addTree"></paper-fab>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'binarytree-visualisation',
+      properties: {
+        _travMode: {
+          type: String,
+          value: 'in'
+        }
+      },
+      listeners: {
+        'iron-overlay-closed': '_onIronOverlayClosed'
+      },
+      requestTraverse: function() {
+        var treeContainer = this.$.travTrees;
+        var trees = this.querySelectorAll('binary-tree');
+        if(trees.length === 0) {
+          this.$.noTree.show();
+          return;
+        }
+        /*treeContainer.selected = trees[0].name;
+        for(var i=0; i<trees.length; i++) {
+          var tree = document.createElement('paper-radio-button');
+          tree.name = trees[i].name;
+          tree.innerHTML = trees[i].name;
+          treeContainer.appendChild(tree);
+        }*/
+        this.$.traverseDialog.open();
+      },
+      traverse: function(tree, mode) {
+        switch(mode) {
+          case 'in': var result = this.inOrder(tree); break;
+          case 'pre': var result = this.preOrder(tree); break;
+          case 'post':
+          default: var result = this.postOrder(tree);
+        }
+        console.log(result);
+        this.$.traverseResult.text = 
+          mode.charAt(0).toUpperCase() + mode.slice(1) + ': ' + result.join(', ');
+        this.$.traverseResult.show();
+      },
+      attached: function() {
+        drawRoot(this.$.root);
+        drawNode(this.$.node);
+        drawBranch(this.$.branch);
+        drawParent(this.$.parent);
+        drawChild(this.$.child);
+        drawSibling(this.$.sibling);
+        drawLeaf(this.$.leaf);
+      },
+      addTree: function() {
+        this.$.addTreeDialog.open();
+      },
+      _onIronOverlayClosed: function (e) {
+        if(e.target.id === 'addTreeDialog') {
+          if(e.detail.confirmed && this._value !== '') {
+            var tree = document.createElement('binary-tree');
+            tree.$.tree.value = this._value;
+            tree.tree.value = this._value;
+            tree.name = this._name;
+            this.$.treeContainer.appendChild(tree);
+            this._value = '';
+            this._name = '';
+          } else {
+            if(this._value === '' && e.detail.confirmed)
+              this.$.noVal.show();
+          }
+        }
+        if(e.target.id === 'traverseDialog') {
+          if(e.detail.confirmed) {
+            var trees = this.querySelectorAll('binary-tree');
+            for(var i=0; i<trees.length; i++) {
+              if(trees[i].name === this._treeToTrav) {
+                this.traverse(trees[i].tree, this._travMode);
+                this._treeToTrav = '';
+                this._travMode = 'in';
+                return;
+              }
+            }
+            this._treeToTrav = '';
+            this._travMode = 'in';
+            this.$.noTree.show();
+          }
+        }
+      },
+      searchForElement: function (value) {
+        
+      },
+      preOrder: function(node) {
+        var result = [];
+        result.push(node.value);
+        if(node.left)
+          result = result.concat(this.preOrder(node.left));
+        if(node.right) 
+          result = result.concat(this.preOrder(node.right));
+        return result;
+      },
+      inOrder: function(node) {
+        var result = [];
+        if(node.left)
+          result = result.concat(this.inOrder(node.left));
+        result.push(node.value);
+        if(node.right)
+          result = result.concat(this.inOrder(node.right));
+        return result;
+      },
+      postOrder: function(node) {
+        var result = [];
+        if(node.left)
+          result = result.concat(this.postOrder(node.left));
+        if(node.right)
+          result = result.concat(this.postOrder(node.right));
+        result.push(node.value);
+        return result;
+      },
+      _closeResult: function() {
+        this.$.traverseResult.hide();
+      }
+    });
+  </script>
+</dom-module>

@@ -73,6 +73,7 @@ function getScripts(){
 	return [	
 	"js/lib/analytics.js",
 	"js/lib/html2canvas.js",
+	"js/projects/btv.js",
 	"js/site.js", 
 	"js/tools.js"
 	];
