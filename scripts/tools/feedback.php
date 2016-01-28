@@ -4,7 +4,7 @@
 	$method = 'POST';
 	$contentType = 'application/json';
 	$token = $github_token;
-	$username = 'Feedback';
+	$username = 'DeepspaceBot';
 
 	$body_json = json_decode(file_get_contents('php://input'), true);
 

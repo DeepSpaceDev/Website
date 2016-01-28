@@ -43,7 +43,6 @@ function content(params){
 				default: site = "<not-found></not-found>";
 			} break;
 		case "projects": site = "<home-projects></home-projects>"; break;
-		case "proxy": site = "<web-proxy></web-proxy>"; break;
 		case "register":
 			var selmet = "";
 			if(params[1] != "" && params[1] != undefined){

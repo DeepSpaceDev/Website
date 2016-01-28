@@ -180,7 +180,7 @@
 					</paper-item-body>
 				</paper-item>					
 				
-				<paper-icon-item onClick="openFeedback()" class="mainselect link" id="menu-login" >
+				<paper-icon-item onClick="openFeedback()" class="mainselect link">
 						<iron-icon icon="icons:feedback" class="orange-500" item-icon></iron-icon>
 						Feedback
 				</paper-icon-item>
