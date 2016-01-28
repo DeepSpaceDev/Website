@@ -25,6 +25,7 @@ $(document).ready(function(){
 	});
 
 	$(window).on("contextmenu",function(e){
+		if(getUrl()[0] == "btv" && e.toElement.id == 'node'){return;}
         e.preventDefault();
         var pageX = e.pageX - 40;
         var pageY = e.pageY - 25;
