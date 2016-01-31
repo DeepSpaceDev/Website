@@ -15,6 +15,15 @@
 				color: #0D47A1;
 				font-weight: 700;
 			}
+
+			#tsuserdisplay{
+				display: none;
+			}
+			#tsloadprogressbar{
+				width: 100%;
+				margin-top: 10px;
+				--paper-progress-active-color: var(--paper-indigo-500);
+			}
 		</style>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
 		<section>
@@ -26,7 +35,7 @@
 				<span style="color: blue" class="link" onClick="href('ts3server://deepspace.onl');">Click here to join us now</span> (Teamspeak installation required) or connect to <span style="color: green">deepspace.onl</span> .
 			</paper-material>
 
-			<paper-material class="content">
+			<paper-material id="tsuserdisplay" class="content">
 				<h1>User<span id="ts-membercounter"></span>:</h1>
 
 				<h2 style="color: red;">Owner</h2>
@@ -55,60 +64,77 @@
 				<br /><br />
 				<span style="font-size: 14px;" class="green">Online</span>
 			</paper-material>
+
+			<paper-material id="loadprogress" class="content">
+				<paper-progress id="tsloadprogressbar" indeterminate="true"></paper-progress>
+			</paper-material>
 		</section>
 	</template>
 	<script>
 		Polymer({
 			is: 'site-teamspeak',
 
+
 			attached: function(){
-				$("#dialogcontent").html("Loading...");
-				document.querySelector("#dialog").open();
-				this.async(function(){
-					var response = JSON.parse(ajax("scripts/sites/teamspeak.php", ""));
-					var bull = " &bull; ";
+				var that = this;
+				asyncAjax("scripts/sites/teamspeak.php", "", that._handleResponse);
+			},
 
-					var owner = "";
-					var member = "";
-					var admin = "";
-					var mod = "";
-					var dev = "";
+			_handleResponse: function(e){
+				var bull = " &bull; ";
 
-					qs("#ts-membercounter").innerHTML = ' (' + response.length + ')';
+				var owner = "";
+				var member = "";
+				var admin = "";
+				var mod = "";
+				var dev = "";
 
-					sortByKey(response, 'name');
-					for(var i = 0; i < response.length; i++){
-						var grids = [];
-						var gridsu = "";
-						for(var x = 0; x < response[i]['groups'].length; x++){
-							grids[x] = response[i]['groups'][x]['sgid'];
-							gridsu += response[i]['groups'][x]['sgid'] + "-";
-						}
-						if($.inArray("6", grids) != -1){
-							owner += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
-						}
-						else if($.inArray("14", grids) != -1){
-							dev += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
-						}
-						else if($.inArray("29", grids) != -1 || $.inArray("30", grids) != -1 ){
-							admin += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
-						}
-						else if($.inArray("16", grids) != -1){
-							mod += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
-						}
-						else{
-							member += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
-						}
-						qs("#ts-owner").innerHTML = owner;
-						qs("#ts-dev").innerHTML = dev;
-						qs("#ts-admin").innerHTML = admin;
-						qs("#ts-mod").innerHTML = mod;
-						qs("#ts-member").innerHTML = member;
+				var response = JSON.parse(e.responseText);
 
+				qs("#ts-membercounter").innerHTML = ' (' + response.length + ')';
+
+				sortByKey(response, 'name');
+				for(var i = 0; i < response.length; i++){
+					var grids = [];
+					var gridsu = "";
+					for(var x = 0; x < response[i]['groups'].length; x++){
+						grids[x] = response[i]['groups'][x]['sgid'];
+						gridsu += response[i]['groups'][x]['sgid'] + "-";
 					}
-					document.querySelector("#dialog").close();
+					if($.inArray("6", grids) != -1){
+						owner += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+					}
+					else if($.inArray("14", grids) != -1){
+						dev += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+					}
+					else if($.inArray("29", grids) != -1 || $.inArray("30", grids) != -1 ){
+						admin += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+					}
+					else if($.inArray("16", grids) != -1){
+						mod += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+					}
+					else{
+						member += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+					}
+					qs("#ts-owner").innerHTML = owner;
+					qs("#ts-dev").innerHTML = dev;
+					qs("#ts-admin").innerHTML = admin;
+					qs("#ts-mod").innerHTML = mod;
+					qs("#ts-member").innerHTML = member;
+
+				}
+				
+				setTimeout(function(){
+					$('#loadprogress').slideUp(200, function(){
+						$('#tsuserdisplay').slideDown(200);
+						$('#tsuserdisplay').css('display','block'); //Firefox debug
+					});
 					toast("Hover or click on members!", 15000);
-				}, 100);
+				}, 500);
+			},
+
+			_setProgress: function(x){
+				qs('#tsloadprogressbar').value = x;
 			}
 		});
 	</script>
