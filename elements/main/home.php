@@ -2,6 +2,9 @@
 
 	<template>
 		<style>
+			paper-toolbar{
+				color: #fff;
+			}
 	
 			#main-drawer {
 				background-color: var(--paper-grey-200);

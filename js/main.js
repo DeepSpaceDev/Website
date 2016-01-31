@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var cUrl = window.location.pathname;
 
 	$("content").html('<div style="position: absolute; top: calc(50% - 80px); left: calc(50% - 62px);"><img src="img/loader/loader.GIF" alt="loading"></div>');
 	window.addEventListener('DOMContentLoaded', function(e){
@@ -7,8 +8,6 @@ $(document).ready(function(){
 
 		var scripts = getScripts();
 		var slowLoading = false;
-
-		var cUrl = window.location.pathname;
 		
 		if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
 			console.log("Unsupported Browser loading WebComponents");
