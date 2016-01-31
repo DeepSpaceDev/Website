@@ -57,6 +57,17 @@ function ajax(url, data){
 		async: false
 		}).responseText;
 }
+function asyncAjax(url, pdata, callback){
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: pdata,
+		async: true,
+		complete: function(data){
+			callback(data);
+		}
+	});
+}
 function shuffle(array){
     for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
     return array;
