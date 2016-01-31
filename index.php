@@ -29,13 +29,13 @@ if(($browser == "MSIE" || $browser == "IEMobile") && $_GET["MSIE"] == true){
 		<meta name="author" content="Sese Schneider, Dennis Kugelmann">
 		
 		<title>DeepSpace</title>
-				
-		<link rel="shortcut icon" href="img/favicon.png">
+		
 		<link rel="import" href="elements/elements.html">
+		<link rel="shortcut icon" href="img/favicon.png">
 		<link type="text/css" rel="stylesheet" href="css/style.css">
+		<?php if(isset($_GET["p"])){echo "<script>var isdialog = true; var dialogcontent = '" . $_GET["p"] . "';</script>";}?>	
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="js/main.js"></script>
-		<?php if(isset($_GET["p"])){echo "<script>var isdialog = true; var dialogcontent = '" . $_GET["p"] . "';</script>";}?>	
 
 		<noscript>
 			<meta http-equiv="refresh" content="0;url=errors/javascript_disabled.html">

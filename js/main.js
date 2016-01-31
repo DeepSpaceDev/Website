@@ -1,51 +1,54 @@
 $(document).ready(function(){
+
 	$("content").html('<div style="position: absolute; top: calc(50% - 80px); left: calc(50% - 62px);"><img src="img/loader/loader.GIF" alt="loading"></div>');
-	var loadtime = 0;
-	var loadtimer = setInterval(function(){loadtime = loadtime - 100;}, 100);	
+	window.addEventListener('DOMContentLoaded', function(e){
+		var loadtime = 1000;
+		var loadtimer = setInterval(function(){loadtime = loadtime - 100;}, 100);	
 
-	var scripts = getScripts();
-	var slowLoading = false;
+		var scripts = getScripts();
+		var slowLoading = false;
 
-	var cUrl = window.location.pathname;
-	
-	if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
-		console.log("Unsupported Browser loading WebComponents");
-		scripts.push("../bower_components/webcomponentsjs/webcomponents-lite.min.js");
-		slowLoading = true;
-	}
-	
-	$.getMultiScripts(scripts, 'js/').done(function() {
-		if(slowLoading){
-			window.addEventListener('HTMLImportsLoaded', function(e) {
-				setTimeout(function(){finishLoading(loadtimer);},loadtime);			
-			});			
-		} else{
-			setTimeout(function(){finishLoading(loadtimer);},loadtime);
+		var cUrl = window.location.pathname;
+		
+		if (!('registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) { //WebComponents unsupported
+			console.log("Unsupported Browser loading WebComponents");
+			scripts.push("../bower_components/webcomponentsjs/webcomponents-lite.min.js");
+			slowLoading = true;
 		}
+		
+		$.getMultiScripts(scripts, 'js/').done(function() {
+			if(slowLoading){
+				window.addEventListener('HTMLImportsLoaded', function(e) {
+					setTimeout(function(){finishLoading(loadtimer);},loadtime);			
+				});			
+			} else{
+				setTimeout(function(){finishLoading(loadtimer);},loadtime);
+			}
+		});
 	});
 
 	$(window).on("contextmenu",function(e){
 		if(getUrl()[0] == "btv" && e.toElement.id == 'node'){return;}
 		if(getCookie('developer') == 'true'){return;}
-        e.preventDefault();
-        var pageX = e.pageX - 40;
-        var pageY = e.pageY - 25;
-        if(pageX + 150 > window.innerWidth){
-        	pageX = window.innerWidth - 175;
-        }
-        if(pageY + 50 > window.innerHeight){
-        	pageY = window.innerHeight - 55;
-        }
-        $("#rightclickd").css({top: pageY , left: pageX});
-        document.querySelector("#rightclickd").open();
-    });
+		e.preventDefault();
+		var pageX = e.pageX - 40;
+		var pageY = e.pageY - 25;
+		if(pageX + 150 > window.innerWidth){
+			pageX = window.innerWidth - 175;
+		}
+		if(pageY + 50 > window.innerHeight){
+			pageY = window.innerHeight - 55;
+		}
+		$("#rightclickd").css({top: pageY , left: pageX});
+		document.querySelector("#rightclickd").open();
+	});
 
-    setInterval(function(){
-    	if(cUrl != window.location.pathname){
-    		cUrl = window.location.pathname;
-    		lsite();
-    	}
-    }, 250);
+	setInterval(function(){
+		if(cUrl != window.location.pathname){
+			cUrl = window.location.pathname;
+			lsite();
+		}
+	}, 250);
 });	
 
 $.getMultiScripts = function(arr) {
