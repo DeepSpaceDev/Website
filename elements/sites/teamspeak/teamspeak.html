@@ -90,7 +90,7 @@
 				var dev = "";
 
 				var response = JSON.parse(e.responseText);
-
+			
 				qs("#ts-membercounter").innerHTML = ' (' + response.length + ')';
 
 				sortByKey(response, 'name');
@@ -102,27 +102,26 @@
 						gridsu += response[i]['groups'][x]['sgid'] + "-";
 					}
 					if($.inArray("6", grids) != -1){
-						owner += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						owner = "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						$("#ts-owner").append(owner);
 					}
 					else if($.inArray("14", grids) != -1){
-						dev += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						dev = "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						$("#ts-dev").append(dev);
 					}
 					else if($.inArray("29", grids) != -1 || $.inArray("30", grids) != -1 ){
-						admin += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						admin = "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						$("#ts-admin").append(admin);
 					}
 					else if($.inArray("16", grids) != -1){
-						mod += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						mod = "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						$("#ts-mod").append(mod);
 					}
 					else{
-						member += "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						member = "<ts-user user-online='" + ((response[i]['online']) ? "online" : "offline") + "' user-groups='" + gridsu + "'>" + response[i]['name'] + "</ts-user>" + bull;
+						$("#ts-member").append(member);
 					}
-					qs("#ts-owner").innerHTML = owner;
-					qs("#ts-dev").innerHTML = dev;
-					qs("#ts-admin").innerHTML = admin;
-					qs("#ts-mod").innerHTML = mod;
-					qs("#ts-member").innerHTML = member;
-
-				}
+				}				
 				
 				setTimeout(function(){
 					$('#loadprogress').slideUp(200, function(){
@@ -131,7 +130,7 @@
 					});
 					toast("Hover or click on members!", 15000);
 				}, 500);
-			},
+		},
 
 			_setProgress: function(x){
 				qs('#tsloadprogressbar').value = x;
