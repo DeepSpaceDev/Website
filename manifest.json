@@ -1,0 +1,32 @@
+{
+  "name": "Deepspace Development",
+  "short_name": "Deepspace",
+  "lang": "de-DE",
+  "start_url": "index.php",
+  
+  "icons": [{
+      "src": "img/favicon.png",
+      "sizes": "612x612",
+      "type": "image/png"
+  }],
+  "splash_screens": [{
+    "src": "img/loader/loader.GIF",
+    "sizes": "124x128",
+    "type": "image/gif"
+  }],
+  
+  "display": "standalone",
+  "backgroud-color": "#EEEEEE",
+  "theme-color": "#3f51b5",
+  "orientation": "any",
+  
+  "related_applications": [{
+      "platform": "web"
+    },
+    {
+      "platform": "andorid",
+      "url": "https://play.google.com/store/apps/details?id=onl.deepspace.deepspace",
+      "id": "onl.deepspace.deepspace"
+  }],
+  "prefer_related_applications": "false"
+}
