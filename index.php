@@ -30,6 +30,7 @@ if(($browser == "MSIE" || $browser == "IEMobile") && $_GET["MSIE"] == true){
 		
 		<title>DeepSpace</title>
 		
+		<link rel="manifest" href="manifest.json">
 		<link rel="import" href="elements/elements.html">
 		<link rel="shortcut icon" href="img/favicon.png">
 		<link type="text/css" rel="stylesheet" href="css/style.css">
