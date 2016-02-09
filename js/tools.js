@@ -56,7 +56,7 @@ function e(msg){
 	console.error(msg);
 }
 function d(msg){
-	console.d(msg);
+	console.debug(msg);
 }
 function i(msg){
 	console.info(msg);

@@ -224,8 +224,8 @@
 			is: 'home-profile',
 
 			showmore: function(e){
-				var hiddiv = $(e.srcElement).parent().parent().find(".moredata");
-				if(e.srcElement.active){ //active because its clicked
+				var hiddiv = $(e.target).parent().parent().find(".moredata");
+				if(e.target.active){ //active because its clicked
 					hiddiv.slideDown();
 				}
 				else{
