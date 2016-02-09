@@ -34,7 +34,6 @@
 			#rightclickd paper-item:hover{
 				background-color: var(--paper-grey-200);
 			}
-
 		</style>
 		
 		<paper-drawer-panel force-Narrow id="pdp"> 
@@ -50,7 +49,7 @@
 					<div style="float: right;"><paper-icon-button onClick='refresh()' id="refreshicon" icon="refresh"></paper-icon-button></div>
 				</paper-toolbar>
 				
-				<div id="content"><content id='sitecontent'><!--<home-profile></home-profile>--></content></div>
+				<div id="content"><content id='sitecontent'></content></div>
 			</paper-header-panel>
     	</paper-drawer-panel>
 
@@ -61,7 +60,6 @@
     	<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'></span></paper-dialog>
 
     	<paper-toast id='toast'></paper-toast>
-
 	</template>
 
 	<script>

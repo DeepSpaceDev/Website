@@ -1,11 +1,11 @@
 {
   "name": "Deepspace Development",
   "short_name": "Deepspace",
-  "lang": "de-DE",
-  "start_url": "index.php",
+  "lang": "en-US",
+  "start_url": "/",
   
   "icons": [{
-      "src": "img/favicon.png",
+      "src": "img/logos/DeepSpace144.png",
       "sizes": "612x612",
       "type": "image/png"
   }],
