@@ -70,8 +70,23 @@ function finishLoading(loader){
 		setTimeout(function(){toast("This website is using cookies, with proceeding you agree with that.", 100000, true);}, 500);
 		setCookie('returningVisitor', 'true', 1000);
 	}
+
+	i('Loaded');
+
+	var styles = ['background: #3f51b5',
+    'color: white',
+    'display: block',
+    'text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)',
+    'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);',
+    'line-height: 40px',
+    'text-align: center',
+    'font-weight: bold',
+    'padding: 10px',
+    'font-family: "Source Code Pro", sans-serif',
+    'font-size: 17px'
+	].join(';');
 	
-	l("Loaded - Copyright 2015 DeepSpace Development");
+	console.info("%c Copyright 2015 DeepSpace Development", styles);
 }
 function getScripts(){
 	return [	

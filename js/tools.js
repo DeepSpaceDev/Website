@@ -49,6 +49,18 @@ function getUrl(){
 function l(msg){
 	console.log(msg);
 }
+function w(msg){
+	console.warn(msg);
+}
+function e(msg){
+	console.error(msg);
+}
+function d(msg){
+	console.d(msg);
+}
+function i(msg){
+	console.info(msg);
+}
 function ajax(url, data){
 	return $.ajax({
 		type: "POST",
