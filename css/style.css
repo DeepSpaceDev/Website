@@ -11,7 +11,7 @@ paper-material.content{
 	background-color: white;
 	border-radius: 2px;
 	vertical-align: center;
-	max-width: 900px;		
+	max-width: 1150px;		
 }
 
 .link, .pointer {
@@ -20,6 +20,10 @@ paper-material.content{
 
 .copy {
 	cursor: copy;
+}
+
+.clearfix{
+	clear: both;
 }
 
 .hcenter{
