@@ -10,6 +10,9 @@
       paper-dialog {
         padding: 16px;
       }
+      paper-item {
+        cursor: pointer;
+      }
       #context {
         position: fixed;
         visibility: collapse;
@@ -46,6 +49,10 @@
     <paper-toast id="noVal" text="Please provide an value"></paper-toast>
 
     <paper-material id="context">
+      <paper-item on-tap="_addNodeOrdered">
+        <iron-icon icon="add" style="margin-right: 8px;"></iron-icon>
+        Add Node ordered
+      </paper-item>
       <paper-item on-tap="_deleteNode">
         <iron-icon icon="delete" style="margin-right: 8px;"></iron-icon>
         Delete Node
@@ -59,7 +66,7 @@
     <paper-dialog id="selectValue" modal>
       <h2>Please insert a value for the node</h2>
       <paper-dialog-scrollable>
-        <paper-input label="value" value="{{_value}}" required></paper-input>
+        <paper-input label="value" value="{{_value}}" autofocus required></paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
@@ -211,6 +218,44 @@
       },
       _treeUpdated: function (changeRecord) {
         this.computeCompletness();
+        console.log(changeRecord);
+        var nodes = this.querySelectorAll('binary-node');
+        var node = changeRecord.value;
+        var path = changeRecord.path;
+        // Remove Occurence of 'value'
+        var valOcc = path.search('.value');
+        if(valOcc !== -1)
+          path = path.substring(0, valOcc);
+        var pathElements = path.split('.');
+        var parentId = pathElements.splice(0, pathElements.length - 1).join('.');
+        var parent = this.getElementById(nodes, parentId);
+        if(path === 'tree' && node == null) {
+          this.fire('deleteTree');
+          return;
+        }
+        for(var i=0; i<nodes.length; i++) {
+          // if(nodes[i].id.search(path) !== -1) {
+          if(nodes[i].id === path) {
+            if(node === null) {
+              parent[pathElements[pathElements.length - 1]] = false;
+              this.$.nodeContainer.removeChild(nodes[i]);
+            } else if(typeof node === 'string') {
+              nodes[i].value = node;
+            }
+          }
+        }
+        if(this.getElementById(nodes, path) == null) {
+          var y = parent.y + 50;
+          var parentX = parent.x;
+          var x = (pathElements[pathElements.length - 1] === 'left') ? parentX - 50 : parentX + 50;
+          var el = document.createElement('binary-node');
+          el.id = path;
+          el.value = node.value;
+          el.x = x;
+          el.y = y;
+          this.$.nodeContainer.appendChild(el);
+        }
+        this.repaintConnections();
       },
       /**
        * Callback for the addChild Event
@@ -223,6 +268,7 @@
         else
           this._side = 'right';
         this._value = '';
+        this._ordered = false;
         this.$.selectValue.open();
       },
       /**
@@ -231,28 +277,53 @@
        */
       addChild: function (e) {
         if(e.detail.confirmed && this._value !== '') {
-          this._parent[this._side] = true;
-          var y = this._parent.y + 50;
-          var parentX = this._parent.x;
-          var x = (this._side === 'left') ? parentX - 50 : parentX + 50;
-          var path = this._parent.id + '.' + this._side;
-          this.set(path, {
-            value: this._value,
-            right: null,
-            left: null
-          });
-          // Create element and assign values to it
-          var el = document.createElement('binary-node');
-          el.id = path;
-          el.value = this._value;
-          el.x = x;
-          el.y = y;
-          this.$.nodeContainer.appendChild(el);
-          this.repaintConnections();
+          if(this._ordered) {
+            this.addNodeOrdered(this._path, this._value);
+          } else {
+            this._parent[this._side] = true;
+            var path = this._parent.id + '.' + this._side;
+            this.set(path, {
+              value: this._value,
+              right: null,
+              left: null
+            });
+          }
         } else {
           if(this._value === '' && e.detail.confirmed)
             // Show warning for missing node value
             this.$.noVal.show();
+        }
+      },
+      _addNodeOrdered: function() {
+        var path = this._contextTarget.id;
+        this.$.context.style.visibility = 'collapse';
+        this._ordered = true;
+        this._path = path;
+        this._value = '';
+        this.$.selectValue.open();
+      },
+      addNodeOrdered: function(path, value) {
+        var node = this.get(path);
+        if(this.compareNode(node.value, value) > 0) {
+          if(node.left == null) {
+            this.set(path + '.left', {
+              value: this._value,
+              right: null,
+              left: null
+            });
+          } else {
+            this.addNodeOrdered(path + '.left', value);
+          }
+        } else {
+          if(node.right == null) {
+            this.set(path + '.right', {
+              value: this._value,
+              right: null,
+              left: null
+            });
+          } else {
+            this.addNodeOrdered(path + '.right', value);
+          }
         }
       },
       /**
@@ -260,6 +331,7 @@
        */
       _deleteSubtree: function() {
         var path = this._contextTarget.id;
+        this.$.context.style.visibility = 'collapse';
         this.deleteSubtree(path);
       },
       /**
@@ -269,31 +341,72 @@
       deleteSubtree: function(path) {
         this.set(path, null);
       },
+       /**
+       * Listener method for the delete subtree context menu item
+       */
+      _deleteNode: function() {
+        var path = this._contextTarget.id;
+        this.$.context.style.visibility = 'collapse';
+        this.deleteNode(path);
+      },
       /**
        * Deletes a node
        * @param {String} path The path to the node
        */
       deleteNode: function(path) {
         var node = this.get(path);
-        console.log(this.findMin(node));
         if(!node.right && !node.left)
           this.set(path, null);
-        else if(!node.right && node.left)
-          this.set(path, node.left);
-        else if(node.right && !node.left)
-          this.set(path, node.right);
-        //TODO Handle case where right and left subtree are not null
-        else {
-          var min = this.findMin(node);
-          
+        else if(!node.right && node.left) {
+          this.set(path + '.value', node.left.value);
+          this.deleteNode(path + '.left');
+        } else if(node.right && !node.left) {
+          this.set(path + '.value', node.right.value);
+          this.deleteNode(path + '.right');
+        } else {
+          var min = this.findMin(node.right);
+          var value = min.value;
+          var minPath = path + '.right' + min.path;
+          this.set(path + '.value', value);
+          this.deleteNode(minPath);
         }
       },
       findMin: function(node) {
         if (!node) 
           return null;
-        if(!node.left) 
-          return node;
-        return this.findMin(node.left);
+        var min = {
+          value: node.value,
+          path: ''
+        };
+        if(node.left)
+          var minL = this.findMin(node.left);
+        if(node.right)
+          var minR = this.findMin(node.right);
+        if(minL) {
+          if(this.compareNode(min.value, minL.value) > 0)
+            min.value = minL.value;
+        }
+        if(minR) {
+          if(this.compareNode(min.value, minR.value) > 0)
+            min.value = minR.value;
+        }
+        if(minR && min.value === minR.value) {
+          min.path = '.right' + minR.path;
+        } else if(minL && min.value === minL.value) {
+          min.path = '.left' + minL.path;
+        }
+        return min;
+      },
+      compareNode: function(ref, comp) {
+        if(comp.match(/^[0-9]+$/) != null) {
+            var refNum = new Number(ref);
+            var compNum = new Number(comp);
+            if(compNum < refNum)
+              return 1;
+          } else if(comp.localeCompare(ref) < 0) {
+            return 1;
+          }
+          return -1;
       },
       /**
        * Count the occurrences of type type in an array

@@ -51,7 +51,7 @@
     <paper-dialog id="addTreeDialog" modal>
       <h2>Please insert a value and a name for the root node</h2>
       <paper-dialog-scrollable>
-        <paper-input label="name" value="{{_name}}" required></paper-input>
+        <paper-input label="name" value="{{_name}}" autofocus required></paper-input>
         <paper-input label="value" value="{{_value}}" required></paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
@@ -63,7 +63,7 @@
     <paper-dialog id="traverseDialog" modal>
       <h2>Please select some properties for traversing:</h2>
       <paper-dialog-scrollable>
-        <paper-input label="Tree" value="{{_treeToTrav}}"></paper-input>
+        <paper-input label="Tree" value="{{_treeToTrav}}" autofocus></paper-input>
         <paper-radio-group selected="{{_travMode}}">
           <paper-radio-button name="pre">Pre-Order</paper-radio-button>
           <paper-radio-button name="in">In-Order</paper-radio-button>
@@ -78,6 +78,7 @@
 
     <feedback-dialog id="feedbackDialog" repo="binarytree-visualisation"></feedback-dialog>
 
+    <!-- NARROW custom for DeepSpace -->
     <paper-drawer-panel force-narrow>
       <paper-header-panel drawer>
         <paper-toolbar>
@@ -158,6 +159,7 @@
     <paper-fab icon="add" on-tap="addTree"></paper-fab>
   </template>
 
+<!--main.js -> btv.js, loaded via main script, custom for DeepSpace-->
   <script>
     Polymer({
       is: 'binarytree-visualisation',
@@ -168,7 +170,8 @@
         }
       },
       listeners: {
-        'iron-overlay-closed': '_onIronOverlayClosed'
+        'iron-overlay-closed': '_onIronOverlayClosed',
+        'deleteTree': '_deleteTree'
       },
       /**
        * Opens a dialog for selecting some options for traversing a tree.
@@ -223,6 +226,9 @@
        */
       addTree: function() {
         this.$.addTreeDialog.open();
+      },
+      _deleteTree: function(e) {
+        this.$.treeContainer.removeChild(e.target);
       },
       _onIronOverlayClosed: function (e) {
         // Callback for Dialog to add a tree
