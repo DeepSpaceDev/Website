@@ -204,7 +204,7 @@
 
 				<br />
 
-				&copy; 2012-2016 DeepSpace Development <br /> All rights reserved.
+				&copy; 2012-<?php echo date('Y'); ?> DeepSpace Development <br /> All rights reserved.
 			</div>
 
 		</section>
@@ -243,7 +243,7 @@
 				data: "",
 				async: false
 			}).responseText;
-			href("https://sese7.de");
+			href("https://deepspace.onl/");
 		}
 		
 	</script>
