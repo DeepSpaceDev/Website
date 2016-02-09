@@ -60,6 +60,10 @@
     	<paper-dialog with-backdrop id='dialog'><span id='dialogcontent'></span></paper-dialog>
 
     	<paper-toast id='toast'></paper-toast>
+
+    	<service-worker></service-worker>
+    	<platinum-https-redirect></platinum-https-redirect>
+
 	</template>
 
 	<script>

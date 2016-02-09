@@ -4,10 +4,10 @@
 
 		</style>
 		
-		<!--<platinum-sw-register auto-register id="service-worker">
-			<platinum-sw-cache></platinum-sw-cache>
+		<platinum-sw-register href="../../sw-import.js" auto-register id="service-worker">
 			<platinum-sw-offline-analytics></platinum-sw-offline-analytics>
-		</platinum-sw-register>-->
+			<platinum-sw-cache></platinum-sw-cache>
+		</platinum-sw-register>
 
 	</template>
 	<script>
@@ -15,7 +15,10 @@
 			is: 'service-worker',
 
 			attached: function(){
-				setTimeout(function(){l('Service-Worker state: ' + qs('#service-worker').state);}, 500);
+				var sworker = document.querySelector('#service-worker');
+				sworker.addEventListener('service-worker-error', function(){l("Service-Worker Error");});
+				sworker.addEventListener('service-worker-installed', function(){l("Service-Worker Installed");});
+				sworker.addEventListener('service-worker-updated', function(){l("Service-Worker Updated");});
 			}
 		});
 	</script>
