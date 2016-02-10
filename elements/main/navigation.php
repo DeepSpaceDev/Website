@@ -6,6 +6,10 @@
 				background-color: var(--paper-indigo-500);
 			}
 
+			paper-icon-item:hover {
+				background-color: var(--paper-grey-100);
+			}
+
 			.menu-header-item {
 				margin-top: 50px;
 				background-color: var(--paper-grey-200);
@@ -51,26 +55,29 @@
 			.small {
 				height: 35px;
 			}
+
+			.first {
+				margin: 25px 0 0 0;
+			}
 		
 			
 			.blue-500 {
 				fill: var(--paper-blue-500);
 			}
-
 			.teal-500 {
 				fill: var(--paper-teal-500);
-			}
-			
+			}			
 			.orange-500 {
 				fill: var(--paper-orange-500);
-			}
-			
+			}			
 			.red-500 {
 				fill: var(--paper-red-500);
-			}
-			
+			}			
 			.grey-500{
 				fill: var(--paper-grey-500);
+			}
+			.purple-500{
+				fill: var(--paper-purple-500);
 			}
 
 			.android-color{
@@ -90,16 +97,6 @@
 				margin: 0 auto -50px;
    				min-height: 100%;
 			}
-			
-			#menu-login {
-				margin: 25px 0 0 0;
-			}
-			#menu-logout {
-				margin: 25px 0 0 0;
-			}
-			#menu-login:hover {
-				background-color: var(--paper-grey-100);
-			}
 
 			#footer{
 				margin-top: 75px;
@@ -117,7 +114,7 @@
 				
 				<?php
 					if(!isset($_SESSION["login"])){ ?>
-					<paper-icon-item onClick="href('login')" class="mainselect link" id="menu-login">
+					<paper-icon-item onClick="href('login')" class="mainselect link first">
 						<iron-icon icon="icons:account-box" class="blue-500" item-icon></iron-icon>
 						Login
 					</paper-icon-item>
@@ -126,13 +123,8 @@
 						About us
 					</paper-icon-item>
 				<?php } else { ?>
-					<paper-submenu>
-						<paper-icon-item class="menu-trigger mainselect copy" id="menu-logout"><iron-icon icon="icons:settings" class="grey-500" item-icon></iron-icon>Settings</paper-icon-item>
-						<paper-menu class="menu-content">
-							<paper-item onClick="href('account/settings/teamspeak');" class="submenu link">Teamspeak</paper-item>
-							<paper-item onClick="logout();" class="submenu link">Logout</paper-item>
-						</paper-menu>
-					</paper-submenu>
+					<paper-icon-item onClick="href('settings');" class="first mainselect link"><iron-icon class="teal-500" icon="icons:settings" item-icon></iron-icon>Settings</paper-icon-item>				
+					<paper-icon-item onClick="logout();" class="mainselect link"><iron-icon class="blue-500" icon="icons:input" item-icon></iron-icon>Logout</paper-icon-item>				
 				<?php } ?>
 				
 				<!--***********************-->
@@ -172,7 +164,7 @@
 
 				<?php } ?>
 
-				<paper-icon-item onClick="href('projects');" class="menu-trigger border mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>				
+				<paper-icon-item onClick="href('projects');" class="menu-trigger <?php if(!isset($_SESSION["login"])){echo "border";} ?> mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>				
 					
 				<paper-item class="menu-header-item" disabled>
 					<paper-item-body >

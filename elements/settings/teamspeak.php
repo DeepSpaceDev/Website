@@ -2,9 +2,7 @@
 <dom-module id="setting-teamspeak">
 
 	<template>
-		<?php
-			if(isset($_SESSION["login"])){
-		?>
+		<?php session_start();if(!isset($_SESSION["login"])){echo "<no-login></no-login>";}else{ ?>
 		
 		<style>
 			img {
@@ -141,16 +139,13 @@
 
 	</script>
 
-	<?php } else { ?>
-		<section><no-login></no-login></section>
-		</template>		
 	<?php } ?>
 
 	<script>
 	Polymer({
 		is: 'setting-teamspeak'<?php if($_SESSION["tsuid"] != ""){echo ",
 		
-		ready: function(){
+		attached: function(){
 			scdo('load');
 		}
 		";}?>

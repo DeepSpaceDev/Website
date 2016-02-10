@@ -61,6 +61,8 @@
 
     	<paper-toast id='toast'></paper-toast>
 
+    	<feedback-dialog></feedback-dialog>
+
     	<service-worker></service-worker>
     	<platinum-https-redirect></platinum-https-redirect>
 

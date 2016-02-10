@@ -2,8 +2,6 @@ function site(){
 	var params = getUrl();	
 	var returner = "";
 	returner += "<home-home stitle='" + title(params) + "'>" + content(params).replace('>', ' title=" ">') + "</home-home>";	
-	//returner += "<service-worker></service-worker>";		
-	returner += "<feedback-dialog></feedback-dialog>";					
 	
 	return returner;
 }
@@ -13,11 +11,6 @@ function content(params){
 	switch(params[0]){
 		case "": site = "<home-projects></home-projects>"; break;
 		case "about-us": site = "<home-profile></home-profile>"; break;
-		case "account":
-			switch(params[2]){
-				case "teamspeak": site = "<setting-teamspeak></setting-teamspeak>"; break;
-				default: site = "<not-found></not-found>";
-			} break;
 		case "android":
 			switch(params[1]){
 				case "zoo-app": site = "<zoo-app></zoo-app>"; break;
@@ -49,6 +42,7 @@ function content(params){
 				selmet = "meth='" + params[1] + "'";
 			}
 			site = "<login-register " + selmet + "></login-register>"; break;
+		case "settings": site = "<home-settings></home-settings>"; break;
 		case "ts": site = "<site-teamspeak></site-teamspeak>"; break;
 		case "video": 
 			if(params[1] == "ZW3aV7U-aik"){

@@ -71,7 +71,7 @@ function finishLoading(loader){
 		setCookie('returningVisitor', 'true', 1000);
 	}
 
-	i('Loaded');
+	console.info('Loaded');
 
 	var styles = ['background: #3f51b5',
     'color: white',
