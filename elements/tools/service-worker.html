@@ -6,6 +6,7 @@
 		
 		<platinum-sw-register href="../../sw-import.js" auto-register id="service-worker">
 			<platinum-sw-offline-analytics></platinum-sw-offline-analytics>
+			<platinum-sw-fetch handler="fastest" path="/(.*)"></platinum-sw-fetch>
 			<platinum-sw-cache></platinum-sw-cache>
 		</platinum-sw-register>
 
