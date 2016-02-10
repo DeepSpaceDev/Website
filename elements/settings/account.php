@@ -69,8 +69,8 @@
 							toastmsg = toastmsg + ", "
 						}
 						switch(response['changed'][i]){
-							case "mail": toastmsg += "e-mail"; break;
-							case "username": toastmsg += "username"; mailchange = true; break;
+							case "mail": toastmsg += "e-mail"; mailchange = true; break;
+							case "username": toastmsg += "username"; break;
 						}
 					}
 					toastmsg += " has been changed."

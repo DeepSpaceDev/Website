@@ -1,0 +1,46 @@
+<dom-module id="site-gaming">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-tab{
+				--paper-tab-ink: var(--paper-indigo-300);
+				--paper-tab: {
+					background-color: var(--paper-amber-300);
+				}
+			}
+			paper-tabs{
+				--paper-tabs-selection-bar-color: var(--paper-indigo-300);
+			}
+		</style>
+
+
+		<paper-tabs class=".tabs" selected="0">
+			<paper-tab id="tab-game" on-click="tabclick">Game Rankings</paper-tab>
+			<paper-tab id="tab-ts" on-click="tabclick">Teamspeak</paper-tab>
+		</paper-tabs>
+
+		<paper-material class="content">
+		<h2>This site is under construction</h2>
+			<div id="gaming-content">
+				<gaming-ranks></gaming-ranks><!-- Default -->
+			</div>
+		</paper-material>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'site-gaming',
+
+			tabclick: function(e){
+				var elem = "";
+				switch($(e.target).parent().attr('id').split('-')[1]){
+					case "game": elem = "<gaming-ranks></gaming-ranks>"; break;
+					case "ts": elem = "<site-teamspeak></site-teamspeak>"; break;
+				}
+				$('#gaming-content').html(elem);
+			}
+		});
+	</script>
+</dom-module>

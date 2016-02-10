@@ -53,7 +53,7 @@
 
 		<section>
 			<paper-material class="content" id="regvia">
-					<h3>Register on Sese7.de via:</h3>
+					<h3>Register on DeepSpace.onl via:</h3>
 					<paper-radio-group id="regmethod" selected="{{meth}}">
 						<paper-radio-button id="reggoogle" name="g">Google</paper-radio-button>
 						<paper-radio-button id="regweb" name="w">Website</paper-radio-button>

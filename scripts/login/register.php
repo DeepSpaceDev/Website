@@ -52,6 +52,7 @@ if($returner == ""){
 	$pwmd5 = md5($pw);
 	mysqli_query($db, "INSERT INTO user_main (mail, userkey, pw) VALUES ('$mail', '$userkey', '$pwmd5')");
 	mysqli_query($db, "INSERT INTO user_permissions (userkey) VALUES ('$userkey')");
+	mysqli_query($db, "INSERT INTO user_data (userkey) VALUES ('$userkey')");
 	
 	//send mail
 	$empfaenger = $mail;

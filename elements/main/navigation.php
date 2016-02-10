@@ -79,6 +79,9 @@
 			.purple-500{
 				fill: var(--paper-purple-500);
 			}
+			.pink-500{
+				fill: var(--paper-pink-500);
+			}
 
 			.android-color{
 				fill: #A4C639;
@@ -126,6 +129,8 @@
 					<paper-icon-item onClick="href('settings');" class="first mainselect link"><iron-icon class="teal-500" icon="icons:settings" item-icon></iron-icon>Settings</paper-icon-item>				
 					<paper-icon-item onClick="logout();" class="mainselect link"><iron-icon class="blue-500" icon="icons:input" item-icon></iron-icon>Logout</paper-icon-item>				
 				<?php } ?>
+					<paper-icon-item onClick="href('gaming')" class="mainselect first link"><iron-icon class="pink-500" icon="hardware:videogame-asset" item-icon></iron-icon>Gaming Community</paper-icon-item>				
+				
 				
 				<!--***********************-->
 
@@ -164,7 +169,7 @@
 
 				<?php } ?>
 
-				<paper-icon-item onClick="href('projects');" class="menu-trigger <?php if(!isset($_SESSION["login"])){echo "border";} ?> mainselect copy"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>				
+				<paper-icon-item onClick="href('projects');" class="menu-trigger <?php if(!isset($_SESSION["login"])){echo "border";} ?> mainselect link"><iron-icon icon="icons:code" item-icon></iron-icon>All Projects</paper-icon-item>				
 					
 				<paper-item class="menu-header-item" disabled>
 					<paper-item-body >

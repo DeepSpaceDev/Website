@@ -1,5 +1,4 @@
 <?php
-	#error_reporting(e_error);
 	require("connect.php");
 	session_start();
 

@@ -18,6 +18,7 @@ function content(params){
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
 		case "btv": site = "<binarytree-visualisation></binarytree-visualisation>"; break;
+		case "gaming": site = "<site-gaming></site-gaming>"; break;
 		case "law": 
 			switch(params[1]){
 				case "disclaimer": site = "<law-disclaimer></law-disclaimer>"; break;
@@ -74,6 +75,7 @@ function title(params){
 				case "zoo-app": title = "Zoo App"; break;
 			} break;
 		case "btv": title = "Binary Tree Visualisation";
+		case "gaming": title = "Gaming Community";
 		case "law": 
 			switch(params[1]){
 				case "disclaimer": title = "Disclaimer"; break;

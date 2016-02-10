@@ -1,0 +1,23 @@
+<dom-module id="gaming-ranks">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<div id="test"></div>
+	</template>
+	<script>
+		Polymer({
+			is: 'gaming-ranks',
+
+			attached: function(){
+				asyncAjax("../../../scripts/sites/gaming.php", "", this._handleResponse);
+			},
+
+			_handleResponse: function(e){
+				$('#test').html(e.responseText);
+			}
+		});
+	</script>
+</dom-module>
