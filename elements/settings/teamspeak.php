@@ -151,7 +151,7 @@
 		is: 'setting-teamspeak'<?php if($_SESSION["tsuid"] != ""){echo ",
 		
 		attached: function(){
-			scdo('load');
+			setTimeout(function(){scdo('load');}, 500);
 		}
 		";}?>
 	});
