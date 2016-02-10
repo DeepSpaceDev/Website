@@ -17,13 +17,14 @@
 			}
 		</style>
 
-		<paper-tabs class=".tabs" selected="1">
+		<paper-tabs class=".tabs" selected="0">
 			<paper-tab id="tab-account" on-click="tabclick">Account</paper-tab>
+			<paper-tab id="tab-games" on-click="tabclick">Games</paper-tab>
 			<paper-tab id="tab-ts" on-click="tabclick">Teamspeak</paper-tab>
 		</paper-tabs>
 
 		<div id="settings-content">
-				<setting-teamspeak></setting-teamspeak> <!-- Default -->
+			<setting-account></setting-account><!-- Default -->
 		</div>
 
 		<?php } ?>
@@ -32,10 +33,15 @@
 		Polymer({
 			is: 'home-settings',
 
+			properties: {
+
+			},
+
 			tabclick: function(e){
 				var elem = "";
 				switch($(e.target).parent().attr('id').split('-')[1]){
-					case "account": elem = "<not-found></not-found>"; break;
+					case "account": elem = "<setting-account></setting-account>"; break;
+					case "games": elem = "<not-found></not-found>"; break;
 					case "ts": elem = "<setting-teamspeak></setting-teamspeak>"; break;
 				}
 				$('#settings-content').html(elem);

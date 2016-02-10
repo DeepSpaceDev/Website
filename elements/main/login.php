@@ -41,7 +41,7 @@
 			<div id="loginpage">
 				<paper-material elevation="4">
 					<form action="" id="loginform" method="POST" onSubmit="login(this); return false;">
-					<paper-input id="user" name="user" type="text" onkeypress="keyevent(13, subloginform, event)" label="Username" required></paper-input>
+					<paper-input id="user" name="user" type="text" onkeypress="keyevent(13, subloginform, event)" label="Username or e-mail" required></paper-input>
 					<paper-input id="pw" name="pw" type="password" onkeypress="keyevent(13, subloginform, event)" label="Password" required></paper-input>
 
 					<div id="lbuttons">
