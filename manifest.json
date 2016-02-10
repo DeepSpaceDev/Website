@@ -6,7 +6,7 @@
   
   "icons": [{
       "src": "img/logos/DeepSpace144.png",
-      "sizes": "612x612",
+      "sizes": "144x144",
       "type": "image/png"
   }],
   "splash_screens": [{
