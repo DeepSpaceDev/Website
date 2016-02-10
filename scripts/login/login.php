@@ -7,7 +7,7 @@ $pw = $_POST["pw"];
 
 $query = mysqli_query($db, "SELECT * FROM user_main");
 while($row = mysqli_fetch_assoc($query)){
-	if(strtolower($row["mail"]) == $user || strtolower(row["username"]) == $user){
+	if(strtolower($row["mail"]) == $user || strtolower($row["username"]) == $user){
 		if($row["pw"] == md5($pw)){//3h login session, or browser close
 			session_start();
 			$_SESSION["login"] = true;
