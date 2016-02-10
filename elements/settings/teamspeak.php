@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <dom-module id="setting-teamspeak">
 
 	<template>
@@ -55,6 +54,18 @@
 			<paper-material class="content" id="tsuser">
 				<h2></h2>
 				
+				<h3>Games:</h3>
+				<div><img src="../../img/icons/teamspeak/lol.png" /><paper-toggle-button id="t-17" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/csgo.png" /><paper-toggle-button id="t-41" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/ark.png" /><paper-toggle-button id="t-55" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/osu.png" /><paper-toggle-button id="t-34" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/wow.png" /><paper-toggle-button id="t-61" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/gtav.png" /><paper-toggle-button id="t-26" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/diablo.png" /><paper-toggle-button id="t-35" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/minecraft.png" /><paper-toggle-button id="t-22" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<div><img src="../../img/icons/teamspeak/rocketleague.png" /><paper-toggle-button id="t-18" onClick="scdo('group-set', this);"></paper-toggle-button></div>
+				<br /><br /><br />
+
 				Kick:&nbsp;&nbsp;
 				<paper-dropdown-menu id="kicktype" label="Type">
 					<paper-menu id="kicktypemenu" selected="0" class="dropdown-content">
@@ -63,14 +74,8 @@
   					</paper-menu>
 				</paper-dropdown-menu>
 				<paper-button class="pbutton" onClick="scdo('kick');">OK</paper-button>
-				<br /><br />
-				Groups:<br /><br />
-				<div><img src="../../img/icons/teamspeak/lol.png" /><paper-toggle-button id="t-17" onClick="scdo('group-set', this);"></paper-toggle-button></div>
-				<div><img src="../../img/icons/teamspeak/osu.png" /><paper-toggle-button id="t-34" onClick="scdo('group-set', this);"></paper-toggle-button></div>
-				<div><img src="../../img/icons/teamspeak/minecraft.png" /><paper-toggle-button id="t-22" onClick="scdo('group-set', this);"></paper-toggle-button></div>
-				<div><img src="../../img/icons/teamspeak/rocketleague.png" /><paper-toggle-button id="t-18" onClick="scdo('group-set', this);"></paper-toggle-button></div>
-				<br />
 				&nbsp;
+
 			</paper-material>
 
 		</section>
