@@ -94,6 +94,14 @@
 				qs("#ts-membercounter").innerHTML = ' (' + response.length + ')';
 
 				sortByKey(response, 'name');
+
+				/*Debug incase of double call*/
+				$("#ts-owner").html("");
+				$("#ts-dev").html("");
+				$("#ts-admin").html("");
+				$("#ts-mod").html("");
+				$("#ts-member").html("");
+
 				for(var i = 0; i < response.length; i++){
 					var grids = [];
 					var gridsu = "";
