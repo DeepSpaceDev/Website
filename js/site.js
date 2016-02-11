@@ -74,8 +74,8 @@ function title(params){
 				case "test-app": title = "Test App"; break;
 				case "zoo-app": title = "Zoo App"; break;
 			} break;
-		case "btv": title = "Binary Tree Visualisation";
-		case "gaming": title = "Gaming Community";
+		case "btv": title = "Binary Tree Visualisation"; break;
+		case "gaming": title = "Gaming Community"; break;
 		case "law": 
 			switch(params[1]){
 				case "disclaimer": title = "Disclaimer"; break;
