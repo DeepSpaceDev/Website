@@ -33,15 +33,11 @@
 		Polymer({
 			is: 'home-settings',
 
-			properties: {
-
-			},
-
 			tabclick: function(e){
 				var elem = "";
 				switch($(e.target).parent().attr('id').split('-')[1]){
 					case "account": elem = "<setting-account></setting-account>"; break;
-					case "games": elem = "<not-found></not-found>"; break;
+					case "games": elem = "<setting-game></setting-game>"; break;
 					case "ts": elem = "<setting-teamspeak></setting-teamspeak>"; break;
 				}
 				$('#settings-content').html(elem);

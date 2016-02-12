@@ -18,6 +18,12 @@ while($row = mysqli_fetch_assoc($query)){
 			$_SESSION["mailverstat"] = $row["mailverstat"];
 
 			$_SESSION["tsuid"] = $row["tsuid"];
+
+			$dataquery = mysqli_query($db, "SELECT * FROM user_data WHERE userkey = '" . $row["userkey"] . "'");
+			while($datarow = mysqli_fetch_assoc($dataquery)){
+				$_SESSION["data"]["lol_username"] = $datarow["lol_username"];
+			}
+
 			echo "true";
 			exit();
 		}
