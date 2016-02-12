@@ -4,11 +4,41 @@
 			:host {
 				display: block;
 			}
+			iron-icon{
+				height: 18px;
+				width: 18px;
+			}
+			.n{
+				fill: var(--paper-grey-500);
+			}
+			.w{
+				fill: var(--paper-green-500);
+			}
+			.l{
+				fill: var(--paper-red-500);
+			}
 		</style>
 
 		<paper-material class="content">
-			<h2>This site is under construction</h2>
+			<h2>League of Legends ranking:</h2>
 			<div id="test"></div>
+
+			<!--http://david-mulder.github.io/paper-datatable/components/paper-datatable/docs/docs.html?getting-started-->
+			<paper-datatable id="lol_data" data="{{data}}">
+				<paper-datatable-column id="lol_data_place" header="Place" property="place" sortable>
+    			</paper-datatable-column>
+				<paper-datatable-column id="lol_data_username" header="Username" property="username" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="Tier Division (LP) (Series)" property="rank">
+    			</paper-datatable-column>
+    			<paper-datatable-column header="Total Wins/Loses" property="winlose">
+    			</paper-datatable-column>
+			</paper-datatable>
+			<br />
+			You also want to be in this statistic? Register and login, go to settings and games!
+			<br />
+			<br />
+			<span style="font-size: 12px; color: #bbb; line-height: 0.8;">Deepspace Development isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</span>
 		</paper-material>
 		
 	</template>
@@ -16,12 +46,124 @@
 		Polymer({
 			is: 'gaming-ranks',
 
+			properties:{
+				data: {
+					type: Array,
+					value: []
+				}
+			},
+
 			attached: function(){
-				asyncAjax("../../../scripts/sites/gaming.php", "", this._handleResponse);
+				this.data = [];
+				this.$.lol_data.progress = true;
+				asyncAjax("../../../scripts/sites/gaming.php", "", this._handleResponse.bind(this));
 			},
 
 			_handleResponse: function(e){
-				$('#test').html(e.responseText);
+				var response = JSON.parse(e.responseText);
+				var userdata = new Object();
+				var userids = [];
+				this.$.lol_data.reset();
+
+				//****************************** users ******************************
+				var userarray = $.map(response['lol']['users'], function(value, index) {
+				    	return [value];
+				}); //Skip the unknown single attr. var[0][unknown]['name']
+
+				for(var i = 0; i < userarray.length; i++){
+					var key = userarray[i]['id'];
+					userdata[key] = new Object();
+					userdata[key]['name'] = userarray[i]['name'];
+					userids.push(key);
+				}
+
+				//****************************** users ******************************
+
+				var ranksarray = $.map(response['lol']['ranks'], function(value, index) {
+				    	return [value];
+				}); //Skip the unknown single attr. var[0][unknown]['name']
+
+				for(var i = 0; i < userids.length; i++){
+					var user = userdata[userids[i]];
+					var lp = 0;
+					var division = "";
+					var tier = "";
+					var winlose = "";
+
+					if(response['lol']['ranks'][userids[i]] !== undefined){
+						tier = ucfirst(response['lol']['ranks'][userids[i]][0]['tier'].toLowerCase());
+						division = response['lol']['ranks'][userids[i]][0]['entries'][0]['division'];
+						lp = response['lol']['ranks'][userids[i]][0]['entries'][0]['leaguePoints'];
+						userdata[userids[i]]['rank'] = tier + " " + division + " (" + lp + "LP)";
+
+						if(lp == 100){
+							var series = response['lol']['ranks'][userids[i]][0]['entries'][0]['miniSeries']['progress'];
+							series = series.split("");
+							var seriesicon = "";
+							for(var x = 0; x < series.length; x++){
+								switch(series[x]){
+									case "N": seriesicon += "<iron-icon class='x-scope gaming-ranks n' icon='icons:remove'></iron-icon>"; break;
+									case "W": seriesicon += "<iron-icon class='x-scope gaming-ranks w' icon='icons:check'></iron-icon>"; break;
+									case "L": seriesicon += "<iron-icon class='x-scope gaming-ranks l' icon='icons:clear'></iron-icon>"; break;
+								}
+							}
+							userdata[userids[i]]['rank'] += " " + seriesicon;
+						}
+
+						//******WinLose*****
+						userdata[userids[i]]['winlose'] = response['lol']['ranks'][userids[i]][0]['entries'][0]['wins'] + "/" + response['lol']['ranks'][userids[i]][0]['entries'][0]['losses']; 
+
+					}
+					else{
+						userdata[userids[i]]['rank'] = "-";
+						userdata[userids[i]]['winlose'] = "-";
+					}
+					userdata[userids[i]]['points'] = this._calculateLolPoints(tier, division, lp);
+				}
+
+
+				//*******************************************************************
+				
+				var userdataarray = $.map(userdata, function(value, index) {
+				    return [value];
+				});
+
+				userdataarray.sort(function(a, b) {
+			        var x = a['points']; 
+			        var y = b['points'];
+			       	return ((x < y) ? 1 : 0);
+			    });
+
+				for(var i = 0; i < userdataarray.length; i++){
+					var user = userdataarray[i];
+					var data = {place: i + 1, username: user['name'], rank: user['rank'], winlose: user['winlose']};
+					this.push('data', data);
+				}
+
+				qs('#lol_data').sort(this.$.lol_data_place);
+				this.$.lol_data.progress = false;
+			},
+
+			_calculateLolPoints: function(t, d, l){
+				var p = 0;
+				switch(t){
+					case "Bronze": p = p + 10000; break;
+					case "Silver": p = p + 20000; break;
+					case "Gold": p = p + 30000; break;
+					case "Platinum": p = p + 40000; break;
+					case "Diamond": p = p + 50000; break;
+					case "Master": p = p + 60000; break;
+					case "Challenger": p = p + 70000; break;
+				}
+				switch(d){
+					case "I": p = p + 5000; break;
+					case "II": p = p + 4000; break;
+					case "III": p = p + 3000; break;
+					case "IV": p = p + 2000; break;
+					case "V": p = p + 1000; break;
+				}
+				p = p + l;
+				return p;
 			}
 		});
 	</script>

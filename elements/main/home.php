@@ -46,7 +46,7 @@
 					<paper-icon-button id="menuicon" icon="menu" paper-drawer-toggle></paper-icon-button>
 					<div id="toolbar-title">{{stitle}}</div>
 
-					<div style="float: right;"><paper-icon-button onClick='refresh()' id="refreshicon" icon="refresh"></paper-icon-button></div>
+					<paper-icon-button onClick='refresh()' id="refreshicon" icon="refresh"></paper-icon-button>
 				</paper-toolbar>
 				
 				<div id="content"><content id='sitecontent'></content></div>
