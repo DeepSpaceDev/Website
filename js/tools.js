@@ -22,6 +22,10 @@ function href(loc, type){
 		}
 	}
 }
+function ucfirst(str) { //uppercase
+    var firstLetter = str.slice(0,1);
+    return firstLetter.toUpperCase() + str.substring(1);
+}
 function beautifyUrl(loc){
 	if(loc.split("")[loc.split("").length - 1] != '/'){
 		return loc + "/";
