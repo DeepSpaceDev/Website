@@ -21,10 +21,9 @@
 
 		<paper-material class="content">
 			<h2>League of Legends ranking:</h2>
-			<div id="test"></div>
 
 			<!--http://david-mulder.github.io/paper-datatable/components/paper-datatable/docs/docs.html?getting-started-->
-			<paper-datatable id="lol_data" data="{{data}}">
+			<paper-datatable id="lol_data" data="{{loldata}}">
 				<paper-datatable-column id="lol_data_place" header="Place" property="place" sortable>
     			</paper-datatable-column>
 				<paper-datatable-column id="lol_data_username" header="Username" property="username" sortable>
@@ -34,6 +33,27 @@
     			<paper-datatable-column header="Total Wins/Loses" property="winlose">
     			</paper-datatable-column>
 			</paper-datatable>
+
+			<br />
+			<h2>osu! ranking:</h2>
+
+			<paper-datatable id="osu_data" data="{{osudata}}">
+				<paper-datatable-column id="osu_data_place" header="Place" property="place" sortable>
+    			</paper-datatable-column>
+				<paper-datatable-column id="osu_data_username" header="Username (#globalrank)" property="username" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="PP" property="pp" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="Playcount" property="playcount" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="Accuracy" property="accuracy" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="SS/S/A" property="ct" sortable>
+    			</paper-datatable-column>
+    			<paper-datatable-column header="Level" property="level" sortable>
+    			</paper-datatable-column>
+			</paper-datatable>
+
 			<br />
 			You also want to be in this statistic? Register and login, go to settings and games!
 			<br />
@@ -47,24 +67,62 @@
 			is: 'gaming-ranks',
 
 			properties:{
-				data: {
+				loldata: {
+					type: Array,
+					value: []
+				},
+
+				osudata: {
 					type: Array,
 					value: []
 				}
 			},
 
 			attached: function(){
-				this.data = [];
+				this.loldata = [];
 				this.$.lol_data.progress = true;
+				this.osudata = [];
+				this.$.osu_data.progress = true;
+
 				asyncAjax("../../../scripts/sites/gaming.php", "", this._handleResponse.bind(this));
 			},
 
 			_handleResponse: function(e){
 				var response = JSON.parse(e.responseText);
+				this.$.lol_data.reset();
+				this.$.osu_data.reset();
+
+				this._processLolData(response);
+				this._processOsuData(response);
+				
+				this.$.lol_data.progress = false;
+				this.$.osu_data.progress = false;
+			},
+
+			_processOsuData: function(response){
+				var users = [];
+
+				for(var i = 0; i < response['osu']['users'].length; i++){
+					users.push(response['osu']['users'][i][0]);
+				}
+
+				users.sort(function(a, b) {
+			        var x = a['pp_raw']; 
+			        var y = b['pp_raw'];
+			       	return ((x > y) ? 1 : 0);
+			    });
+
+				for(var i = 0; i < users.length; i++){
+					var user = users[i];
+					var data = {place: i + 1, username: user['username'] + " (#" + user['pp_rank'] + ")", pp: parseFloat(user['pp_raw']).toFixed(2), playcount: user['playcount'], accuracy: parseFloat(user['accuracy']).toFixed(2), ct: user['count_rank_ss'] + "/" + user['count_rank_s'] + "/" + user['count_rank_a'], level: parseInt(user['level'])};
+					this.push('osudata', data);
+				}
+
+			},
+
+			_processLolData: function(response){
 				var userdata = new Object();
 				var userids = [];
-				this.$.lol_data.reset();
-
 				//****************************** users ******************************
 				var userarray = $.map(response['lol']['users'], function(value, index) {
 				    	return [value];
@@ -137,11 +195,10 @@
 				for(var i = 0; i < userdataarray.length; i++){
 					var user = userdataarray[i];
 					var data = {place: i + 1, username: user['name'], rank: user['rank'], winlose: user['winlose']};
-					this.push('data', data);
+					this.push('loldata', data);
 				}
 
 				qs('#lol_data').sort(this.$.lol_data_place);
-				this.$.lol_data.progress = false;
 			},
 
 			_calculateLolPoints: function(t, d, l){

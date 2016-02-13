@@ -42,12 +42,12 @@
 	require_once("../pw.php");
 	require_once("../tools/ErrorReporter.php");
 
-	$i = 0;
+	/**************LOL***************/
+	$lol_username = array();
 
 	$lol = mysqli_query($db, "SELECT * FROM user_data WHERE lol_username != ''");
 	while($row = mysqli_fetch_assoc($lol)){
-		$lol_username[$i] = urlencode(utf8_encode($row["lol_username"]));
-		$i++;
+		array_push($lol_username, urlencode(utf8_encode($row["lol_username"])));
 	}
 
 	$lol_users = riot_request($lol_username, "https://euw.api.pvp.net/api/lol/euw/v1.4/summoner/by-name/", 40, $lol_api_key);
@@ -60,6 +60,24 @@
 
 	$lol_ranks = riot_request($lol_summoner, "https://euw.api.pvp.net/api/lol/euw/v2.5/league/by-summoner/", 10, $lol_api_key, "/entry");
 	
-	echo '{"lol": {"users":' . $lol_users . ',"ranks":' . $lol_ranks . '}}';
+	/**************OSU************/
+
+	$osu_username = array();
+
+	$lol = mysqli_query($db, "SELECT * FROM user_data WHERE osu_username != ''");
+	while($row = mysqli_fetch_assoc($lol)){
+		array_push($osu_username, urlencode(utf8_encode($row["osu_username"])));
+	}
+
+	$osu_users = "";
+	foreach ($osu_username as $user) {
+		if($osu_users != ""){
+			$osu_users .= ",";
+		}
+		$osu_users .= httpReq("https://osu.ppy.sh/api/get_user?k=" . $osu_api_key . "&u=" . $user);
+	}
+
+	/*********/
+	echo '{"lol": {"users":' . $lol_users . ',"ranks":' . $lol_ranks . '}, "osu": {"users":[' . $osu_users . ']}}';
 
 ?>
