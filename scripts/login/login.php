@@ -23,6 +23,7 @@ while($row = mysqli_fetch_assoc($query)){
 			while($datarow = mysqli_fetch_assoc($dataquery)){
 				$_SESSION["data"]["lol_username"] = $datarow["lol_username"];
 				$_SESSION["data"]["osu_username"] = $datarow["osu_username"];
+				$_SESSION["data"]["steamid"] = $datarow["steamid"];
 			}
 
 			echo "true";

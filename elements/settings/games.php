@@ -11,12 +11,17 @@
 				background-color: var(--paper-indigo-500);
 				color: #ffffff;
 			}
+			a{
+				text-decoration: none;
+			}
 		</style>
 
 		<paper-material class="content">
 
 			<paper-input id="lol_username" label="League of Legends Summonername (EUW)" value="<?php echo $_SESSION["data"]["lol_username"]; ?>"></paper-input>
 			<paper-input id="osu_username" label="osu! Username" value="<?php echo $_SESSION["data"]["osu_username"]; ?>"></paper-input>
+			<paper-input id="steamid" label="Steam ID" value="<?php echo $_SESSION["data"]["steamid"]; ?>"></paper-input>
+				<span style="font-size: 14px; color: #aaa">Look it up here: <a href="https://steamid.io/" target="_blank">SteamID</a>. Use steamID64! 
 
 
 			<div style="width: 100%; text-align: right;">
@@ -33,7 +38,7 @@
 			is: 'setting-game',
 
 			save: function(){
-				var returner = ajax("../../scripts/sql.php", "function=game&lol_username=" + $('#lol_username').val() + "&osu_username=" + $("#osu_username").val());
+				var returner = ajax("../../scripts/sql.php", "function=game&lol_username=" + $('#lol_username').val() + "&osu_username=" + $("#osu_username").val() + "&steamid=" + $("#steamid").val());
 				l(returner);
 				if(returner == "true"){
 					toast("Your username(s) has been saved");
