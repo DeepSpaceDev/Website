@@ -16,12 +16,12 @@
 		}
 	}
 	else if($function[0] == "game"){
-		if($function[1] == "lol"){
-			$lol_username = $_POST["lol_username"];
-			mysqli_query($db, "UPDATE user_data SET lol_username = '$lol_username' WHERE userkey = '$userkey'");
-			$_SESSION["data"]["lol_username"] = $lol_username;
-			exit("true");
-		}
+		$lol_username = $_POST["lol_username"];
+		$osu_username = $_POST["osu_username"];
+		mysqli_query($db, "UPDATE user_data SET lol_username = '$lol_username', osu_username = '$osu_username' WHERE userkey = '$userkey'");
+		$_SESSION["data"]["lol_username"] = $lol_username;
+		$_SESSION["data"]["osu_username"] = $osu_username;
+		exit("true");
 	}
 	echo "false";
 ?>

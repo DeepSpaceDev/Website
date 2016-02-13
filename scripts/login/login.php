@@ -22,6 +22,7 @@ while($row = mysqli_fetch_assoc($query)){
 			$dataquery = mysqli_query($db, "SELECT * FROM user_data WHERE userkey = '" . $row["userkey"] . "'");
 			while($datarow = mysqli_fetch_assoc($dataquery)){
 				$_SESSION["data"]["lol_username"] = $datarow["lol_username"];
+				$_SESSION["data"]["osu_username"] = $datarow["osu_username"];
 			}
 
 			echo "true";
