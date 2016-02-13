@@ -4,40 +4,40 @@
 			:host {
 				display: block;
 			}
-			iron-icon{
-				height: 18px;
-				width: 18px;
-			}
-			.n{
-				fill: var(--paper-grey-500);
-			}
-			.w{
-				fill: var(--paper-green-500);
-			}
-			.l{
-				fill: var(--paper-red-500);
-			}
 		</style>
 
 		<paper-material class="content">
-			<gaming-ranks-lol></gaming-ranks-lol>
+			<div style="width: 100%; text-align: center;">
+				<round-icon id="game_lol" class="link" data-arg="lol" url="../../../img/icons/lol.png" on-click="changegame"></round-icon>
+				<round-icon id="game_osu" class="link" data-arg="osu" url="../../../img/icons/osu.png" on-click="changegame"></round-icon>
+			</round-icon></div>
 
-			<br />
-			
-			<gaming-ranks-osu></gaming-ranks-osu>
+			<div id="gamerank_container">
+				<gaming-ranks-lol></gaming-ranks-lol>
+			</div>
 
 			<br />
 			<br />
 			You also want to be in this statistic? Register and login, go to settings and games!
-			<br />
-			<br />
-			<span style="font-size: 12px; color: #bbb; line-height: 0.8;">Deepspace Development isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</span>
+			
 		</paper-material>
 		
 	</template>
 	<script>
 		Polymer({
-			is: 'gaming-ranks'
+			is: 'gaming-ranks',
+
+			changegame: function(e){
+
+				selector = "";
+				
+				switch(e.target.getAttribute('data-arg')){
+					case "lol": selector = "gaming-ranks-lol"; break;
+					case "osu": selector = "gaming-ranks-osu"; break;
+				}
+
+				$('#gamerank_container').html('<' + selector + '></' + selector + '>');
+			}
 		});
 	</script>
 </dom-module>

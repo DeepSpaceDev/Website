@@ -83,6 +83,19 @@
 			:host {
 				display: block;
 			}
+			iron-icon{
+				height: 18px;
+				width: 18px;
+			}
+			.n{
+				fill: var(--paper-grey-500);
+			}
+			.w{
+				fill: var(--paper-green-500);
+			}
+			.l{
+				fill: var(--paper-red-500);
+			}
 		</style>
 
 		<h2>League of Legends ranking:</h2>
@@ -98,6 +111,10 @@
 			<paper-datatable-column header="Total Wins/Loses" property="winlose">
 			</paper-datatable-column>
 		</paper-datatable>
+
+		<br />
+		<br />
+		<span style="font-size: 12px; color: #bbb; line-height: 0.8;">Deepspace Development isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</span>
 		
 	</template>
 	<script>
@@ -167,9 +184,9 @@
 							var seriesicon = "";
 							for(var x = 0; x < series.length; x++){
 								switch(series[x]){
-									case "N": seriesicon += "<iron-icon class='x-scope gaming-ranks n' icon='icons:remove'></iron-icon>"; break;
-									case "W": seriesicon += "<iron-icon class='x-scope gaming-ranks w' icon='icons:check'></iron-icon>"; break;
-									case "L": seriesicon += "<iron-icon class='x-scope gaming-ranks l' icon='icons:clear'></iron-icon>"; break;
+									case "N": seriesicon += "<iron-icon class='x-scope gaming-ranks-lol n' icon='icons:remove'></iron-icon>"; break;
+									case "W": seriesicon += "<iron-icon class='x-scope gaming-ranks-lol w' icon='icons:check'></iron-icon>"; break;
+									case "L": seriesicon += "<iron-icon class='x-scope gaming-ranks-lol l' icon='icons:clear'></iron-icon>"; break;
 								}
 							}
 							userdata[userids[i]]['rank'] += " " + seriesicon;

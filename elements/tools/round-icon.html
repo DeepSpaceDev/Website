@@ -19,8 +19,8 @@
         margin: 11px;
       }
     </style>
-    <div class="outerCircle">
-      <img src="[[url]]">
+    <div data-arg$="{{dataArg}}" class="outerCircle">
+      <img data-arg$="{{dataArg}}" src="[[url]]">
     </div>
   </template>
   <script>
@@ -33,6 +33,10 @@
          * @attribute url
          */
         url: {
+          type: String,
+          value: ''
+        },
+        dataArg: {
           type: String,
           value: ''
         }
