@@ -1,0 +1,76 @@
+/**
+ * Analytics for the web page
+ * @group deepspace.onl
+ * @element admin-analytics
+ */
+<dom-module id="admin-analytics">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<google-signin client-id="821018983794-vesusugtlg9r51tb497jo3un09t7f8mb.apps.googleusercontent.com">
+		</google-signin>
+		<google-analytics-dashboard>
+			<google-analytics-view-selector></google-analytics-view-selector>
+			<google-analytics-date-selector></google-analytics-date-selector><br>
+			<google-analytics-chart
+				type="area"
+				metrics="ga:users"
+				dimensions="ga:date">
+				Site Traffic
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="column"
+				metrics="ga:avgPageLoadTime"
+				dimensions="ga:date">
+				Average Page Load Times
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="geo"
+				metrics="ga:users"
+				dimensions="ga:country">
+				Users by Country
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="pie"
+				metrics="ga:pageviews"
+				dimensions="ga:browsers"
+				filter="-ga:pageviews"
+				max-result="8">
+				Pageviews by Browser
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="column"
+				metrics="ga:bounceRate"
+				dimensions="ga:date">
+				Bounce Rate
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="area"
+				metrics="ga:avgSessionDuration"
+				dimensions="ga:month">
+				Avg. Session Duration/month
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="pie"
+				metrics="ga:pagerviews"
+				dimensions="ga:pagePathLevel1">
+				Subpage visits
+			</google-analytics-chart>
+			<google-analytics-chart
+				type="area"
+				metrics="ga:avgPageLoadTime"
+				dimensions="ga:date">
+				Avg. page load time
+			</google-analytics-chart>
+		</google-analytics-dashboard>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-analytics'
+		});
+
+	</script>
+</dom-module>

@@ -1,0 +1,40 @@
+/**
+ * General admin operations
+ * @group deepspace.onl
+ * @element admin-general
+ */
+<dom-module id="admin-general">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		
+		<paper-button raised on-tap="toogleDevCookie">[[_cookieHint]]</paper-button>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-general',
+
+			attached: function () {
+				if(getCookie('developer') == 'true') {
+					this._cookieHint = 'Disable dev cookie';
+				} else {
+					this._cookieHint = 'Enable dev cookie';
+				}
+			},
+
+			toogleDevCookie: function() {
+				if(getCookie('developer') == 'true') {
+					this._cookieHint = 'Enable dev cookie';
+					setCookie('developer', 'false', '1000');
+				} else {
+					this._cookieHint = 'Disable dev cookie';
+					setCookie('developer', 'true', '1000');
+				}
+			}
+		});
+
+	</script>
+</dom-module>
