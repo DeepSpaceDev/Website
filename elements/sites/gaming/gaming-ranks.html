@@ -55,6 +55,7 @@
 			</paper-datatable>
 
 			<br />
+			<br />
 			You also want to be in this statistic? Register and login, go to settings and games!
 			<br />
 			<br />
@@ -107,9 +108,9 @@
 				}
 
 				users.sort(function(a, b) {
-			        var x = a['pp_raw']; 
-			        var y = b['pp_raw'];
-			       	return ((x > y) ? 1 : 0);
+			        var x = parseFloat(a['pp_raw']); 
+			        var y = parseFloat(b['pp_raw']);
+			       	return ((x > y) ? 0 : 1);
 			    });
 
 				for(var i = 0; i < users.length; i++){
