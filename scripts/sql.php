@@ -16,8 +16,8 @@
 		}
 	}
 	else if($function[0] == "game"){
-		$lol_username = $_POST["lol_username"];
-		$osu_username = $_POST["osu_username"];
+		$lol_username = utf8_decode($_POST["lol_username"]);
+		$osu_username = utf8_decode($_POST["osu_username"]);
 		mysqli_query($db, "UPDATE user_data SET lol_username = '$lol_username', osu_username = '$osu_username' WHERE userkey = '$userkey'");
 		$_SESSION["data"]["lol_username"] = $lol_username;
 		$_SESSION["data"]["osu_username"] = $osu_username;
