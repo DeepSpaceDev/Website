@@ -10,6 +10,7 @@ function content(params){
 	/*Seite*/
 	switch(params[0]){
 		case "": site = "<home-projects></home-projects>"; break;
+		case "admin": site = "<admin-interface></admin-interface>"; break;
 		case "about-us": site = "<home-profile></home-profile>"; break;
 		case "android":
 			switch(params[1]){
