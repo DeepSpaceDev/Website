@@ -45,6 +45,8 @@
 	$lol_users = '""';
 	$lol_ranks = '""';
 	$osu_users = '{}';
+	$csgo_users = '{}';
+	$csgo_userstats = "";
 
 	if($_POST["type"] == "lol"){
 		/**************LOL***************/
@@ -70,8 +72,8 @@
 
 		$osu_username = array();
 
-		$lol = mysqli_query($db, "SELECT * FROM user_data WHERE osu_username != ''");
-		while($row = mysqli_fetch_assoc($lol)){
+		$osu = mysqli_query($db, "SELECT * FROM user_data WHERE osu_username != ''");
+		while($row = mysqli_fetch_assoc($osu)){
 			array_push($osu_username, urlencode(utf8_encode($row["osu_username"])));
 		}
 
@@ -83,8 +85,42 @@
 			$osu_users .= httpReq("https://osu.ppy.sh/api/get_user?k=" . $osu_api_key . "&u=" . $user);
 		}
 	}
+	else if($_POST["type"] == "csgo"){
+		$csgo_username = array();
+
+		$csgo = mysqli_query($db, "SELECT * FROM user_data WHERE steamid != ''");
+		while($row = mysqli_fetch_assoc($csgo)){
+			array_push($csgo_username, $row["steamid"]);
+		}
+
+		$csgo_users = "";
+		$users = "";
+		foreach ($csgo_username as $user) {
+			//Userstats
+			if($csgo_userstats != ""){
+				$csgo_userstats .= ",";
+			}
+			$url = "http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=" . $steam_api_key . "&steamid=" . $user;
+			$response = httpReq($url);
+			if($response[0] != '<'){
+				$csgo_userstats .= $response;
+			}
+			else{
+				$csgo_userstats .= '{}'; // if user does not play game 730 (cs:go) and is in steamdb
+			}
+
+			if($users != ""){
+				$users .= ",";
+			}
+			$users .= $user;
+			
+		}
+		//Userinfo
+		$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?appid=730&key=" . $steam_api_key . "&steamids=" . $users;
+		$csgo_users = httpReq($url);
+	}
 
 	/*********/
-	echo '{"lol": {"users":' . $lol_users . ',"ranks":' . $lol_ranks . '}, "osu": {"users":[' . $osu_users . ']}}';
+	echo '{"lol": {"users":' . $lol_users . ',"ranks":' . $lol_ranks . '}, "osu": {"users":[' . $osu_users . ']}, "csgo": {"userstats":[' . $csgo_userstats . '], "users":' . $csgo_users . '}}';
 
 ?>

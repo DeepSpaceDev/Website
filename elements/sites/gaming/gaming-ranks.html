@@ -4,12 +4,17 @@
 			:host {
 				display: block;
 			}
+			.button{
+				margin-right: 2.5px;
+				margin-left: 2.5px;
+			}
 		</style>
 
 		<paper-material class="content">
 			<div style="width: 100%; text-align: center;">
-				<round-icon id="game_lol" class="link" data-arg="lol" url="../../../img/icons/lol.png" on-click="changegame"></round-icon>
-				<round-icon id="game_osu" class="link" data-arg="osu" url="../../../img/icons/osu.png" on-click="changegame"></round-icon>
+				<round-icon class="button link" data-arg="lol" url="../../../img/icons/lol.png" on-click="changegame"></round-icon>
+				<round-icon class="button link" data-arg="osu" url="../../../img/icons/osu.png" on-click="changegame"></round-icon>
+				<round-icon class="button link" data-arg="csgo" url="../../../img/icons/csgo.png" on-click="changegame"></round-icon>
 			</round-icon></div>
 
 			<div id="gamerank_container">
@@ -30,10 +35,11 @@
 			changegame: function(e){
 
 				selector = "";
-				
+
 				switch(e.target.getAttribute('data-arg')){
 					case "lol": selector = "gaming-ranks-lol"; break;
 					case "osu": selector = "gaming-ranks-osu"; break;
+					case "csgo": selector = "gaming-ranks-csgo"; break;
 				}
 
 				$('#gamerank_container').html('<' + selector + '></' + selector + '>');

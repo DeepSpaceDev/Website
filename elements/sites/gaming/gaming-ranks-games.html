@@ -1,3 +1,164 @@
+<dom-module id="gaming-ranks-csgo">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+
+		<h2>Counter Strike: Global Offensive ranking:</h2>
+
+		<paper-datatable id="csgo_data" data="{{csgodata}}">
+			<!--<paper-datatable-column type="Number" id="csgo_data_place" header="Place" property="place" sortable>
+			</paper-datatable-column>-->
+			<paper-datatable-column id="csgo_data_username" header="Username" property="username" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column id="csgo_data_wins" type="Number" header="Total wins" property="wins" sortable sort-direction="desc">
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Total kills" property="kills" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Headshots" property="headshots" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="KD" property="kd" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Riffles" property="kills_riffles" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Snipers" property="kills_snipers" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Shotguns" property="kills_shotguns" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills MPs" property="kills_mps" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Pistols" property="kills_pistols" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Grenades" property="kills_grenades" sortable>
+			</paper-datatable-column>
+			<paper-datatable-column type="Number" header="Kills Knife" property="kills_knife" sortable>
+			</paper-datatable-column>
+		</paper-datatable>
+
+		<br /><br />
+		<span style="color: #999; font-size: 14px">Riffles:  (AK47, M4A4, Negev & Co.)
+	</template>
+	<script>
+		Polymer({
+			is: 'gaming-ranks-csgo',
+
+			properties: {
+				csgodata: {
+					type: Array,
+					value: []
+				}
+			},
+
+			attached: function(){
+				this.csgodata = [];
+				this.$.csgo_data.progress = true;
+
+				asyncAjax("../../../../scripts/sites/gaming.php", "type=csgo", this._handleResponse.bind(this));
+			},
+
+			_handleResponse: function(e){
+				var response = JSON.parse(e.responseText);
+				this.$.csgo_data.reset();
+
+				this._processCsGoData(response);
+				
+				this.$.csgo_data.progress = false;
+			},
+
+			_processCsGoData: function(response){
+				var users = new Object();
+				var steamusers = [];
+
+				for(var i = 0; i < response['csgo']['users']['response']['players'].length; i++){
+					steamusers.push(response['csgo']['users']['response']['players'][i]['steamid']);
+					users[response['csgo']['users']['response']['players'][i]['steamid']] = new Object();
+					users[response['csgo']['users']['response']['players'][i]['steamid']]['name'] = response['csgo']['users']['response']['players'][i]['personaname'];
+				}
+
+				var userstats = $.map(response['csgo']['userstats'], function(value, index) {
+				    	return [value];
+				});
+
+				for(var i = 0; i < steamusers.length; i++){
+					for(var k = 0; k < userstats.length; k++){
+						if(userstats[k]['playerstats'] !== undefined){ //user has no csgo
+							if(steamusers[i] == userstats[k]['playerstats']['steamID']){
+								var stats = {};
+								for(var m = 0; m < userstats[k]['playerstats']['stats'].length; m++){
+									stats[userstats[k]['playerstats']['stats'][m]['name']] = userstats[k]['playerstats']['stats'][m]['value'];
+								}
+								users[steamusers[i]]['stats'] = stats;
+							}
+						}
+					}
+					d(users[steamusers[i]]);
+				}
+
+				/*users.sort(function(a, b) {
+			        var x = a['stats']['total_wins']; 
+			        var y = b['stats']['total_wins'];
+			       	return ((x > y) ? 0 : 1);
+			    });*/
+
+				for(var i = 0; i < Object.size(users); i++){
+					if(users[steamusers[i]]['stats'] !== undefined){
+						var user = users[steamusers[i]];
+						var stats = user['stats'];
+
+						var data = {
+							//place: i,
+							username: user['name'], 
+							kills: stats['total_kills'],
+							headshots: stats['total_kills_headshot'],
+							wins: stats['total_wins'],
+							kd: parseFloat(stats['total_kills'] / stats['total_deaths']).toFixed(2),
+							kills_knife: (stats['total_kills_knife'] !== undefined) ? stats['total_kills_knife']: 0,
+							kills_pistols: (stats['total_kills_deagle'] !== undefined) ? stats['total_kills_deagle'] : 0
+							+ (stats['total_kills_fiveseven'] !== undefined) ? stats['total_kills_fiveseven'] : 0
+							+ (stats['total_kills_glock'] !== undefined) ? stats['total_kills_glock'] : 0
+							+ (stats['total_kills_hkp2000'] !== undefined) ? stats['total_kills_hkp2000'] : 0
+							+ (stats['total_kills_p250'] !== undefined) ? stats['total_kills_p250'] : 0
+							+ (stats['total_kills_tec9'] !== undefined) ? stats['total_kills_tec9'] : 0
+							+ (stats['total_kills_elite'] !== undefined) ? stats['total_kills_elite'] : 0 //elite = dual baretta
+							+ (stats['total_kills_taser'] !== undefined) ? stats['total_kills_taser'] : 0, 
+							kills_mps: (stats['total_kills_mp7'] !== undefined) ? stats['total_kills_mp7'] : 0
+							+ (stats['total_kills_mp9'] !== undefined) ? stats['total_kills_mp9'] : 0
+							+ (stats['total_kills_bizon'] !== undefined) ? stats['total_kills_bizon'] : 0
+							+ (stats['total_kills_mac10'] !== undefined) ? stats['total_kills_mac10'] : 0
+							+ (stats['total_kills_ump45'] !== undefined) ? stats['total_kills_ump45'] : 0
+							+ (stats['total_kills_p90'] !== undefined) ? stats['total_kills_p90'] : 0,
+							kills_riffles:  (stats['total_kills_ak47'] !== undefined) ? stats['total_kills_ak47'] : 0
+							+ (stats['total_kills_sg556'] !== undefined) ? stats['total_kills_sg556'] : 0
+							+ (stats['total_kills_famas'] !== undefined) ? stats['total_kills_famas'] : 0
+							+ (stats['total_kills_m4a1'] !== undefined) ? stats['total_kills_m4a1'] : 0
+							+ (stats['total_kills_galilar'] !== undefined) ? stats['total_kills_galilar'] : 0
+							+ (stats['total_kills_aug'] !== undefined) ? stats['total_kills_aug'] : 0
+							+ (stats['total_kills_negev'] !== undefined) ? stats['total_kills_negev'] : 0
+							+ (stats['total_kills_m249'] !== undefined) ? stats['total_kills_m249'] : 0,
+							kills_snipers: (stats['total_kills_awp'] !== undefined) ? stats['total_kills_awp'] : 0
+							+ (stats['total_kills_scar20'] !== undefined) ? stats['total_kills_scar20'] : 0
+							+ (stats['total_kills_g3sg1'] !== undefined) ? stats['total_kills_g3sg1'] : 0
+							+ (stats['total_kills_ssg08'] !== undefined) ? stats['total_kills_ssg08'] : 0,
+							kills_shotguns: (stats['total_kills_nova'] !== undefined) ? stats['total_kills_nova'] : 0
+							+ (stats['total_kills_xm1014'] !== undefined) ? stats['total_kills_xm1014'] : 0
+							+ (stats['total_kills_sawedoff'] !== undefined) ? stats['total_kills_sawedoff'] : 0
+							+ (stats['total_kills_mag7'] !== undefined) ? stats['total_kills_mag7'] : 0,
+							kills_grenades: (stats['total_kills_hegrenade'] !== undefined) ? stats['total_kills_hegrenade'] : 0
+							+ (stats['total_kills_molotov'] !== undefined) ? stats['total_kills_molotov']: 0
+ 						}; 
+
+						this.push('csgodata', data);
+					}
+				}
+
+				qs('#csgo_data').sort(this.$.csgo_data_wins);
+			}
+		});
+	</script>
+</dom-module>
+
 <dom-module id="gaming-ranks-osu">
 	<template>
 		<style>
@@ -9,19 +170,19 @@
 		<h2>osu! ranking:</h2>
 
 		<paper-datatable id="osu_data" data="{{osudata}}">
-			<paper-datatable-column id="osu_data_place" header="Place" property="place" sortable>
+			<paper-datatable-column type="Number" id="osu_data_place" header="Place" property="place" sortable>
 			</paper-datatable-column>
 			<paper-datatable-column id="osu_data_username" header="Username (#globalrank)" property="username" sortable>
 			</paper-datatable-column>
-			<paper-datatable-column header="PP" property="pp" sortable>
+			<paper-datatable-column type="Number" header="PP" property="pp" sortable>
 			</paper-datatable-column>
-			<paper-datatable-column header="Playcount" property="playcount" sortable>
+			<paper-datatable-column type="Number" header="Playcount" property="playcount" sortable>
 			</paper-datatable-column>
-			<paper-datatable-column header="Accuracy" property="accuracy" sortable>
+			<paper-datatable-column type="Number" header="Accuracy" property="accuracy" sortable>
 			</paper-datatable-column>
-			<paper-datatable-column header="SS/S/A" property="ct" sortable>
+			<paper-datatable-column header="SS/S/A" property="ct">
 			</paper-datatable-column>
-			<paper-datatable-column header="Level" property="level" sortable>
+			<paper-datatable-column type="Number" header="Level" property="level" sortable>
 			</paper-datatable-column>
 		</paper-datatable>
 
@@ -68,7 +229,14 @@
 
 				for(var i = 0; i < users.length; i++){
 					var user = users[i];
-					var data = {place: i + 1, username: user['username'] + " (#" + user['pp_rank'] + ")", pp: parseFloat(user['pp_raw']).toFixed(2), playcount: user['playcount'], accuracy: parseFloat(user['accuracy']).toFixed(2), ct: user['count_rank_ss'] + "/" + user['count_rank_s'] + "/" + user['count_rank_a'], level: parseInt(user['level'])};
+					var data = {place: i + 1, 
+						username: user['username'] + " (#" + user['pp_rank'] + ")", 
+						pp: parseFloat(user['pp_raw']).toFixed(2), 
+						playcount: user['playcount'], 
+						accuracy: parseFloat(user['accuracy']).toFixed(2),
+						ct: user['count_rank_ss'] + "/" + user['count_rank_s'] + "/" + user['count_rank_a'], 
+						level: parseInt(user['level'])
+					};
 					this.push('osudata', data);
 				}
 
@@ -102,7 +270,7 @@
 
 		<!--http://david-mulder.github.io/paper-datatable/components/paper-datatable/docs/docs.html?getting-started-->
 		<paper-datatable id="lol_data" data="{{loldata}}">
-			<paper-datatable-column id="lol_data_place" header="Place" property="place" sortable>
+			<paper-datatable-column type="Number" id="lol_data_place" header="Place" property="place" sortable>
 			</paper-datatable-column>
 			<paper-datatable-column id="lol_data_username" header="Username" property="username" sortable>
 			</paper-datatable-column>
