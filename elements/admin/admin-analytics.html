@@ -112,7 +112,11 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'admin-analytics'
+			is: 'admin-analytics',
+			
+			attached: function() {
+				this.querySelector('google-analytics-view-selector').ids = "ga:104120914";
+			}
 		});
 
 	</script>
