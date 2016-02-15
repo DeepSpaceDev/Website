@@ -31,7 +31,6 @@ if(($browser == "MSIE" || $browser == "IEMobile") && $_GET["msie"] != true){
 		<title>DeepSpace</title>
 		
 		<link rel="manifest" href="manifest.json">
-		<link rel="import" href="elements/elements.html">
 		<link rel="shortcut icon" href="img/favicon.png">
 		<link type="text/css" rel="stylesheet" href="css/style.css">
 		<?php if(isset($_GET["p"])){echo "<script>var isdialog = true; var dialogcontent = '" . $_GET["p"] . "';</script>";}?>
