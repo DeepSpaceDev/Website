@@ -1,11 +1,11 @@
-var versionNumber = 1;
+var versionNumber = 2;
 var staticCache = 'deepspace-static-v';
 
 self.addEventListener('install', function(event) {
 	event.waitUntil(
 		caches.open(staticCache + versionNumber).then(function(cache) {
 			var imports = [
-			"/",
+			"./",
 			"bower_components/polymer/polymer.html", 
 			"bower_components/paper-button/paper-button.html", 
 			"bower_components/paper-checkbox/paper-checkbox.html", 
@@ -55,7 +55,43 @@ self.addEventListener('install', function(event) {
 			"elements/admin/admin-general.html", 
 			"elements/admin/admin-analytics.html",
 
-			"https://fonts.googleapis.com/css?family=Source+Code+Pro",
+			"elements/main/home.php", 
+			"elements/main/navigation.php", 
+			"elements/main/login.php", 
+			"elements/main/register.php", 
+
+			"elements/settings/account.php", 
+			"elements/settings/games.php", 
+			"elements/settings/main.php", 
+			"elements/settings/teamspeak.php", 
+
+			"elements/sites/android/zoo-app.php", 
+			"elements/sites/btv/binary-node.html", 
+			"elements/sites/btv/binary-tree.html", 
+			"elements/sites/btv/binarytree-visualisation.html", 
+			"elements/sites/gaming/gaming.html", 
+			"elements/sites/gaming/gaming-ranks.html", 
+			"elements/sites/gaming/gaming-ranks-games.html", 
+			"elements/sites/law/impress.html", 
+			"elements/sites/law/disclaimer.html", 
+			"elements/sites/law/privacy.html", 
+			"elements/sites/law/terms.html", 
+			"elements/sites/teamspeak/teamspeak.html", 
+			"elements/sites/teamspeak/teamspeak-user.html", 
+			"elements/sites/starwars-cards.html", 
+			"elements/sites/profile.html", 
+			"elements/sites/projects/projects.php", 
+			"elements/sites/projects/projects-project.html", 
+			"elements/sites/youtube-video.html", 
+
+			"elements/tools/embed-element.html", 
+			"elements/tools/feedback-dialog.html", 
+			"elements/tools/object-element.html", 
+			"elements/tools/nologin.php", 
+			"elements/tools/notfound.html", 
+			"elements/tools/round-icon.html", 
+			"elements/tools/service-worker.html", 
+			"elements/tools/toolbar-toggler.html", 
 
 			"js/lib/analytics.js",
 			"js/lib/html2canvas.js",
@@ -64,7 +100,11 @@ self.addEventListener('install', function(event) {
 			"js/functions.js",
 			"js/logging.js",
 			"js/site.js", 
-			"js/tools.js"
+			"js/tools.js",
+			"js/main.js",
+
+			new Request("https://fonts.googleapis.com/css?family=Source+Code+Pro"),
+			new Request("https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
 			];
 			return cache.addAll(imports);
 		})
