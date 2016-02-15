@@ -92,8 +92,10 @@ function getScripts(){
 	return [	
 	"js/lib/analytics.js",
 	"js/lib/html2canvas.js",
+	"js/lib/serviceworker-cache-polyfills.js",
 	"js/projects/btv.js",
 	"js/functions.js",
+	"js/logging.js",
 	"js/site.js", 
 	"js/tools.js"
 	];

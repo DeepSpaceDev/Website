@@ -63,7 +63,6 @@
 
     	<feedback-dialog></feedback-dialog>
 
-    	<service-worker></service-worker>
     	<platinum-https-redirect></platinum-https-redirect>
 
 	</template>
