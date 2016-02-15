@@ -114,7 +114,6 @@ function getScripts(){
 }
 function getImports(){
 	return [
-	"/",
 	"bower_components/polymer/polymer.html", 
 	"bower_components/paper-button/paper-button.html", 
 	"bower_components/paper-checkbox/paper-checkbox.html", 

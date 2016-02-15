@@ -5,6 +5,7 @@ self.addEventListener('install', function(event) {
 	event.waitUntil(
 		caches.open(staticCache + versionNumber).then(function(cache) {
 			var imports = [
+			"/",
 			"bower_components/polymer/polymer.html", 
 			"bower_components/paper-button/paper-button.html", 
 			"bower_components/paper-checkbox/paper-checkbox.html", 
