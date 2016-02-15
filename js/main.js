@@ -101,6 +101,7 @@ function finishLoading(){
 }
 function getScripts(){
 	return [	
+	"sw.js",
 	"js/lib/analytics.js",
 	"js/lib/html2canvas.js",
 	"js/lib/serviceworker-cache-polyfills.js",
@@ -113,6 +114,7 @@ function getScripts(){
 }
 function getImports(){
 	return [
+	"/",
 	"bower_components/polymer/polymer.html", 
 	"bower_components/paper-button/paper-button.html", 
 	"bower_components/paper-checkbox/paper-checkbox.html", 

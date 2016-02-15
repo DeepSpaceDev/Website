@@ -1,3 +1,3 @@
 RewriteEngine On
-RewriteCond %{REQUEST_URI} !(bower_components|css|elements|errors|img|js|media|scripts|sw-import.js) [NC]
+RewriteCond %{REQUEST_URI} !(bower_components|css|elements|errors|img|js|media|scripts|sw.js) [NC]
 RewriteRule ^(.*)/? index.php [NC,L]
