@@ -112,7 +112,7 @@ foreach ($thursday as $key => $value) {
 	}
 }
 foreach ($friday as $key => $value) { 
-	if($friday[$key] == NULL){
+	if($friday[$key] == NULL || $friday[$key] == "</tr><tr>"){
 		$friday[$key] = "";
 	}
 }
