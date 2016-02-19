@@ -20,7 +20,6 @@ mysqli_query($db, "INSERT INTO log_elternportal SET ip = '" . $_SERVER["REMOTE_A
 //*****
 
 if($token != $eltern_portal_token){
-	echo $_GET["token"];
 	exit('{"login":false,"errno":-1,"error":"Invalid access token"}');
 }
 
