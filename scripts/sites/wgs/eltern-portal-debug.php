@@ -91,28 +91,9 @@ for($i = 1; $i < 12; $i++){
 	$thursday[$i] = $timetable[$i + 3 + $round];
 	$friday[$i] = $timetable[$i + 4 + $round];
 }
-foreach ($monday as $key => $value) { 
-	if($monday[$key] == NULL){
-		$monday[$key] = "";
-	}
-}
-foreach ($tuesday as $key => $value) { 
-	if($tuesday[$key] == NULL){
-		$tuesday[$key] = "";
-	}
-}
-foreach ($wednesday as $key => $value) {
-	if($wednesday[$key] == NULL){
-		$wednesday[$key] = "";
-	}
-}
-foreach ($thursday as $key => $value) { 
-	if($thursday[$key] == NULL){
-		$thursday[$key] = "";
-	}
-}
-foreach ($friday as $key => $value) { 
-	if($friday[$key] == NULL){
+
+foreach ($friday as $key => $value) { //bei den freitagsstunden wird, wenn keine stunden mehr da sind das letzte td element rausgelassen
+	if($friday[$key] == "</tr><tr>" || $friday[$key] == NULL){
 		$friday[$key] = "";
 	}
 }
