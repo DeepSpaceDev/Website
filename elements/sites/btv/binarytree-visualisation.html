@@ -1,3 +1,51 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<link rel="import" href="../neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="../paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-textarea.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
+<link rel="import" href="binary-tree.html">
+<link rel="import" href="binary-node.html">
+<link rel="import" href="feedback-dialog.html">
+
+<link rel="stylesheet" type="text/css" href="main.css">
+
+<!--
+An element for visualising a binary tree and perform different operations on it.
+Example:
+    <binarytree-visualisation></binarytree-visualisation>
+@demo demo/index.html
+@hero hero.svg
+-->
+
 <dom-module id="binarytree-visualisation">
   <template>
     <style>
@@ -63,7 +111,7 @@
     <paper-dialog id="traverseDialog" modal>
       <h2>Please select some properties for traversing:</h2>
       <paper-dialog-scrollable>
-        <paper-input label="Tree" value="{{_treeToTrav}}" autofocus></paper-input>
+        <!-- <paper-input label="Tree" value="{{_treeToTrav}}" autofocus></paper-input> -->
         <paper-radio-group selected="{{_travMode}}">
           <paper-radio-button name="pre">Pre-Order</paper-radio-button>
           <paper-radio-button name="in">In-Order</paper-radio-button>
@@ -78,13 +126,13 @@
 
     <feedback-dialog id="feedbackDialog" repo="binarytree-visualisation"></feedback-dialog>
 
-    <!-- NARROW custom for DeepSpace -->
-    <paper-drawer-panel force-narrow>
+    <paper-drawer-panel force-narrow id="drawer">
       <paper-header-panel drawer>
         <paper-toolbar>
           <paper-icon-button 
             icon="arrow-back" 
             style="color: white;"
+            on-tap="closeDrawer"
             paper-drawer-toggle>
           </paper-icon-button>
         </paper-toolbar>
@@ -146,9 +194,9 @@
       </paper-header-panel>
       <paper-header-panel main>
         <paper-toolbar>
-          <paper-icon-button icon="view-list" paper-drawer-toggle>
+          <paper-icon-button icon="view-list" on-tap="openDrawer" paper-drawer-toggle>
           </paper-icon-button>
-          <paper-button on-tap="requestTraverse">Traverse</paper-button>
+          <!-- <paper-button on-tap="requestTraverse">Traverse</paper-button> -->
         </paper-toolbar>
         <section id="treeContainer">
           
@@ -159,7 +207,6 @@
     <paper-fab icon="add" on-tap="addTree"></paper-fab>
   </template>
 
-<!--main.js -> btv.js, loaded via main script, custom for DeepSpace-->
   <script>
     Polymer({
       is: 'binarytree-visualisation',
@@ -171,19 +218,20 @@
       },
       listeners: {
         'iron-overlay-closed': '_onIronOverlayClosed',
-        'deleteTree': '_deleteTree'
+        'deleteTree': '_deleteTree',
+        'traverseSubtree': '_traverseSubtree'
       },
       /**
        * Opens a dialog for selecting some options for traversing a tree.
        */
       requestTraverse: function() {
-        var treeContainer = this.$.travTrees;
-        var trees = this.querySelectorAll('binary-tree');
+        // var treeContainer = this.$.travTrees;
+        // var trees = this.querySelectorAll('binary-tree');
         // Check if there are trees
-        if(trees.length === 0) {
+        /*if(trees.length === 0) {
           this.$.noTree.show();
           return;
-        }
+        }*/
         /*treeContainer.selected = trees[0].name;
         for(var i=0; i<trees.length; i++) {
           var tree = document.createElement('paper-radio-button');
@@ -192,6 +240,10 @@
           treeContainer.appendChild(tree);
         }*/
         this.$.traverseDialog.open();
+      },
+      _traverseSubtree: function(e) {
+        this._traverseNode = e.detail.node;
+        this.requestTraverse();
       },
       /**
        * Traverses a tree with a specified mode
@@ -254,16 +306,16 @@
           if(e.detail.confirmed) {
             var trees = this.querySelectorAll('binary-tree');
             // Search for tree with specified value
-            for(var i=0; i<trees.length; i++) {
-              if(trees[i].name === this._treeToTrav) {
+            // for(var i=0; i<trees.length; i++) {
+              // if(trees[i].name === this._treeToTrav) {
                 // Traverse
-                this.traverse(trees[i].tree, this._travMode);
+                this.traverse(this._traverseNode, this._travMode);
                 // Reset dialog values
                 this._treeToTrav = '';
                 this._travMode = 'in';
                 return;
-              }
-            }
+              // }
+            // }
             // Reset dialog values
             this._treeToTrav = '';
             this._travMode = 'in';
@@ -322,6 +374,32 @@
         // Node
         result.push(node.value);
         return result;
+      },
+      openDrawer: function() {
+        this.$.drawer.forceNarrow = false;
+        this.notifyDrawerResize();
+      },
+      closeDrawer: function() {
+        this.$.drawer.forceNarrow = true;
+        window.setTimeout(function() {
+          this.$.drawer.closeDrawer();
+        }.bind(this), 0);
+        this.notifyDrawerResize();
+      },
+      notifyDrawerResize: function() {
+        this._request = true;
+        window.requestAnimationFrame(this._notifyResize.bind(this));
+        window.setTimeout(function() {
+          this._request = false;
+        }.bind(this), 300);
+      },
+      _notifyResize: function() {
+        var trees = this.querySelectorAll('binary-tree');
+        for(var i=0; i<trees.length; i++) {
+          trees[i].fire('drawerChanged');
+        }
+        if(this._request)
+          window.requestAnimationFrame(this._notifyResize.bind(this));
       },
       /**
        * Closes the travers result snackbar

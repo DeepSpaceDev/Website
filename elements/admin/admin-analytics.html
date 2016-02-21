@@ -96,6 +96,7 @@
 				<google-analytics-chart
 					type="pie"
 					metrics="ga:pageviews"
+					filter="filterMails"
 					dimensions="ga:pagePathLevel1">
 					Subpage visits
 				</google-analytics-chart>
@@ -116,6 +117,10 @@
 			
 			attached: function() {
 				this.querySelector('google-analytics-view-selector').ids = "ga:104120914";
+			},
+			
+			filterMails: function(url) {
+				return url.search('p=Mail') !== -1;
 			}
 		});
 
