@@ -18,9 +18,9 @@ if($username != "sese.tailor@gmail.com" && $username != "kugelmann.dennis@gmail.
 	mysqli_query($db, "INSERT INTO log_elternportal SET ip = '" . $_SERVER["REMOTE_ADDR"] . "', mail = '" . $username . "'");
 }
 //*****
-if($token != $eltern_portal_token){
-	exit('{"login":false,"errno":-1,"error":"Invalid access token"}');
-}
+//if($token != $eltern_portal_token){
+	//exit('{"login":false,"errno":-1,"error":"Invalid access token"}');
+//}
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //ungültiges zertifikat seiten portal
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //ungültiges zertifikat seiten portal
@@ -155,10 +155,10 @@ if(strpos($table[3], "Keine") === false){
 			$data2 .= ",";
 		}
 		$round = ($i * 4);
-		$hour = $vdata[$i + $round];
-		$teacher = $vdata[$i + $round + 1];
-		$class = $vdata[$i + $round + 2];
-		$room = $vdata[$i + $round + 3];
+		$hour = str_replace('&nbsp;', ' ', $vdata[$i + $round]);
+		$teacher = str_replace('&nbsp;', ' ', $vdata[$i + $round + 1]);
+		$class = str_replace('&nbsp;', ' ', $vdata[$i + $round + 2]);
+		$room = str_replace('&nbsp;', ' ', $vdata[$i + $round + 3]);
 		$data2 .= '{"lesson":' . $hour . ',"subject":"' . $class . '","room":"' . $room . '","teacher":"' . $teacher . '"}';
 	}
 }
