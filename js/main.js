@@ -136,6 +136,7 @@ function getImports(){
 	"bower_components/paper-progress/paper-progress.html", 
 	"bower_components/paper-radio-button/paper-radio-button.html", 
 	"bower_components/paper-radio-group/paper-radio-group.html", 
+	"bower_components/paper-ripple/paper-ripple.html", 
 	"bower_components/paper-tabs/paper-tabs.html", 
 	"bower_components/paper-toast/paper-toast.html", 
 	"bower_components/paper-toggle-button/paper-toggle-button.html", 

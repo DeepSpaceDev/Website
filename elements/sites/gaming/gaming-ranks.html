@@ -34,12 +34,22 @@
 
 			changegame: function(e){
 
+				var selectors = this.querySelectorAll('round-icon');
+				for (var i = 0; i < selectors.length; i++) {
+					selectors[i].active = false;
+				};
+
 				selector = "";
 
 				switch(e.target.getAttribute('data-arg')){
-					case "lol": selector = "gaming-ranks-lol"; break;
+					case "lol": selector = "gaming-ranks-lol";break;
 					case "osu": selector = "gaming-ranks-osu"; break;
 					case "csgo": selector = "gaming-ranks-csgo"; break;
+				}
+				if(e.target.parentNode.id === 'outerCircle') {
+					e.target.parentNode.parentNode.active = true;
+				} else if(e.target.id === 'outerCircle') {
+					e.target.parentNode.active = true;
 				}
 
 				$('#gamerank_container').html('<' + selector + '></' + selector + '>');
