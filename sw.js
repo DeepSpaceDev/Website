@@ -1,4 +1,4 @@
-var versionNumber = 2;
+var versionNumber = 3;
 var staticCache = 'deepspace-static-v';
 
 self.addEventListener('install', function(event) {
@@ -50,48 +50,6 @@ self.addEventListener('install', function(event) {
 			"bower_components/google-signin/google-signin.html", 
 			"bower_components/google-youtube/google-youtube.html", 
 			"bower_components/neon-animation/neon-animations.html", 
-
-			"elements/admin/admin-interface.html", 
-			"elements/admin/admin-general.html", 
-			"elements/admin/admin-analytics.html",
-
-			"elements/main/home.php", 
-			"elements/main/navigation.php", 
-			"elements/main/login.php", 
-			"elements/main/register.php", 
-
-			"elements/settings/account.php", 
-			"elements/settings/games.php", 
-			"elements/settings/main.php", 
-			"elements/settings/teamspeak.php", 
-
-			"elements/sites/android/zoo-app.php", 
-			"elements/sites/btv/binary-node.html", 
-			"elements/sites/btv/binary-tree.html", 
-			"elements/sites/btv/binarytree-visualisation.html", 
-			"elements/sites/gaming/gaming.html", 
-			"elements/sites/gaming/gaming-ranks.html", 
-			"elements/sites/gaming/gaming-ranks-games.html", 
-			"elements/sites/law/impress.html", 
-			"elements/sites/law/disclaimer.html", 
-			"elements/sites/law/privacy.html", 
-			"elements/sites/law/terms.html", 
-			"elements/sites/teamspeak/teamspeak.html", 
-			"elements/sites/teamspeak/teamspeak-user.html", 
-			"elements/sites/starwars-cards.html", 
-			"elements/sites/profile.html", 
-			"elements/sites/projects/projects.php", 
-			"elements/sites/projects/projects-project.html", 
-			"elements/sites/youtube-video.html", 
-
-			"elements/tools/embed-element.html", 
-			"elements/tools/feedback-dialog.html", 
-			"elements/tools/object-element.html", 
-			"elements/tools/nologin.php", 
-			"elements/tools/notfound.html", 
-			"elements/tools/round-icon.html", 
-			"elements/tools/service-worker.html", 
-			"elements/tools/toolbar-toggler.html", 
 
 			"js/lib/analytics.js",
 			"js/lib/html2canvas.js",
