@@ -14,14 +14,20 @@ $password = urldecode(isset($_POST["password"]) ? $_POST["password"] : $_GET["pa
 $version = urldecode(isset($_POST["version"]) ? $_POST["version"] : '<11');
 $token = isset($_POST["token"]) ? $_POST["token"] : $_GET["token"];
 $agent= 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+//DEBUG FOR VERSION CHANGE!!!
+if(!filter_var($username, FILTER_VALIDATE_EMAIL)){
+	$newusername = $password;
+	$newpassword = $username;
+	$password = $newpassword;
+	$username = $newusername;
+}
 //accesslog!
 if($username != "sese.tailor@gmail.com" && $username != "kugelmann.dennis@gmail.com"){
-	$username = filter_var($username, FILTER_VALIDATE_EMAIL) ? $username : 'Password, hidden';
 	mysqli_query($db, "INSERT INTO log_elternportal SET ip = '" . $_SERVER["REMOTE_ADDR"] . "', mail = '" . $username . "', version = '" . $version . "'");
 }
 //*****
 if($token != $eltern_portal_token){
-	exit('{"login":false,"errno":-1,"error":"Invalid access token"}');
+	#exit('{"login":false,"errno":-1,"error":"Invalid access token"}');
 }
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //ungültiges zertifikat seiten portal
