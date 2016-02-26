@@ -1,0 +1,31 @@
+/**
+ * Analytics for the web page
+ * @group deepspace.onl
+ * @element admin-analytics
+ */
+<dom-module id="admin-analytics">
+	<template>
+		<style>
+			:host {
+				display: flex;
+				background: #eee;
+			}
+		</style>
+		<iron-ajax
+		 	auto
+		 	url="https://api.github.com/orgs/DeepspaceDEV/issues"
+		 	handle-as="json"
+		 	on-response="handleResponse">
+		 </iron-ajax>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-analytics',
+			
+			handleResponse: function() {
+				
+			}
+		});
+
+	</script>
+</dom-module>

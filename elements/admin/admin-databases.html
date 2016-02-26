@@ -1,0 +1,42 @@
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="admin-databases">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<iron-ajax
+		 	auto
+		 	url="https://deepspace.onl/scripts/sites/admin/databases.php"
+		 	handle-as="json"
+		 	on-response="handleResponse"></iron-ajax>
+		<paper-material>
+			
+		</paper-material>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-databases',
+
+			handleResponse: function() {
+
+			}
+		});
+	</script>
+</dom-module>
