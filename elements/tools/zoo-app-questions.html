@@ -1,0 +1,405 @@
+<link rel="import" href="_localimports.html">
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+<zoo-app-questions></zoo-app-questions>
+<dom-module id="zoo-app-questions">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-material {
+				padding: 8px;
+				float: right;
+				width: calc(100% - 200px - 40px);
+			}
+			paper-slider {
+				width: calc(100% - 248px);
+				display: inline-block;
+			}
+			#radioContainer > paper-radio-button {
+				display: block;
+			}
+		</style>
+		<paper-material elevation="1" style="width: 200px; float: left;">
+			<paper-listbox selected="{{type}}" attr-for-selected="type">
+				<paper-item type="slider">Slider</paper-item>
+				<paper-item type="radio">Einfachauswahl</paper-item>
+				<paper-item type="checkbox">Mehrfachauswahl</paper-item>
+				<paper-item type="trueFalse">Wahr oder Falsch?</paper-item>
+				<paper-item type="sort">Sortieren</paper-item>
+				<paper-item type="text">Textfrage</paper-item>
+				<paper-item type="creative">Kreative Aufgabe</paper-item>
+			</paper-listbox>
+		</paper-material>
+		<iron-pages selected="[[type]]" attr-for-selected="type">
+			<paper-material type="slider">
+				<h2>Slider</h2>
+				<paper-input label="Frage" value="{{sliderQuestion}}"></paper-input>
+				<paper-input type="Number" label="Minimal Wert" value="{{sliderMin}}" 
+							 style="width: 100px; display: inline-block">
+				</paper-input>
+				<paper-slider min="[[sliderMin]]" max="[[sliderMax]]" step="{{sliderStep}}" pin ></paper-slider>
+				<paper-input type="Number" label="Maximal Wert" value="{{sliderMax}}"
+							 style="margin-left: 40px; width: 100px; display: inline-block;">
+				</paper-input>
+				<paper-input type="Number" label="Schrittweise" value="{{sliderStep}}"></paper-input>
+				<paper-input type="Number" label="Antwort" value="{{sliderAnswer}}"></paper-input>
+				<paper-button raised on-tap="clearSlider">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitSlider">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="radio">
+				<h2>Einfachauswahl</h2>
+				<paper-input label="Frage" value="{{radioQuestion}}"></paper-input>
+				<!-- TODO -->
+				<div>Füge alle möglichen Antworten hinzu und wähle dann die richtige Antwort aus</div>
+				<iron-icon icon="check"></iron-icon>
+				<paper-input label="Richtige Antwort" value="{{radioAnswer}}" style="display: inline-block"></paper-input><br>
+				<div id="radioFalseContainer">
+					<iron-icon icon="clear"></iron-icon>
+					<paper-input label="Falsche Antwort" style="display: inline-block"></paper-input><br>
+				</div>
+				<paper-button raised on-tap="insertRadioAnswer">Falsche Antwort hinzufügen</paper-button><br>
+				<paper-button raised on-tap="clearRadio">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitRadio">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="checkbox">
+				<h2>Mehrfachauswahl</h2>
+				<!-- TODO -->
+				<paper-input label="Frage" value="{{checkboxQuestion}}"></paper-input>
+				<div>Füge so viele richtige, wie falsche Antworten hinzu</div>
+				<div id="checkboxContainer">
+					<iron-icon icon="check"></iron-icon>
+					<paper-input label="Richtige Antwort" style="display: inline-block"></paper-input><br>
+				</div>
+				<div id="checkboxFalseContainer">
+					<iron-icon icon="clear"></iron-icon>
+					<paper-input label="Falsche Antwort" style="display: inline-block"></paper-input><br>
+				</div>
+				<paper-button raised on-tap="insertCheckboxFalseAnswer">Falsche Antwort hinzufügen</paper-button>
+				<paper-button raised on-tap="insertCheckboxAnswer">Richtige Antwort hinzufügen</paper-button><br>
+				<paper-button raised on-tap="clearCheckbox">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitCheckbox">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="trueFalse">
+				<h2>Wahr oder Falsch?</h2>
+				<paper-input label="Frage" value="{{trueFalseQuestion}}"></paper-input>
+				<div>Ist die Antwort Wahr oder Falsch?</div>
+				<paper-radio-group selected="{{trueFalseAnswer}}">
+					<paper-radio-button name="true">Wahr</paper-radio-button>
+					<paper-radio-button name="false">Falsch</paper-radio-button>
+				</paper-radio-group><br>
+				<paper-button raised on-tap="clearTrueFalse">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitTrueFalse">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="sort">
+				<h2>Sortieren</h2>
+				<paper-input label="Frage" value="{{sortQuestion}}"></paper-input>
+				<div>Gib die richtige Reihenfolge an (von groß nach klein):</div>
+				<div id="sortContainer">
+					<paper-input label="Antwort"></paper-input>
+				</div>
+				<paper-button raised on-tap="insertSortAnswer">Neue Antwort hinzufügen</paper-button><br>
+				<paper-button raised on-tap="clearSort">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitSort">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="text">
+				<h2>Textfrage (Antwort maximale Länge 20)</h2>
+				<paper-input label="Frage" value="{{textQuestion}}"></paper-input>
+				<paper-input label="Antwort" maxlength="20" value="{{textAnswer}}"></paper-input>
+				<paper-button raised on-tap="clearText">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitText">Frage abgeben</paper-button>
+			</paper-material>
+
+			<paper-material type="creative">
+				<h2>Kreative Aufgabe</h2>
+				<div>Dieser Typ ist für kreative Vorschläge für interaktive Aufgaben, 
+					die den Nutzern der App gestellt werden können.</div>
+				<div>Beispiel: Macht eurer schönstes Photo.</div>
+				<div>Dieser Typ ist dafür gedacht eine schöne
+					Erinnerung an den Zoobesuch dem Nutzer zu lassen.</div>
+				<paper-textarea label="kreative Aufgabe" value="{{creativeTask}}"></paper-textarea>
+				<paper-button raised on-tap="clearCreative">Frage zurücksetzen</paper-button>
+				<paper-button raised on-tap="submitCreative">Frage abgeben</paper-button>
+			</paper-material>
+		</iron-pages>
+
+		<iron-ajax
+			id="questionPost"
+			method="POST"
+		 	url="https://deepspace.onl/scripts/sites/zoo-app/question-suggestion.php"
+		 	handle-as="json"
+		 	on-response="handleResponse">
+		</iron-ajax>
+	</template>
+	<script>
+		Polymer({
+			is: 'zoo-app-questions',
+
+			properties: {
+				type: {
+					type: String,
+					value: 'creative'
+				},
+				sliderMin: {
+					type: Number,
+					value: 0
+				},
+				sliderMax: {
+					type: Number,
+					value: 100
+				},
+				sliderStep: {
+					type: Number,
+					value: 1
+				},
+				sliderAnswer: {
+					type: Number,
+					value: 0
+				},
+				trueFalseAnswer: {
+					type: String,
+					value: 'true'
+				}
+			},
+
+			clearSlider: function() {
+				this.sliderQuestion = '';
+				this.sliderMin = 0;
+				this.sliderMax = 100;
+				this.sliderStep = 1;
+				this.sliderAnswer = 0;
+			},
+
+			submitSlider: function() {
+				var question = this.sliderQuestion;
+				var min = this.sliderMin;
+				var max = this.sliderMax;
+				var step = this.sliderStep;
+				var answer = this.sliderAnswer;
+
+				var body = {
+					type: 'slider',
+					question: question,
+					min: min,
+					max: max,
+					step: step,
+					answer: answer
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+
+				this.clearSlider();
+			},
+
+			clearRadio: function() {
+				this.$.radioFalseContainer.innerHTML = '';
+				this.radioQuestion = '';
+				this.radioAnswer = '';
+				this.insertRadioAnswer();
+			},
+
+			submitRadio: function() {
+				var question = this.radioQuestion;
+				var answer = this.radioAnswer;
+				var falseAnswerInputs = this.$.radioFalseContainer.querySelectorAll('paper-input');
+				var falseAnswers = [];
+				for (var i = 0; i < falseAnswerInputs.length; i++) {
+					falseAnswers.push(falseAnswerInputs[i].value);
+				};
+
+				var body = {
+					type: 'radio',
+					question: question,
+					answer: answer,
+					falseAnswers: falseAnswers
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+
+				this.clearRadio();
+			},
+
+			clearCheckbox: function() {
+				this.$.checkboxFalseContainer.innerHTML = '';
+				this.$.checkboxContainer.innerHTML = '';
+				this.checkboxQuestion = '';
+				this.insertCheckboxAnswer();
+				this.insertCheckboxFalseAnswer();
+			},
+
+			submitCheckbox: function() {
+				var question = this.checkboxQuestion;
+				var answerInputs = this.$.checkboxContainer.querySelectorAll('paper-input');
+				var answers = [];
+				for (var i = 0; i < answerInputs.length; i++) {
+					answers.push(answerInputs[i].value);
+				};
+				var falseAnswerInputs = this.$.checkboxFalseContainer.querySelectorAll('paper-input');
+				var falseAnswers = [];
+				for (var i = 0; i < falseAnswerInputs.length; i++) {
+					falseAnswers.push(falseAnswerInputs[i].value);
+				};
+
+				var body = {
+					type: 'checkbox',
+					question: question,
+					answers: answers,
+					falseAnswers: falseAnswers
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+				
+				this.clearCheckbox();
+			},
+
+			clearTrueFalse: function() {
+				this.trueFalseQuestion = '';
+				this.trueFalseAnswer = 'true';
+			},
+
+			submitTrueFalse: function() {
+				var question = this.trueFalseQuestion;
+				var answer = this.trueFalseAnswer;
+				console.log(question);
+				console.log(answer);
+
+				var body = {
+					type: 'trueFalse',
+					question: question,
+					answer: answer
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+				
+				this.clearTrueFalse();
+			},
+
+			clearSort: function() {
+				this.$.sortContainer.innerHTML = '';
+				this.sortQuestion = '';
+				this.insertSortAnswer();
+			},
+
+			submitSort: function() {
+				var question = this.sortQuestion;
+				var answerInputs = this.$.sortContainer.querySelectorAll('paper-input');
+				var answers = [];
+				for (var i = 0; i < answerInputs.length; i++) {
+					answers.push(answerInputs[i].value);
+				};
+
+				var body = {
+					type: 'sort',
+					question: question,
+					answers: answers
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+				
+				this.clearSort();
+			},
+
+			clearText: function() {
+				this.textQuestion = '';
+				this.textAnswer = '';
+			},
+
+			submitText: function() {
+				var question = this.textQuestion;
+				var answer = this.textAnswer;
+				
+				var body = {
+					type: 'text',
+					question: question,
+					answer: answer
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+				
+				this.clearText();
+			},
+
+			clearCreative: function() {
+				this.creativeTask = '';
+			},
+
+			submitCreative: function() {
+				var task = this.creativeTask;
+
+				var body = {
+					type: 'creative',
+					task: task
+				};
+				this.$.questionPost.body = body;
+				this.$.questionPost.generateRequest();
+				
+				this.clearCreative();
+			},
+
+			insertRadioAnswer: function() {
+				var container = this.$.radioFalseContainer;
+				var icon = document.createElement('iron-icon');
+				icon.icon = 'clear';
+				var input = document.createElement('paper-input');
+				input.label="Falsche Antwort";
+				input.style.display = 'inline-block';
+				var br = document.createElement('br');
+				container.appendChild(icon);
+				container.appendChild(input);
+				container.appendChild(br);
+			},
+
+			insertCheckboxFalseAnswer: function() {
+				var container = this.$.checkboxFalseContainer;
+				var icon = document.createElement('iron-icon');
+				icon.icon = 'clear';
+				var input = document.createElement('paper-input');
+				input.label="Falsche Antwort";
+				input.style.display = 'inline-block';
+				var br = document.createElement('br');
+				container.appendChild(icon);
+				container.appendChild(input);
+				container.appendChild(br);
+			},
+
+			insertCheckboxAnswer: function() {
+				var container = this.$.checkboxContainer;
+				var icon = document.createElement('iron-icon');
+				icon.icon = 'check';
+				var input = document.createElement('paper-input');
+				input.label="Richtige Antwort";
+				input.style.display = 'inline-block';
+				var br = document.createElement('br');
+				container.appendChild(icon);
+				container.appendChild(input);
+				container.appendChild(br);
+			},
+
+			insertSortAnswer: function() {
+				var container = this.$.sortContainer;
+				var input = document.createElement('paper-input');
+				input.label="Antwort";
+				container.appendChild(input);
+			}
+		});
+	</script>
+</dom-module>
