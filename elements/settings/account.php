@@ -41,7 +41,7 @@
 				<paper-toggle-button id="gcmToggle" checked="<?php 
 					# TODO check if GCM Token is available
 					echo "false" ?>
-				" on-iron-change="toggleGCM"></paper-toggle-button>
+				" on-iron-change="toggleGCM">Push Notifications</paper-toggle-button>
 			</div>
 
 			<div style="width: 100%; text-align: right;">
