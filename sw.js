@@ -1,4 +1,4 @@
-var versionNumber = 3;
+var versionNumber = 4;
 var staticCache = 'deepspace-static-v';
 
 self.addEventListener('install', function(event) {
@@ -57,12 +57,6 @@ self.addEventListener('install', function(event) {
 			"js/lib/analytics.js",
 			"js/lib/html2canvas.js",
 			"js/lib/serviceworker-cache-polyfills.js",
-			"js/projects/btv.js",
-			"js/functions.js",
-			"js/logging.js",
-			"js/site.js", 
-			"js/tools.js",
-			"js/main.js",
 
 			new Request("https://fonts.googleapis.com/css?family=Source+Code+Pro"),
 			new Request("https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")

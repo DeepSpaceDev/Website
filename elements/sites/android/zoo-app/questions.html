@@ -29,7 +29,7 @@
 			}
 		</style>
 
-		<paper-tabs selected="{{type}}" attr-for-selected="type"><!-- style="width; 100%;" scrollable>-->
+		<paper-tabs id="questiontabs" selected="{{type}}" attr-for-selected="type" style="width: 100%;" hide-scroll-buttons>
 			<paper-tab type="slider">Slider</paper-tab>
 			<paper-tab type="radio">Einfachauswahl</paper-tab>
 			<paper-tab type="checkbox">Mehrfachauswahl</paper-tab>
@@ -55,16 +55,16 @@
 				<h2>Slider</h2>
 				<paper-input label="Frage" value="{{sliderQuestion}}"></paper-input>
 				<paper-input type="Number" label="Minimal Wert" value="{{sliderMin}}" 
-							 style="width: 22%; padding: 0 1.8% 0 0; display: inline-block">
+							 style="width: 22%; padding: 0 1.7% 0 0; display: inline-block">
 				</paper-input>
 				<paper-input type="Number" label="Maximal Wert" value="{{sliderMax}}"
-							 style="width: 22%; padding: 0 1.8% 0 1.8%; display: inline-block;">
+							 style="width: 22%; padding: 0 1.7% 0 1.7%; display: inline-block;">
 				</paper-input>
 				<paper-input type="Number" label="Schrittweise" value="{{sliderStep}}"
-				 			style="width: 22%; padding: 0 1.8% 0 1.8%; display: inline-block;">
+				 			style="width: 22%; padding: 0 1.7% 0 1.7%; display: inline-block;">
 				</paper-input>
 				<paper-input type="Number" label="Antwort" value="{{sliderAnswer}}"
-							style="width: 22%; padding: 0 0 0 1.8%; display: inline-block;">
+							style="width: 22%; padding: 0 0 0 1.7%; display: inline-block;">
 				</paper-input>
 
 				<paper-slider min="[[sliderMin]]" max="[[sliderMax]]" step="{{sliderStep}}" pin style="width: 100%; margin: 15px;"></paper-slider>
@@ -157,7 +157,8 @@
 			id="questionPost"
 			method="POST"
 		 	url="https://deepspace.onl/scripts/sites/zoo-app/question-suggestion.php"
-		 	handle-as="json"
+		 	handle-as="text"
+		 	content-type="application/x-www-form-urlencoded"
 		 	on-response="handleResponse">
 		</iron-ajax>
 	</template>
@@ -189,6 +190,12 @@
 				trueFalseAnswer: {
 					type: String,
 					value: 'true'
+				}
+			},
+
+			attached: function(){
+				if(window.innerWidth <= 750){
+					qs('#questiontabs').scrollable = true;
 				}
 			},
 
@@ -241,7 +248,7 @@
 					type: 'radio',
 					question: question,
 					answer: answer,
-					falseAnswers: falseAnswers
+					falseAnswers: JSON.stringify(falseAnswers)
 				};
 				this.$.questionPost.body = body;
 				this.$.questionPost.generateRequest();
@@ -410,6 +417,15 @@
 				var input = document.createElement('paper-input');
 				input.label="Antwort";
 				container.appendChild(input);
+			},
+
+			handleResponse: function(e){
+				if(e.detail.response == "true"){
+					toast("Thank you. Your suggest will be reviewed!");
+				}
+				else{
+					toast(e.detail.response, 5000);
+				}
 			}
 		});
 	</script>
