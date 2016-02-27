@@ -38,6 +38,10 @@
 						echo "Your mail is not verified yet. <a href='https://www.deepspace.onl/scripts/login/sendvermail.php?mail=" . $_SESSION["mail"] . "'>Send verification mail again</a>";
 					}
 				?></span>
+				<paper-toggle-button id="gcmToggle" checked="<?php 
+					# TODO check if GCM Token is available
+					echo "false" ?>
+				" on-iron-change="toggleGCM"></paper-toggle-button>
 			</div>
 
 			<div style="width: 100%; text-align: right;">
@@ -50,6 +54,13 @@
 	<script>
 		Polymer({
 			is: 'setting-account',
+
+			toggleGCM: function () {
+				var gcmEnabled = this.$.gcmToggle.enabled;
+
+				if(gcmEnabled) subscribe();
+				else unsubscribe();
+			},
 
 			save: function(){
 				var data = "username=" + $("#username").val();
