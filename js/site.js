@@ -14,7 +14,11 @@ function content(params){
 		case "about-us": site = "<home-profile></home-profile>"; break;
 		case "android":
 			switch(params[1]){
-				case "zoo-app": site = "<zoo-app></zoo-app>"; break;
+				case "zoo-app": 
+					switch(params[2]){
+						case "questions": site = "<zoo-app-questions></zoo-app-questions>"; break;
+						default: site = "<zoo-app></zoo-app>";
+					} break;
 				default: site = "<not-found></not-found>";
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
@@ -72,8 +76,11 @@ function title(params){
 			} break;
 		case "android":
 			switch(params[1]){
-				case "test-app": title = "Test App"; break;
-				case "zoo-app": title = "Zoo App"; break;
+				case "zoo-app": 
+					switch(params[2]){
+						case "questions": title = "Suggest Zoo-App questions"; break;
+						default: title = "Zoo App";
+					} break;
 			} break;
 		case "btv": title = "Binary Tree Visualisation"; break;
 		case "gaming": title = "Gaming Community"; break;

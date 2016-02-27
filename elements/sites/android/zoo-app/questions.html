@@ -1,68 +1,79 @@
-<link rel="import" href="_localimports.html">
-<!--
-A comment describing this element
-
-Example:
-
-    <my-elem></my-elem>
-
-Example:
-
-    <my-elem>
-      <h2>Hello my-elem</h2>
-    </my-elem>
-
-@demo demo/index.html
--->
-<zoo-app-questions></zoo-app-questions>
 <dom-module id="zoo-app-questions">
 	<template>
 		<style>
 			:host {
 				display: block;
 			}
-			paper-material {
-				padding: 8px;
-				float: right;
-				width: calc(100% - 200px - 40px);
-			}
-			paper-slider {
-				width: calc(100% - 248px);
-				display: inline-block;
-			}
+			paper-listbox{
+				cursor: pointer;
+			}   
 			#radioContainer > paper-radio-button {
 				display: block;
 			}
+			paper-tab{
+				--paper-tab-ink: var(--paper-indigo-300);
+				--paper-tab: {
+					background-color: var(--paper-amber-300);
+				}
+			}
+			paper-tabs{
+				--paper-tabs-selection-bar-color: var(--paper-indigo-300);
+			}
+			paper-button{
+				margin: 10px;
+			}
+
+			.indigo{
+				color: #fff;
+				background-color: var(--paper-indigo-500);
+			}
 		</style>
-		<paper-material elevation="1" style="width: 200px; float: left;">
-			<paper-listbox selected="{{type}}" attr-for-selected="type">
-				<paper-item type="slider">Slider</paper-item>
-				<paper-item type="radio">Einfachauswahl</paper-item>
-				<paper-item type="checkbox">Mehrfachauswahl</paper-item>
-				<paper-item type="trueFalse">Wahr oder Falsch?</paper-item>
-				<paper-item type="sort">Sortieren</paper-item>
-				<paper-item type="text">Textfrage</paper-item>
-				<paper-item type="creative">Kreative Aufgabe</paper-item>
-			</paper-listbox>
-		</paper-material>
+
+		<paper-tabs selected="{{type}}" attr-for-selected="type"><!-- style="width; 100%;" scrollable>-->
+			<paper-tab type="slider">Slider</paper-tab>
+			<paper-tab type="radio">Einfachauswahl</paper-tab>
+			<paper-tab type="checkbox">Mehrfachauswahl</paper-tab>
+			<paper-tab type="trueFalse">Wahr oder Falsch?</paper-tab>
+			<paper-tab type="sort">Sortieren</paper-tab>
+			<paper-tab type="text">Textfrage</paper-tab>
+			<paper-tab type="creative">Kreative Aufgabe</paper-tab>
+		</paper-tabs>
+
+
+		<!--<paper-listbox selected="{{type}}" attr-for-selected="type">
+			<paper-item type="slider">Slider</paper-item>
+			<paper-item type="radio">Einfachauswahl</paper-item>
+			<paper-item type="checkbox">Mehrfachauswahl</paper-item>
+			<paper-item type="trueFalse">Wahr oder Falsch?</paper-item>
+			<paper-item type="sort">Sortieren</paper-item>
+			<paper-item type="text">Textfrage</paper-item>
+			<paper-item type="creative">Kreative Aufgabe</paper-item>
+		</paper-listbox>-->
+
 		<iron-pages selected="[[type]]" attr-for-selected="type">
-			<paper-material type="slider">
+			<paper-material  class="content"type="slider">
 				<h2>Slider</h2>
 				<paper-input label="Frage" value="{{sliderQuestion}}"></paper-input>
 				<paper-input type="Number" label="Minimal Wert" value="{{sliderMin}}" 
-							 style="width: 100px; display: inline-block">
+							 style="width: 22%; padding: 0 1.8% 0 0; display: inline-block">
 				</paper-input>
-				<paper-slider min="[[sliderMin]]" max="[[sliderMax]]" step="{{sliderStep}}" pin ></paper-slider>
 				<paper-input type="Number" label="Maximal Wert" value="{{sliderMax}}"
-							 style="margin-left: 40px; width: 100px; display: inline-block;">
+							 style="width: 22%; padding: 0 1.8% 0 1.8%; display: inline-block;">
 				</paper-input>
-				<paper-input type="Number" label="Schrittweise" value="{{sliderStep}}"></paper-input>
-				<paper-input type="Number" label="Antwort" value="{{sliderAnswer}}"></paper-input>
+				<paper-input type="Number" label="Schrittweise" value="{{sliderStep}}"
+				 			style="width: 22%; padding: 0 1.8% 0 1.8%; display: inline-block;">
+				</paper-input>
+				<paper-input type="Number" label="Antwort" value="{{sliderAnswer}}"
+							style="width: 22%; padding: 0 0 0 1.8%; display: inline-block;">
+				</paper-input>
+
+				<paper-slider min="[[sliderMin]]" max="[[sliderMax]]" step="{{sliderStep}}" pin style="width: 100%; margin: 15px;"></paper-slider>
+				
 				<paper-button raised on-tap="clearSlider">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitSlider">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitSlider">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="radio">
+			<paper-material class="content" type="radio">
 				<h2>Einfachauswahl</h2>
 				<paper-input label="Frage" value="{{radioQuestion}}"></paper-input>
 				<!-- TODO -->
@@ -73,12 +84,12 @@ Example:
 					<iron-icon icon="clear"></iron-icon>
 					<paper-input label="Falsche Antwort" style="display: inline-block"></paper-input><br>
 				</div>
-				<paper-button raised on-tap="insertRadioAnswer">Falsche Antwort hinzufügen</paper-button><br>
+				<paper-button raised on-tap="insertRadioAnswer">Falsche Antwort hinzufügen</paper-button><br />
 				<paper-button raised on-tap="clearRadio">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitRadio">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitRadio">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="checkbox">
+			<paper-material class="content" type="checkbox">
 				<h2>Mehrfachauswahl</h2>
 				<!-- TODO -->
 				<paper-input label="Frage" value="{{checkboxQuestion}}"></paper-input>
@@ -92,12 +103,12 @@ Example:
 					<paper-input label="Falsche Antwort" style="display: inline-block"></paper-input><br>
 				</div>
 				<paper-button raised on-tap="insertCheckboxFalseAnswer">Falsche Antwort hinzufügen</paper-button>
-				<paper-button raised on-tap="insertCheckboxAnswer">Richtige Antwort hinzufügen</paper-button><br>
+				<paper-button raised on-tap="insertCheckboxAnswer">Richtige Antwort hinzufügen</paper-button><br />
 				<paper-button raised on-tap="clearCheckbox">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitCheckbox">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitCheckbox">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="trueFalse">
+			<paper-material class="content" type="trueFalse">
 				<h2>Wahr oder Falsch?</h2>
 				<paper-input label="Frage" value="{{trueFalseQuestion}}"></paper-input>
 				<div>Ist die Antwort Wahr oder Falsch?</div>
@@ -106,10 +117,10 @@ Example:
 					<paper-radio-button name="false">Falsch</paper-radio-button>
 				</paper-radio-group><br>
 				<paper-button raised on-tap="clearTrueFalse">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitTrueFalse">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitTrueFalse">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="sort">
+			<paper-material class="content" type="sort">
 				<h2>Sortieren</h2>
 				<paper-input label="Frage" value="{{sortQuestion}}"></paper-input>
 				<div>Gib die richtige Reihenfolge an (von groß nach klein):</div>
@@ -118,27 +129,27 @@ Example:
 				</div>
 				<paper-button raised on-tap="insertSortAnswer">Neue Antwort hinzufügen</paper-button><br>
 				<paper-button raised on-tap="clearSort">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitSort">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitSort">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="text">
+			<paper-material class="content" type="text">
 				<h2>Textfrage (Antwort maximale Länge 20)</h2>
 				<paper-input label="Frage" value="{{textQuestion}}"></paper-input>
 				<paper-input label="Antwort" maxlength="20" value="{{textAnswer}}"></paper-input>
 				<paper-button raised on-tap="clearText">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitText">Frage abgeben</paper-button>
+				<paper-button class="indigo" raised on-tap="submitText">Frage abgeben</paper-button>
 			</paper-material>
 
-			<paper-material type="creative">
+			<paper-material class="content" type="creative">
 				<h2>Kreative Aufgabe</h2>
 				<div>Dieser Typ ist für kreative Vorschläge für interaktive Aufgaben, 
 					die den Nutzern der App gestellt werden können.</div>
 				<div>Beispiel: Macht eurer schönstes Photo.</div>
 				<div>Dieser Typ ist dafür gedacht eine schöne
 					Erinnerung an den Zoobesuch dem Nutzer zu lassen.</div>
-				<paper-textarea label="kreative Aufgabe" value="{{creativeTask}}"></paper-textarea>
+				<paper-textarea label="Kreative Aufgabe" value="{{creativeTask}}"></paper-textarea>
 				<paper-button raised on-tap="clearCreative">Frage zurücksetzen</paper-button>
-				<paper-button raised on-tap="submitCreative">Frage abgeben</paper-button>
+				<paper-button raised class="indigo" on-tap="submitCreative">Frage abgeben</paper-button>
 			</paper-material>
 		</iron-pages>
 
@@ -157,7 +168,7 @@ Example:
 			properties: {
 				type: {
 					type: String,
-					value: 'creative'
+					value: 'slider'
 				},
 				sliderMin: {
 					type: Number,
