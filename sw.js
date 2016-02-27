@@ -91,3 +91,20 @@ self.addEventListener('fetch', function(event) {
 		})
 	);
 });
+
+self.addEventListener('push', function (event) {
+	console.log('Recieved a push message', event);
+
+	var title = 'Yay a message.';
+	var body = 'We have received a message.';
+	var icon = 'img/logos/DeepSpace144.png';
+	var tag = 'simple-push-demo-notification-tag';
+
+	event.waitUntil(
+		self.registration.showNotification(title, {
+			body: body,
+			icon: icon,
+			tag: tag
+		})
+	);
+});

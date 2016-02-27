@@ -28,5 +28,6 @@
       "url": "https://play.google.com/store/apps/details?id=onl.deepspace.deepspace",
       "id": "onl.deepspace.deepspace"
   }],
-  "prefer_related_applications": "false"
+  "prefer_related_applications": "false",
+  "gcm_sender_id": "821018983794"
 }
