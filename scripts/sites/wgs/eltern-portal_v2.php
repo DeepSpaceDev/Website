@@ -202,4 +202,11 @@ foreach ($childout as $child) {
 }
 
 echo '{"login":true,"children":[' . $childs . ']}';
+
+
+//********Logout user**********
+error_reporting(0);
+curl_setopt($ch, CURLOPT_URL, 'https://welfen.eltern-portal.org/logout');
+
+$result = curl_exec($ch);
 ?>
