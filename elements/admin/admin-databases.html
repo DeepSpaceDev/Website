@@ -1,19 +1,6 @@
 <!--
-A comment describing this element
-
-Example:
-
-    <my-elem></my-elem>
-
-Example:
-
-    <my-elem>
-      <h2>Hello my-elem</h2>
-    </my-elem>
-
-@demo demo/index.html
+A admin interface for all databases and tables on deepspace.onl
 -->
-
 <dom-module id="admin-databases">
 	<template>
 		<style>
@@ -21,6 +8,33 @@ Example:
 				display: block;
 			}
 		</style>
+
+		<paper-dropdown-menu label="Database" selected-item="{{selDB}}">
+			<paper-tabs class="dropdown-content">
+				<template is="dom-repeat" items={{databases}} as="db">
+					<paper-tab>{{db.name}}</paper-tab>
+				</template>
+			</paper-tabs>
+		</paper-dropdown-menu>
+
+		<paper-dropdown-menu label="Table" selected-item="{{selTable}}">
+			<paper-tabs class="dropdown-content">
+				<template is="dom-repeat" items={{tables}} as="table">
+					<paper-tab lable="{{table.name}}">{{table.name}}</paper-tab>
+				</template>
+			</paper-tabs>
+		</paper-dropdown-menu>
+
+		<paper-datatable-card id="tableCard" header="[[selTable.name]]">
+			<paper-datatable id="table" data="[[selTable.data]]" selectable="false">
+				<template is="dom-repeat" items={{selTable.columns}} as="column">
+					<paper-datatable-column 
+						header="[[column.name]]" type="[[column.type]]" editable="false" property="[[column.property]]">
+					</paper-datatable-column>
+				</template>
+			</paper-datatable>
+		</paper-datatable-card>
+
 		<iron-ajax
 		 	auto
 		 	url="https://deepspace.onl/scripts/sites/admin/databases.php"
@@ -34,8 +48,28 @@ Example:
 		Polymer({
 			is: 'admin-databases',
 
-			handleResponse: function() {
+			properties: {
+				databases: {
+					type: Object
+				},
+				selDB: {
+					type: Object,
+					observer: 'databaseChanged'
+				},
+				selTable: {
+					type: Array
+				}
+			},
 
+			databaseChanged: function(db) {
+				this.tables = db.tables;
+			},
+
+			handleResponse: function(e) {
+				var response = e.detail.response;
+				if(response) {
+					this.databases = response;
+				}
 			}
 		});
 	</script>
