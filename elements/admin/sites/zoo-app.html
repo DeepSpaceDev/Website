@@ -2,11 +2,20 @@
 	An interface for accepting and viewing all questions of the zoo app.
 -->
 
-<dom-module id="admin-questions">
+<dom-module id="zoo-app-admin-questions">
 	<template>
 		<style>
 			:host {
 				display: block;
+			}
+			paper-tab{
+				--paper-tab-ink: var(--paper-indigo-300);
+				--paper-tab: {
+					background-color: var(--paper-amber-300);
+				}
+			}
+			paper-tabs{
+				--paper-tabs-selection-bar-color: var(--paper-indigo-300);
 			}
 		</style>
 		<paper-tabs id="questiontabs" selected="{{type}}" attr-for-selected="type" style="width: 100%;" hide-scroll-buttons>
@@ -19,8 +28,8 @@
 			<paper-tab type="creative">Kreative Aufgabe</paper-tab>
 		</paper-tabs>
 
-		<iron-selector selected="{{type}}" attr-for-selected="type">
-			<paper-datatable-card id="sliderCard" type="slider" header="Slider Questions">
+		<iron-pages selected="{{type}}" attr-for-selected="type">
+			<paper-datatable-card class="content" id="sliderCard" type="slider" header="Slider Questions">
 				<paper-datatable data="{{slider}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -46,7 +55,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="radioCard" type="radio" header="Radio Questions">
+			<paper-datatable-card class="content" id="radioCard" type="radio" header="Radio Questions">
 				<paper-datatable data="{{radio}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -58,7 +67,7 @@
 						header="Answer" type="String" editable="true" resize-priority="4" property="answer">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+						header="False Answers" type="String" editable="true" resize-priority="4" property="falseAnswers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
@@ -66,7 +75,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="checkboxCard" type="checkbox" header="Checkbox Questions">
+			<paper-datatable-card class="content" id="checkboxCard" type="checkbox" header="Checkbox Questions">
 				<paper-datatable data="{{checkbox}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -75,10 +84,10 @@
 						header="Question" type="String" editable="true" resize-priority="5" property="question">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+						header="Answers" type="String" editable="true" resize-priority="4" property="answers">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+						header="False Answers" type="String" editable="true" resize-priority="4" property="falseAnswers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
@@ -86,7 +95,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="trueFalseCard" type="trueFalse" header="True-False Questions">
+			<paper-datatable-card class="content" id="trueFalseCard" type="trueFalse" header="True-False Questions">
 				<paper-datatable data="{{trueFalse}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -103,7 +112,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="sortCard" type="sort" header="Sorting Questions">
+			<paper-datatable-card class="content" id="sortCard" type="sort" header="Sorting Questions">
 				<paper-datatable data="{{sort}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -112,7 +121,7 @@
 						header="Question" type="String" editable="true" resize-priority="5" property="question">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+						header="Answers" type="String" editable="true" resize-priority="4" property="answers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
@@ -120,7 +129,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="textCard" type="text" header="Text Questions">
+			<paper-datatable-card class="content" id="textCard" type="text" header="Text Questions">
 				<paper-datatable data="{{text}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -137,7 +146,7 @@
 				</paper-datatable>
 			</paper-datatable-card>
 
-			<paper-datatable-card id="creativeCard" type="creative" header="Creative Questions">
+			<paper-datatable-card class="content" id="creativeCard" type="creative" header="Creative Questions">
 				<paper-datatable data="{{creative}}" selectable="false">
 					<paper-datatable-column 
 						header="ID" type="Number" editable="false" resize-priority="0" property="id">
@@ -150,17 +159,17 @@
 					</paper-datatable-column>
 				</paper-datatable>
 			</paper-datatable-card>
-		</iron-selector>
+		</iron-pages>
 
 		<iron-ajax
-		 	auto
+			id="adminzooquestions"
 		 	url="https://deepspace.onl/scripts/sites/zoo-app/get-questions.php"
-		 	handle-as="json"
+		 	handle-as="text"
 		 	on-response="handleResponse"></iron-ajax>
 	</template>
 	<script>
 		Polymer({
-			is: 'admin-questions',
+			is: 'zoo-app-admin-questions',
 
 			properties: {
 				type: {
@@ -211,9 +220,17 @@
 				}
 			},
 
-			observers: ['valueChangedEvent(slider.*, radio.*, checkbox.*, trueFalse.*, sort.*, text.*, creative.*)'],
+			//observers: ['valueChangedEvent(slider.*, radio.*, checkbox.*, trueFalse.*, sort.*, text.*, creative.*)'], //BECAREFULL! CALL ON LOAD!
 
-			valueChangedEvent: function(slider, radio, checkbox, trueFalse, sort, text, creative) {
+			attached: function(){
+				this.$.adminzooquestions.generateRequest();
+
+				if(window.innerWidth <= 750){
+					qs('#questiontabs').scrollable = true;
+				}
+			},
+
+			/*valueChangedEvent: function(slider, radio, checkbox, trueFalse, sort, text, creative) {
 				console.log(slider);
 				console.log(radio);
 				console.log(checkbox);
@@ -221,10 +238,10 @@
 				console.log(sort);
 				console.log(text);
 				console.log(creative);
-			},
+			},*/
 
 			handleResponse: function(e) {
-				var response = e.detail.response;
+				var response = JSON.parse(e.detail.response);
 				if(response) {
 					this.slider = response.slider;
 					this.radio = response.radio;

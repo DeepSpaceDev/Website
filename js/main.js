@@ -164,9 +164,12 @@ function getImports(){
 	"bower_components/google-youtube/google-youtube.html", 
 	"bower_components/neon-animation/neon-animations.html", 
 
-	"elements/admin/admin-interface.html", 
+	"elements/admin/admin-interface.html",
+	"elements/admin/admin-databases.html",
 	"elements/admin/admin-general.html", 
 	"elements/admin/admin-analytics.html",
+	"elements/admin/admin-github.html",
+	"elements/admin/sites/zoo-app.html",
 
 	"elements/main/home.php", 
 	"elements/main/navigation.php", 

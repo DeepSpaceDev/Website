@@ -13,6 +13,13 @@ paper-material.content{
 	vertical-align: center;
 	max-width: 1150px;		
 }
+paper-datatable-card.content{
+ 	margin: 15px auto;
+	background-color: white;
+	border-radius: 2px;
+	vertical-align: center;
+	max-width: 1150px;	
+}
 
 .link, .pointer {
 	cursor: pointer;
