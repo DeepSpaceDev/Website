@@ -118,6 +118,7 @@ function getImports(){
 	"bower_components/paper-button/paper-button.html", 
 	"bower_components/paper-checkbox/paper-checkbox.html", 
 	"bower_components/paper-datatable/paper-datatable.html", 
+	"bower_components/paper-datatable/paper-datatable-card.html", 
 	"bower_components/paper-drawer-panel/paper-drawer-panel.html", 
 	"bower_components/paper-dropdown-menu/paper-dropdown-menu.html", 
 	"bower_components/paper-dialog/paper-dialog.html", 

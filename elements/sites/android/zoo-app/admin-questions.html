@@ -1,0 +1,242 @@
+<!--
+	An interface for accepting and viewing all questions of the zoo app.
+-->
+
+<dom-module id="admin-questions">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<paper-tabs id="questiontabs" selected="{{type}}" attr-for-selected="type" style="width: 100%;" hide-scroll-buttons>
+			<paper-tab type="slider">Slider</paper-tab>
+			<paper-tab type="radio">Einfachauswahl</paper-tab>
+			<paper-tab type="checkbox">Mehrfachauswahl</paper-tab>
+			<paper-tab type="trueFalse">Wahr oder Falsch?</paper-tab>
+			<paper-tab type="sort">Sortieren</paper-tab>
+			<paper-tab type="text">Textfrage</paper-tab>
+			<paper-tab type="creative">Kreative Aufgabe</paper-tab>
+		</paper-tabs>
+
+		<iron-selector selected="{{type}}" attr-for-selected="type">
+			<paper-datatable-card id="sliderCard" type="slider" header="Slider Questions">
+				<paper-datatable data="{{slider}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Min" type="Number" editable="true" resize-priority="3" property="min">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Max" type="Number" editable="true" resize-priority="3" property="max">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Step" type="Number" editable="true" resize-priority="3" property="step">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answer" type="Number" editable="true" resize-priority="4" property="answer">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="radioCard" type="radio" header="Radio Questions">
+				<paper-datatable data="{{radio}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answer" type="String" editable="true" resize-priority="4" property="answer">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="checkboxCard" type="checkbox" header="Checkbox Questions">
+				<paper-datatable data="{{checkbox}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="trueFalseCard" type="trueFalse" header="True-False Questions">
+				<paper-datatable data="{{trueFalse}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answer" type="Boolean" editable="true" resize-priority="4" property="answer">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="sortCard" type="sort" header="Sorting Questions">
+				<paper-datatable data="{{sort}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="textCard" type="text" header="Text Questions">
+				<paper-datatable data="{{text}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Question" type="String" editable="true" resize-priority="5" property="question">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Answer" type="String" editable="true" resize-priority="4" property="answer">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+
+			<paper-datatable-card id="creativeCard" type="creative" header="Creative Questions">
+				<paper-datatable data="{{creative}}" selectable="false">
+					<paper-datatable-column 
+						header="ID" type="Number" editable="false" resize-priority="0" property="id">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Task" type="String" editable="true" resize-priority="5" property="task">
+					</paper-datatable-column>
+					<paper-datatable-column 
+						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
+					</paper-datatable-column>
+				</paper-datatable>
+			</paper-datatable-card>
+		</iron-selector>
+
+		<iron-ajax
+		 	auto
+		 	url="https://deepspace.onl/scripts/sites/zoo-app/get-questions.php"
+		 	handle-as="json"
+		 	on-response="handleResponse"></iron-ajax>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-questions',
+
+			properties: {
+				type: {
+					type: String,
+					value: 'slider'
+				},
+				slider: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				radio: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				checkbox: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				trueFalse: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				sort: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				text: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				creative: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				}
+			},
+
+			observers: ['valueChangedEvent(slider.*, radio.*, checkbox.*, trueFalse.*, sort.*, text.*, creative.*)'],
+
+			valueChangedEvent: function(slider, radio, checkbox, trueFalse, sort, text, creative) {
+				console.log(slider);
+				console.log(radio);
+				console.log(checkbox);
+				console.log(trueFalse);
+				console.log(sort);
+				console.log(text);
+				console.log(creative);
+			},
+
+			handleResponse: function(e) {
+				var response = e.detail.response;
+				if(response) {
+					this.slider = response.slider;
+					this.radio = response.radio;
+					this.checkbox = response.checkbox;
+					this.trueFalse = response.trueFalse;
+					this.sort = response.sort;
+					this.text = response.text;
+					this.creative = response.creative;
+				} else {
+					toast('Error occurred during HTTP GET Request!');
+				}
+			}
+		});
+	</script>
+</dom-module>
