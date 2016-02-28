@@ -20,7 +20,7 @@ A admin interface for all databases and tables on deepspace.onl
 		<paper-dropdown-menu label="Table" selected-item="{{selTable}}">
 			<paper-tabs class="dropdown-content">
 				<template is="dom-repeat" items={{tables}} as="table">
-					<paper-tab lable="{{table.name}}">{{table.name}}</paper-tab>
+					<paper-tab>{{table.name}}</paper-tab>
 				</template>
 			</paper-tabs>
 		</paper-dropdown-menu>
