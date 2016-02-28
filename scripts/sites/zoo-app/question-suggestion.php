@@ -35,7 +35,7 @@
 		$answers = urldecode(isset($_POST["answers"]) ? $_POST["answers"] : $_GET["answers"]);
 		$falseAnswers = urldecode(isset($_POST["falseAnswers"]) ? $_POST["falseAnswers"] : $_GET["falseAnswers"]);
 		
-		if(mysqli_query($db_zoo_app, "INSERT INTO questions_checkbox (question, answer, falseAnswers) VALUES ('$question', '$answers', '$falseAnswers')")){
+		if(mysqli_query($db_zoo_app, "INSERT INTO questions_checkbox (question, answers, falseAnswers) VALUES ('$question', '$answers', '$falseAnswers')")){
 			echo "true";
 		}
 	} elseif ($type == $type_trueFalse) {
