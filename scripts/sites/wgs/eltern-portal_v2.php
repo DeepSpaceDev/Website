@@ -12,12 +12,12 @@ require_once("../../pw.php");
 $username = urldecode(isset($_POST["username"]) ? $_POST["username"] : $_GET["username"]);
 $password = urldecode(isset($_POST["password"]) ? $_POST["password"] : $_GET["password"]);
 $version = urldecode(isset($_POST["version"]) ? $_POST["version"] : '<11');
+$autorefresh = urldecode(isset($_POST["autorefresh"]) ? $_POST["autorefresh"] : '0');
 $token = isset($_POST["token"]) ? $_POST["token"] : $_GET["token"];
 $agent= 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
 //accesslog!
 if($username != "sese.tailor@gmail.com" && $username != "kugelmann.dennis@gmail.com"){
-	$username = filter_var($username, FILTER_VALIDATE_EMAIL) ? $username : 'Password, hidden';
-	mysqli_query($db, "INSERT INTO log_elternportal SET ip = '" . $_SERVER["REMOTE_ADDR"] . "', mail = '" . $username . "', version = '" . $version . "'");
+	mysqli_query($db, "INSERT INTO log_elternportal SET ip = '" . $_SERVER["REMOTE_ADDR"] . "', mail = '" . $username . "', version = '" . $version . "', autorefresh = '" . $autorefresh . "'");
 }
 //*****
 if($token != $eltern_portal_token_v2){
@@ -46,7 +46,7 @@ if($result === false){
 	exit('{"login":false,"errno":0,"error":"' . curl_error($ch) . '"}');
 }
 else if(strlen($result) != 0){
-	exit('{"login":false,"errno":1,"error":"No communication with server possible"}');
+	exit('{"login":false,"errno":2,"error":"No communication with server possible"}');
 }
 /************/
 curl_setopt($ch, CURLOPT_POST, 0);
@@ -60,6 +60,10 @@ array_shift($childrendivs); //Delte first item
 
 foreach ($childrendivs as $childdivs) {
 	array_push($childs, get_string_between($childdivs, "onclick='set_child(", ","));
+}
+
+if(sizeof($childs) == 0){
+	exit('{"login":false,"errno":1,"error":"Einloggen fehlgeschlagen. Falsches Passwort?"}');
 }
 
 //Schritt 4 anfragen
@@ -84,11 +88,6 @@ foreach ($childs as $child) {
 		$timetable = array_slice($timetable, 7, 65);
 		foreach ($timetable as $key => $value){
 			$timetable[$key] = preg_split('/\ [^>]*./', $value)[1];
-		}
-
-		//Logincheck
-		if(!isset($origntable[1])){
-			exit('{"login":false,"errno":1,"error":"Einloggen fehlgeschlagen. Falsches passwort?"}');
 		}
 
 		for($i = 1; $i < 12; $i++){
