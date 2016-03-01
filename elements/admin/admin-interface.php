@@ -1,5 +1,8 @@
 <dom-module id="admin-interface">
 	<template>
+
+		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
+
 		<style>
 			:host {
 				display: block;
@@ -27,6 +30,7 @@
 			<admin-general></admin-general><!-- Default -->
 		</div>
 
+		<?php } ?>
 	</template>
 	<script>
 		Polymer({

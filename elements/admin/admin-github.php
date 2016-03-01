@@ -5,6 +5,9 @@
  */
 <dom-module id="admin-analytics">
 	<template>
+
+		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
+
 		<style>
 			:host {
 				display: flex;
@@ -17,6 +20,9 @@
 		 	handle-as="json"
 		 	on-response="handleResponse">
 		 </iron-ajax>
+
+		 <?php } ?>
+		 
 	</template>
 	<script>
 		Polymer({

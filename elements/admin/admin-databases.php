@@ -3,6 +3,9 @@ A admin interface for all databases and tables on deepspace.onl
 -->
 <dom-module id="admin-databases">
 	<template>
+
+		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
+
 		<style>
 			:host {
 				display: block;
@@ -43,6 +46,9 @@ A admin interface for all databases and tables on deepspace.onl
 		<paper-material>
 			
 		</paper-material>
+
+		<?php } ?>
+		
 	</template>
 	<script>
 		Polymer({

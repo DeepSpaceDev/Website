@@ -82,6 +82,9 @@
 			.pink-500{
 				fill: var(--paper-pink-500);
 			}
+			.dorange-500{
+				fill: var(--paper-deep-orange-500);
+			}
 
 			.android-color{
 				fill: #A4C639;
@@ -127,7 +130,12 @@
 					</paper-icon-item>
 				<?php } else { ?>
 					<paper-icon-item onClick="href('settings');" class="first mainselect link"><iron-icon class="teal-500" icon="icons:settings" item-icon></iron-icon>Settings</paper-icon-item>				
-					<paper-icon-item onClick="logout();" class="mainselect link"><iron-icon class="blue-500" icon="icons:input" item-icon></iron-icon>Logout</paper-icon-item>				
+					
+					<?php if($_SESSION["permission"]["admin"] == 1){ ?>
+					<paper-icon-item onClick="href('admin');" class="mainselect link"><iron-icon class="dorange-500" icon="icons:verified-user" item-icon></iron-icon>Admin</paper-icon-item>				
+					<?php } ?>
+
+					<paper-icon-item onClick="logout();" class="mainselect link"><iron-icon class="blue-500" icon="icons:input" item-icon></iron-icon>Logout</paper-icon-item>	
 				<?php } ?>
 					<paper-icon-item onClick="href('gaming')" class="mainselect first link"><iron-icon class="pink-500" icon="hardware:videogame-asset" item-icon></iron-icon>Gaming Community</paper-icon-item>				
 				

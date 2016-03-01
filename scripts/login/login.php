@@ -26,6 +26,11 @@ while($row = mysqli_fetch_assoc($query)){
 				$_SESSION["data"]["steamid"] = $datarow["steamid"];
 			}
 
+			$permissonsquery = mysqli_query($db, "SELECT * FROM user_permissions WHERE userkey = '" . $row["userkey"] . "'");
+			while($permissionrow = mysqli_fetch_assoc($permissonsquery)){
+				$_SESSION["permission"]["admin"] = $permissionrow["admin"];
+			}
+
 			echo "true";
 			exit();
 		}

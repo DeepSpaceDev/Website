@@ -12,6 +12,9 @@
 <zoo-app-admin-questions></zoo-app-admin-questions>
 <dom-module id="zoo-app-admin-questions">
 	<template>
+
+		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
+
 		<style>
 			:host {
 				display: block;
@@ -129,7 +132,7 @@
 						header="Question" type="String" editable="true" resize-priority="5" property="question">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+						header="Answers" type="String" editable="true" resize-priority="4" property="answers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
@@ -174,6 +177,9 @@
 		 	url="https://deepspace.onl/scripts/sites/zoo-app/get-questions.php"
 		 	handle-as="text"
 		 	on-response="handleResponse"></iron-ajax>
+
+		 	<?php } ?>
+
 	</template>
 	<script>
 		Polymer({
