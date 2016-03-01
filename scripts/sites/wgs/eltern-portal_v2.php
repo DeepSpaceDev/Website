@@ -183,7 +183,7 @@ foreach ($childs as $child) {
 			}
 		}
 
-		$child = get_string_between($table[0], "<div style=\"padding-top:10px;\">", "</div>");
+		$child = substr(get_string_between($table[0], "<div style=\"padding-top:10px;\">", "</div>"), 6);
 		$representation = '{"today":{"date":"' . $date1 . '","data":[' . $data1 . ']},"tomorrow":{"date":"' . $date2 . '","data":[' . $data2 . ']},"lastrefresh":"' . $lastrefresh . '"}';
 		array_push($childout, '{"name":"' . $child . '","timetable":' . $ttout . ',"representation":' . $representation . '}');
 		
