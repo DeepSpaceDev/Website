@@ -180,7 +180,7 @@
 
 		<iron-ajax
 		 	id="updateQuestion"
-		 	url="https://deepspace.onl/scripts/sites/zoo-app/update-qusetion.php"
+		 	url="https://deepspace.onl/scripts/sites/zoo-app/update-question.php"
 		 	handle-as="json"
 		 	on-response="handleUpdate"></iron-ajax>
 
@@ -369,7 +369,7 @@
 				}
 			},
 
-			updateQuestion: function(e) {
+			handleUpdate: function(e) {
 				var response = e.detail.response;
 				if(response == "true") toast("Successfully changed", 1000);
 				else toast(e.detail.response, 5000);
