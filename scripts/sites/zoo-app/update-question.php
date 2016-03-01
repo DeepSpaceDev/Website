@@ -15,75 +15,64 @@
 
 	switch ($type) {
 		case $type_slider:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$min = urldecode(isset($_POST["min"]) ? $_POST["min"] : $_GET["min"]);
-			$max = urldecode(isset($_POST["max"]) ? $_POST["max"] : $_GET["max"]);
-			$step = urldecode(isset($_POST["step"]) ? $_POST["step"] : $_GET["step"]);
-			$answer = urldecode(isset($_POST["answer"]) ? $_POST["answer"] : $_GET["answer"]);
+			$question = $_POST["question"];
+			$min = $_POST["min"];
+			$max = $_POST["max"];
+			$step = $_POST["step"];
+			$answer = $_POST["answer"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question . 
-				                                                ", min = " . $min . 
-				                                                ", max = " . $max . 
-				                                                ", step = " . $step .
-				                                                ", answer = " . $answer .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_slider SET question = '$question', min = $min, max = $max, step =  $step, answer =  $answer, accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_radio:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$falseAnswers = urldecode(isset($_POST["falseAnswers"]) ? $_POST["falseAnswers"] : $_GET["falseAnswers"]);
-			$answer = urldecode(isset($_POST["answer"]) ? $_POST["answer"] : $_GET["answer"]);
+			$question = $_POST["question"];
+			$falseAnswers = $_POST["falseAnswers"];
+			$answer = $_POST["answer"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question . 
-				                                                ", falseAnswers = " . $falseAnswers . 
-				                                                ", answer = " . $answer .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_radio SET question =  '$question', falseAnswers =  $falseAnswers, answer =  '$answer', accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_checkbox:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$falseAnswers = urldecode(isset($_POST["falseAnswers"]) ? $_POST["falseAnswers"] : $_GET["falseAnswers"]);
-			$answers = urldecode(isset($_POST["answers"]) ? $_POST["answers"] : $_GET["answers"]);
+			$question = $_POST["question"];
+			$falseAnswers = $_POST["falseAnswers"];
+			$answers = $_POST["answers"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question . 
-				                                                ", falseAnswers = " . $falseAnswers . 
-				                                                ", answers = " . $answers .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_checkbox SET question = '$question', falseAnswers = $falseAnswers, answers = $answers, accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_trueFalse:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$answer = urldecode(isset($_POST["answer"]) ? $_POST["answer"] : $_GET["answer"]);
+			$question = $_POST["question"];
+			$answer = $_POST["answer"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question .
-				                                                ", answer = " . $answer .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_true_false SET question = '$question', answer = $answer, accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_sort:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$answers = urldecode(isset($_POST["answers"]) ? $_POST["answers"] : $_GET["answers"]);
+			$question = $_POST["question"];
+			$answers = $_POST["answers"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question .
-				                                                ", answers = " . $answers .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_sort SET question = '$question', answers = $answers, accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_text:
-			$question = urldecode(isset($_POST["question"]) ? $_POST["question"] : $_GET["question"]);
-			$answer = urldecode(isset($_POST["answer"]) ? $_POST["answer"] : $_GET["answer"]);
+			$question = $_POST["question"];
+			$answer = $_POST["answer"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET question = " . $question .
-				                                                ", answer = " . $answer .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_text SET question = '$question', answer = '$answer', accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		case $type_trueFalse:
-			$task = urldecode(isset($_POST["task"]) ? $_POST["task"] : $_GET["task"]);
+			$task = $_POST["task"];
 
-			mysqli_query($db_zoo_app, "UPDATE questions_slider SET task = " . $task .
-				                                                ", accepted = " . $accepted .
-				                                                "WHERE id = " . $id);
+			mysqli_query($db_zoo_app, 
+				"UPDATE questions_creative SET task = '$task', accepted = $accepted WHERE id = $id");
+			echo(true);
 			break;
 		default:
 			echo "Question type " . $type . " unknown.";
