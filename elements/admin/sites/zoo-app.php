@@ -178,7 +178,13 @@
 		 	handle-as="text"
 		 	on-response="handleResponse"></iron-ajax>
 
-		 	<?php } ?>
+		<iron-ajax
+		 	id="updateQuestion"
+		 	url="https://deepspace.onl/scripts/sites/zoo-app/update-qusetion.php"
+		 	handle-as="json"
+		 	on-response="handleUpdate"></iron-ajax>
+
+		 <?php } ?>
 
 	</template>
 	<script>
@@ -245,84 +251,128 @@
 			},
 
 			valueChangedEvent: function(slider, radio, checkbox, trueFalse, sort, text, creative) {
-				console.log(slider);
-				console.log(radio);
-				console.log(checkbox);
-				console.log(trueFalse);
-				console.log(sort);
-				console.log(text);
-				console.log(creative);
-
 				if(slider.path.match(/slider.#[0-9].*/g)) {
 					var pathItems = slider.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = slider.base[arrayId];
+
+					var body = {
+						type: 'slider',
+						id: data.id,
+						question: data.question,
+						min: data.min,
+						max: data.max,
+						step: data.step,
+						answer: data.answer,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(radio.path.match(/radio.#[0-9].*/g)) {
 					var pathItems = radio.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = radio.base[arrayId];
+
+					var body = {
+						type: 'radio',
+						id: data.id,
+						question: data.question,
+						falseAnswers: data.falseAnswers,
+						answer: data.answer,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(checkbox.path.match(/checkbox.#[0-9].*/g)) {
 					var pathItems = checkbox.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = checkbox.base[arrayId];
+
+					var body = {
+						type: 'checkbox',
+						id: data.id,
+						question: data.question,
+						falseAnswers: data.falseAnswers,
+						answers: data.answers,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(trueFalse.path.match(/trueFalse.#[0-9].*/g)) {
 					var pathItems = trueFalse.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = trueFalse.base[arrayId];
+
+					var body = {
+						type: 'trueFalse',
+						id: data.id,
+						question: data.question,
+						answer: data.answer,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(sort.path.match(/sort.#[0-9].*/g)) {
 					var pathItems = sort.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = sort.base[arrayId];
+
+					var body = {
+						type: 'sort',
+						id: data.id,
+						question: data.question,
+						answers: data.answers,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(text.path.match(/text.#[0-9].*/g)) {
 					var pathItems = text.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = text.base[arrayId];
+
+					var body = {
+						type: 'text',
+						id: data.id,
+						question: data.question,
+						answer: data.answer,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
 				if(creative.path.match(/creative.#[0-9].*/g)) {
 					var pathItems = creative.path.split('.');
-					var id = pathItems[1].substring(1);
-					var property = pathItems[2];
-					var value = this.get(pathItems[0] + '.' + pathItems[1] + '.' + pathItems[2]);
-					// TODO send request with the id and the new value 
-					console.log('id: ' + id);
-					console.log('property: ' + property);
-					console.log('value: ' + value);
+					var arrayId = pathItems[1].substring(1);
+					var data = creative.base[arrayId];
+
+					var body = {
+						type: 'creative',
+						id: data.id,
+						task: data.task,
+						accepted: data.accepted
+					};
+
+					this.$.updateQuestion.body = body;
+					this.$.updateQuestion.generateRequest();
 				}
+			},
+
+			updateQuestion: function(e) {
+				var response = e.detail.response;
+				if(response == "true") toast("Successfully changed", 1000);
+				else toast(e.detail.response, 5000);
 			},
 
 			handleResponse: function(e) {
