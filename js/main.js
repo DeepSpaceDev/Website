@@ -182,7 +182,8 @@ function getImports(){
 	"elements/settings/teamspeak.php", 
 
 	"elements/sites/android/zoo-app/questions.html", 
-	"elements/sites/android/zoo-app/zoo-app.php", 
+	"elements/sites/android/zoo-app/zoo-app.php",
+	"elements/sites/android/wgs-app.html",
 	"elements/sites/btv/binary-node.html", 
 	"elements/sites/btv/binary-tree.html", 
 	"elements/sites/btv/binarytree-visualisation.html", 

@@ -1,0 +1,113 @@
+<dom-module id="wgs-app">
+		<template>
+		<style>
+			.imgcontainer{
+				float: left;
+			}
+
+			.data {
+				float: left;
+			}
+			.name{
+				font-size: 25px;
+				font-weight: bold;
+			}
+			.feature{
+				padding-top: 10px;
+				font-size: 18px;
+				font-weight: bold;
+			}
+			.disclaimer{
+				font-size: 12px;
+				color: #bbb;
+				line-height: 0.8;
+			}
+
+			a{
+				text-decoration: none;
+				color: var(--paper-indigo-500);
+			}
+
+			@media all and (max-width: 1160px){
+				.imgcontainer{
+					margin-bottom: 20px;
+				}
+				.centered{
+					width: 100%;
+					text-align: center;
+				}
+				.content{
+					padding: 30px 10px 30px 10px;
+					min-height: 525px;
+				}
+
+				.gebdate{
+					display: block;
+				}
+			}
+			@media all and (min-width: 1160px){
+				.content{
+					padding: 30px 40px 30px 40px;
+					min-height: 240px;
+				}
+				.data {
+					margin-left: 50px;
+					max-width: 850px;
+				}
+				.moredata{
+					padding-bottom: 25px;
+				}
+
+				.gebdate{
+					margin-left: 20px;
+				}
+			}
+		</style>
+		<section>
+			<paper-material class="content">
+				<div class="centered imgcontainer">
+					<img width="200px" height="200px" src="../../../img/projects/android/wgsapp_icon.png"/>
+				</div>
+				<div class="centered data">
+					<span class="name">Welfen-Gymnasium App</span>
+					<br /><br />
+					<span class="info">The WGS App! Display pupils timetables & representations!<br /><br />
+						<a href="https://play.google.com/store/apps/details?id=onl.deepspace.wgs&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank"><img style="height: 35px" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" /></a>
+
+					<!--4 lines with 850px width-->
+					<br /><br /></span>
+				</div>
+
+				<div class="clearfix"></div>
+					
+				<br />
+				<span class="feature">Features:</span>
+				<ul>
+					<li>View current timetable</li>
+					<li>View current representations inclusive room, lesson and teacher</li>
+					<li>Simply logging in with Eltern-Portal login data</li>
+				</ul>
+
+				The login data is provided by the school!<br /><br />
+
+				<span class="feature">Upcoming features:</span>
+				<ul>
+					<li>School information</li>
+					<li>Test dates</li>
+					<li>Mensa food list</li>
+					<li>Booking of termines</li>
+					<li>Android wear: View next lesson</li>
+				</ul>
+
+				<span class="disclaimer">Deepspace Development isn't endorsed with Welfen-Gymnasium or art soft and more GmbH and doesn't reflect the views or opinions of them. Deepspace is not envolved in managing or developing of the Elternportal.<br />
+				Android, Google Play and the Google Play logo are trademarks of Google Inc.</span>
+
+			</paper-material>
+		</section>
+	</template>
+	<script>
+		Polymer({
+			is: 'wgs-app'
+		});
+	</script>
+</dom-module>

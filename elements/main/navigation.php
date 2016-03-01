@@ -155,7 +155,7 @@
 				<paper-submenu>
 					<paper-icon-item class="menu-trigger border mainselect copy"><iron-icon icon="icons:android" class="android-color" item-icon></iron-icon>Android</paper-icon-item>
 					<paper-menu class="menu-content">
-						<paper-item class="submenu link" disabled>Welfen-Gymnasium App</paper-item>
+						<paper-item onClick="href('android/wgs-app');" class="submenu link">Welfen-Gymnasium App</paper-item>
 						<paper-item onClick="href('android/zoo-app');" class="submenu link" disabled>Zoo App</paper-item>
 					</paper-menu>
 				</paper-submenu>				

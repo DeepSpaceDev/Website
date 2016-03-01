@@ -46,11 +46,13 @@
 					$query = mysqli_query($db, "SELECT * FROM projects ORDER BY title, author");
 
 					while($row = mysqli_fetch_assoc($query)){
-						echo "<projects-project onclick=\"href('" . $row["href"] 
-							. "')\" imgsrc='../../" . $row["imgurl"] 
-							. "' ptitle='" . $row["title"] 
-							. "' color='#" . $row["color"] 
-							. "' author='" . $row["author"] . "'></projects-project>";
+						if($row[enabled] != 0){
+							echo "<projects-project onclick=\"href('" . $row["href"] 
+								. "')\" imgsrc='../../" . $row["imgurl"] 
+								. "' ptitle='" . $row["title"] 
+								. "' color='#" . $row["color"] 
+								. "' author='" . $row["author"] . "'></projects-project>";
+						}
 					}
 				?>
 				</div>

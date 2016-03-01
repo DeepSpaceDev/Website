@@ -23,6 +23,7 @@ function content(params){
 						case "questions": site = "<zoo-app-questions></zoo-app-questions>"; break;
 						default: site = "<zoo-app></zoo-app>";
 					} break;
+				case "wgs-app": site = "<wgs-app></wgs-app>"; break;
 				default: site = "<not-found></not-found>";
 			} break;
 		case "az": site = "<embed-element src='media/swf/az.swf' type='application/x-shockwave-flash'></embed-element>"; break;
@@ -85,6 +86,7 @@ function title(params){
 						case "questions": title = "Suggest Zoo-App questions"; break;
 						default: title = "Zoo App";
 					} break;
+				case "wgs-app": title = "Welfen-Gymnasium-Schongau App"; break;
 			} break;
 		case "btv": title = "Binary Tree Visualisation"; break;
 		case "gaming": title = "Gaming Community"; break;
