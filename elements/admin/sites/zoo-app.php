@@ -1,15 +1,3 @@
-<!--
-	An interface for accepting and viewing all questions of the zoo app.
--->
-<link href="../_localimports.html" rel="import">
-<script type="text/javascript" src="../paper-datatable/whenever.js"></script>
-<link href='../paper-datatable/paper-datatable-card.html' rel='import'>
-<link href='../paper-datatable/paper-datatable.html' rel='import'>
-<link href='../paper-datatable/paper-datatable-column.html' rel='import'>
-<link href='../paper-datatable/paper-datatable-styles.html' rel='import'>
-<link href='../paper-datatable/paper-datatable-icons.html' rel='import'>
-<link href='../paper-datatable/paper-datatable-edit-dialog.html' rel='import'>
-<zoo-app-admin-questions></zoo-app-admin-questions>
 <dom-module id="zoo-app-admin-questions">
 	<template>
 

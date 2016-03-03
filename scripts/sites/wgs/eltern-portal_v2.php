@@ -7,6 +7,7 @@ function get_string_between($string, $start, $end){
     $len = strpos($string, $end, $ini) - $ini;
     return substr($string, $ini, $len);
 }
+error_reporting(0);
 require_once("../../connect.php");
 require_once("../../pw.php");
 $username = urldecode(isset($_POST["username"]) ? $_POST["username"] : $_GET["username"]);
