@@ -48,7 +48,9 @@
 	$csgo_users = '{}';
 	$csgo_userstats = "";
 
-	if($_POST["type"] == "lol"){
+	$type = isset($_POST["type"]) ? $_POST["type"] : $_GET["type"];
+
+	if($type == "lol"){
 		/**************LOL***************/
 		$lol_username = array();
 
@@ -67,7 +69,7 @@
 
 		$lol_ranks = riot_request($lol_summoner, "https://euw.api.pvp.net/api/lol/euw/v2.5/league/by-summoner/", 10, $lol_api_key, "/entry");
 	}
-	else if($_POST["type"] == "osu"){
+	else if($type == "osu"){
 		/**************OSU************/
 
 		$osu_username = array();
@@ -85,7 +87,7 @@
 			$osu_users .= httpReq("https://osu.ppy.sh/api/get_user?k=" . $osu_api_key . "&u=" . $user);
 		}
 	}
-	else if($_POST["type"] == "csgo"){
+	else if($type == "csgo"){
 		$csgo_username = array();
 
 		$csgo = mysqli_query($db, "SELECT * FROM user_data WHERE steamid != ''");

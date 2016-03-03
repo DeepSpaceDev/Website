@@ -40,6 +40,7 @@
 		<section>
 			<div id="loginpage">
 				<paper-material elevation="4">
+
 					<form action="" id="loginform" method="POST" onSubmit="login(this); return false;">
 					<paper-input id="user" name="user" type="text" onkeypress="keyevent(13, subloginform, event)" label="Username or e-mail" required></paper-input>
 					<paper-input id="pw" name="pw" type="password" onkeypress="keyevent(13, subloginform, event)" label="Password" required></paper-input>
@@ -50,6 +51,9 @@
 					</div>
 					</form>
 				</paper-material>
+
+				<span style="padding-top: 50px; color: #aaa;"><br /><br />Unfortunately all our databases were delted. Please register again. We apologize for the circumstances.</span>
+
 			</div>
 		</section>
 

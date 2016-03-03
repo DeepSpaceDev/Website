@@ -46,7 +46,7 @@
 					$query = mysqli_query($db, "SELECT * FROM projects ORDER BY title, author");
 
 					while($row = mysqli_fetch_assoc($query)){
-						if($row[enabled] != 0){
+						if($row['enabled'] != 0){
 							echo "<projects-project onclick=\"href('" . $row["href"] 
 								. "')\" imgsrc='../../" . $row["imgurl"] 
 								. "' ptitle='" . $row["title"] 
