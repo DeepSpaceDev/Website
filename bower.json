@@ -38,5 +38,10 @@
     "test-fixture": "PolymerElements/test-fixture#^1.0.0",
     "web-component-tester": "*",
     "polymer": "Polymer/polymer#~1.2.0"
+  },
+  "resolutions": {
+    "chai": "^3.2.0",
+    "polymer": "^1.1.0",
+    "async": "^1.5.0"
   }
 }

@@ -1,0 +1,123 @@
+<!--
+A GCM Admin interface to send data to all devices, devices subscribed to a topic or a specific devices
+-->
+<link rel="import" href="_localimports.html">
+<admin-gcm></admin-gcm>
+<dom-module id="admin-gcm">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-card {
+				padding: 16px;
+				width: 600px;
+			}
+		</style>
+		<paper-card elevation="1" heading="Cloud Messaging">
+			<div class="card-content">
+				<paper-dropdown-menu label="Application" selected-item="{{selApp}}">
+					<paper-menu class="dropdown-content">
+						<template is="dom-repeat" id="selAppRepeat" items={{apps}} as="app">
+							<paper-item>[[app.name]]</paper-item>
+						</template>
+					</paper-menu>
+				</paper-dropdown-menu>
+				<br>
+				<paper-radio-group selected="{{toWhomType}}">
+					<paper-radio-button name="all">All devices</paper-radio-button>
+					<paper-radio-button name="topic">To a Topic</paper-radio-button>
+					<paper-radio-button name="device">To a specific device</paper-radio-button>
+				</paper-radio-group>
+				<iron-pages selected="{{toWhomType}}" attr-for-selected="type">
+					<section type="all">
+						<paper-item>Send GCM to all connected devices</paper-item>
+					</section>
+					<section type="topic">
+						<paper-input label="Topic" value="{{toTopic}}"></paper-input>
+					</section>
+					<section>
+						<paper-item>Currently not supported!</paper-item>
+					</section>
+				</iron-pages>
+				<br>
+				<paper-radio-group selected="{{messageType}}">
+					<paper-radio-button name="notification">Notification</paper-radio-button>
+					<paper-radio-button name="data">Data</paper-radio-button>
+				</paper-radio-group>
+				<iron-pages selected="{{messageType}}" attr-for-selected="type">
+					<section type="notification">
+						<paper-input label="Title" value="{{notTitle}}"></paper-input>
+						<paper-input label="Body" value="{{notBody}}"></paper-input>
+						<paper-input label="Icon" value="{{notIcon}}"></paper-input>
+						<paper-input label="Tag" value="{{notTag}}"></paper-input>
+					</section>
+					<section type="data">
+						<!-- TODO update to jsonymer-editor ASAP when updated to 1.0 -->
+						<paper-textarea label="Data (as JSON)" value="{{data}}"></paper-textarea> 
+					</section>
+				</iron-pages>
+			</div>
+			<div class="card-buttons">
+				<paper-button on-tap="send" raised>Send to GCM</paper-button>
+			</div>
+		</paper-card>
+		<iron-ajax
+			id="fetchApps"
+			method="POST"
+			url="https://deepspace.onl/scripts/sites/admin/get-gcm.php"
+			handle-as="json"
+			on-response="handleApps">
+		</iron-ajax>
+		<iron-ajax
+			id="sendGCM"
+			method="POST"
+			url="https://deepspace.onl/scripts/sites/admin/gcm.php"
+			content-type="application/json"
+			handle-as="json"
+			on-response="handleRepsonse">
+		</iron-ajax>
+	</template>
+	<script>
+		Polymer({
+			is: 'admin-gcm',
+
+			properties: {
+				apps: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				},
+				messageType: {
+					type: String,
+					value: 'notification'
+				},
+				toWhomType: {
+					type: String,
+					value: 'all'
+				}
+			},
+
+			send: function() {
+				var body = {
+					application: this.selApp.name,
+					to: 
+				}
+			},
+
+			attached: function() {
+				this.apps = [
+					{name: 'WGS-App', key: 'lkshdfdiohiuz8we4ubvljk'},
+					{name: 'deepspace.onl', key: 'lshkdfioazhw3eixjftz9238w'},
+					{name: 'Zoo-Rallye', key: 'iszshfighxuiihfiogfkjghskufdh'}
+				];
+				// this.$.fetchApps.generateRequest();
+			},
+
+			handleApps: function(e) {
+				this.apps = JSON.parse(e.detail.response);
+			}
+		});
+	</script>
+</dom-module>
