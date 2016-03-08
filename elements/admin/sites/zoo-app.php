@@ -168,6 +168,7 @@
 
 		<iron-ajax
 		 	id="updateQuestion"
+		 	method="POST"
 		 	url="https://deepspace.onl/scripts/sites/zoo-app/update-question.php"
 		 	handle-as="json"
 		 	on-response="handleUpdate"></iron-ajax>

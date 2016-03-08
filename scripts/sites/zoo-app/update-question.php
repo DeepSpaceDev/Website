@@ -1,9 +1,9 @@
 <?php
 	require_once("../../connect_zoo-app.php");
 
-	$type = urldecode(isset($_POST["type"]) ? $_POST["type"] : $_GET["type"]);
-	$id = urldecode(isset($_POST["id"]) ? $_POST["id"] : $_GET["id"]);
-	$accepted = urldecode(isset($_POST["accepted"]) ? $_POST["accepted"] : $_GET["accepted"]);
+	$type = $_POST["type"];
+	$id = $_POST["id"];
+	$accepted = $_POST["accepted"];
 
 	$type_slider = "slider";
 	$type_radio = "radio";
