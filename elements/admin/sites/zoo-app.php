@@ -168,7 +168,8 @@
 
 		<iron-ajax
 		 	id="updateQuestion"
-		 	method="POST"
+			method="POST"
+			content-type="application/json"
 		 	url="https://deepspace.onl/scripts/sites/zoo-app/update-question.php"
 		 	handle-as="json"
 		 	on-response="handleUpdate"></iron-ajax>
@@ -256,8 +257,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(radio.path.match(/radio.#[0-9].*/g)) {
 					var pathItems = radio.path.split('.');
@@ -273,8 +273,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(checkbox.path.match(/checkbox.#[0-9].*/g)) {
 					var pathItems = checkbox.path.split('.');
@@ -290,8 +289,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(trueFalse.path.match(/trueFalse.#[0-9].*/g)) {
 					var pathItems = trueFalse.path.split('.');
@@ -306,8 +304,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(sort.path.match(/sort.#[0-9].*/g)) {
 					var pathItems = sort.path.split('.');
@@ -322,8 +319,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(text.path.match(/text.#[0-9].*/g)) {
 					var pathItems = text.path.split('.');
@@ -338,8 +334,7 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 				if(creative.path.match(/creative.#[0-9].*/g)) {
 					var pathItems = creative.path.split('.');
@@ -353,14 +348,46 @@
 						accepted: data.accepted
 					};
 
-					this.$.updateQuestion.body = body;
-					this.$.updateQuestion.generateRequest();
+					this.updateItem(body);
 				}
 			},
+			
+			updateItem: function(body) {
+				var form = this.createBody(body);
+				var settings = {
+				  "async": true,
+				  "crossDomain": true,
+				  "url": "https://deepspace.onl/scripts/sites/zoo-app/update-question.php",
+				  "method": "POST",
+				  "headers": {
+					"cache-control": "no-cache",
+					"postman-token": "dbe61678-b0d8-8d67-25b6-79844ab3bdf3"
+				  },
+				  "processData": false,
+				  "contentType": false,
+				  "mimeType": "multipart/form-data",
+				  "data": form
+				}
 
-			handleUpdate: function(e) {
-				var response = e.detail.response;
-				if(response == "true") toast("Successfully changed", 1000);
+				$.ajax(settings).done(function (response) {
+				  this.handleUpdate(response);
+				}.bind(this));	
+			},
+			
+			createBody: function(body) {
+				var form = new FormData();
+				for (var key in body) {
+					// skip loop if the property is from prototype
+					if (!body.hasOwnProperty(key)) continue;
+
+					var obj = body[key];
+					form.append(key, obj);
+				}
+				return form;
+			},
+
+			handleUpdate: function(response) {
+				if(response == "1") toast("Successfully changed", 1000);
 				else toast(e.detail.response, 5000);
 			},
 
