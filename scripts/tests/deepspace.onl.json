@@ -1,0 +1,132 @@
+{
+	"id": "1dc923a2-f569-2d54-f59c-264e29df4b29",
+	"name": "deepspace.onl",
+	"description": "",
+	"order": [
+		"305ac5be-78f1-d98b-4e9b-ca0a2aba7aaf",
+		"59ebc5e4-0a50-7c03-32f2-b55185a0309d"
+	],
+	"folders": [],
+	"timestamp": 1457731170846,
+	"owner": "389072",
+	"remoteLink": "https://www.getpostman.com/collections/04dc6c3a0abcfed08702",
+	"public": false,
+	"requests": [
+		{
+			"id": "305ac5be-78f1-d98b-4e9b-ca0a2aba7aaf",
+			"headers": "",
+			"url": "https://deepspace.onl/scripts/sites/wgs/eltern-portal_v2.php",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "username",
+					"value": "kugelmann.dennis@gmail.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "AnderBleiche8",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "version",
+					"value": "14",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "autorefresh",
+					"value": "true",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "gt4D3YFHynOycAS2YWAjIrcd65idPJXwqhfi18uKZZRN7b6DLcBldpjhY4rSJ8Me",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"DeepSpace WGS Test\"] = jsonData.login === true;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1457986694263,
+			"name": "https://deepspace.onl/scripts/sites/wgs/eltern-portal_v2.php",
+			"description": "",
+			"collectionId": "1dc923a2-f569-2d54-f59c-264e29df4b29",
+			"responses": []
+		},
+		{
+			"id": "59ebc5e4-0a50-7c03-32f2-b55185a0309d",
+			"headers": "",
+			"url": "https://deepspace.onl/scripts/sites/zoo-app/update-question.php",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "type",
+					"value": "slider",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "id",
+					"value": "2",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "question",
+					"value": "oisudfojypägjfoishsofdpk",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "min",
+					"value": "0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "max",
+					"value": "100",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "step",
+					"value": "5",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "answer",
+					"value": "20",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "accepted",
+					"value": "false",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"tests": "tests[\"DeepSpace - Update Successful\"] = responseBody === \"1\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1457735040985,
+			"name": "https://deepspace.onl/scripts/sites/zoo-app/update-question.php",
+			"description": "",
+			"collectionId": "1dc923a2-f569-2d54-f59c-264e29df4b29",
+			"responses": []
+		}
+	]
+}

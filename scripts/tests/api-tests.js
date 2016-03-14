@@ -1,7 +1,11 @@
 var Newman = require("newman");
 var schedule = require("node-schedule");
+var fs = require("fs");
+var nodemailer = require("nodemailer");
 
 var testJob;
+
+newman();
 
 function startNewman() {
 	testJob = schedule.scheduleJob("* * 1 * * *", newman);
@@ -9,17 +13,17 @@ function startNewman() {
 
 function stopNewman() {
 	if(testJob) testJob.cancel();
-	else console.warn("No Job running");
+	else warn("No Job running");
 }
 
 function newman() {
-	var collectionJSON = JSON.parse(fs.readFileSync("collection.json", "utf8"));
+	var collectionJSON = JSON.parse(fs.readFileSync("/var/www/vhosts/deepspace.onl/httpdocs/scripts/tests/deepspace.onl.json", "utf8"));
 
 	newmanOptions = {
-		envJson = JSON.parse(fs.readFileSync("envjson.json", "utf8")),
-		dataFile: data.csv,
+		// envJson: JSON.parse(fs.readFileSync("envjson.json", "utf8")),
+		// dataFile: data.csv,
 		iterationCount: 2,
-		outputFile: "output.json",
+		outputFile: "scripts/tests/output.json",
 		asLibrary: true,
 		stopOnError: true
 	};
@@ -28,5 +32,42 @@ function newman() {
 }
 
 function callback(e) {
-	console.log(e);
+	log(e);
+}
+
+function log(message) {
+	var options = {
+		from: '"Server" <server@deepspace.onl>',
+		to: 'sese.tailor@gmail.com, kugelmann.dennis@gmail.com',
+		subject: 'Log',
+		text: message
+	};
+	sendMail(options);
+}
+
+function warn(message) {
+	var options = {
+		from: '"Server" <server@deepspace.onl>',
+		to: 'sese.tailor@gmail.com, kugelmann.dennis@gmail.com',
+		subject: 'Warning',
+		text: message
+	};
+	sendMail(options);
+}
+
+function sendMail(options) {
+	var transporter = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+			user: "kugelmann.dennis@gmail.com",
+			pass: new Buffer("aWNoIGJpbjopMTk5OA==", "base64").toString("ascii");
+		}
+	});
+
+	transporter.sendMail(options, function(error, info) {
+		if(error) {
+			return console.log(error);
+		}
+		console.log("Message sent: " + info);
+	});
 }
