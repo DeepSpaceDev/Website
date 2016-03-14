@@ -66,7 +66,7 @@
 						header="Answer" type="String" editable="true" resize-priority="4" property="answer">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+						header="False Answers" type="String" editable="true" resize-priority="4" property="falseAnswers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">
@@ -83,10 +83,10 @@
 						header="Question" type="String" editable="true" resize-priority="5" property="question">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="Answers" type="Array" editable="true" resize-priority="4" property="answers">
+						header="Answers" type="String" editable="true" resize-priority="4" property="answers">
 					</paper-datatable-column>
 					<paper-datatable-column 
-						header="False Answers" type="Array" editable="true" resize-priority="4" property="falseAnswers">
+						header="False Answers" type="String" editable="true" resize-priority="4" property="falseAnswers">
 					</paper-datatable-column>
 					<paper-datatable-column 
 						header="Accepted" type="Boolean" editable="true" resize-priority="5" property="accepted">

@@ -296,9 +296,7 @@
 
 			submitTrueFalse: function() {
 				var question = this.trueFalseQuestion;
-				var answer = this.trueFalseAnswer;
-				console.log(question);
-				console.log(answer);
+				var answer = this.trueFalseAnswer === 'true' ? 1 : 0;
 
 				var body = {
 					type: 'trueFalse',
