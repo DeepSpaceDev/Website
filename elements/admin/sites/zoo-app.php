@@ -1,7 +1,7 @@
 <dom-module id="zoo-app-admin-questions">
 	<template>
 
-		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
+		<?php session_start(); if(!$_SESSION["login"]){echo "<no-login></no-login>";}else if($_SESSION["permission"]["admin"] != 1 && $_SESSION["permission"]["zoo_app"] != 1){echo $_SESSION["permission"]["admin"] . "<no-permission></no-permission>";}else{?>
 
 		<style>
 			:host {

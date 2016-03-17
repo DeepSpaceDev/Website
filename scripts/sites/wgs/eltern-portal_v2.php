@@ -46,15 +46,14 @@ $result = curl_exec($ch);
 if($result === false){
 	exit('{"login":false,"errno":0,"error":"' . curl_error($ch) . '"}');
 }
-else if(strlen($result) != 0){
-	exit('{"login":false,"errno":2,"error":"No communication with server possible"}');
+else if(strlen($result) != 0){ //Cookie ERROR
+	exit('{"login":false,"errno":2,"error":"No communication with server possible. (Cookies?)"}');
 }
 /************/
 curl_setopt($ch, CURLOPT_POST, 0);
 //Schritt 3, alle kinder auslesen
 curl_setopt($ch, CURLOPT_URL, 'https://welfen.eltern-portal.org/start');
 $result = curl_exec($ch);
-
 $childs = array();
 $childrendivs = split("data-toggle='tooltip' data-placement='top'", get_string_between($result, "<div>", "</div>"));
 array_shift($childrendivs); //Delte first item
@@ -160,8 +159,8 @@ foreach ($childs as $child) {
 				$round = ($i * 4);
 				$hour = $vdata[$i + $round]; 
 				$teacher = $vdata[$i + $round + 1];
-				$class = $vdata[$i + $round + 2];
-				$room = ($vdata[$i + $round + 3] == '&nbsp;') ? '' : $vdata[$i + $round + 3];
+				$class = get_string_between($vdata[$i + $round + 2], "&nbsp;", "&nbsp;");;
+				$room = ($vdata[$i + $round + 3] == '&nbsp;>') ? ' ' : $vdata[$i + $round + 3];
 				$data1 .= '{"lesson":' . $hour . ',"subject":"' . $class . '","room":"' . $room . '","teacher":"' . $teacher . '"}';
 			}
 		}
@@ -178,8 +177,8 @@ foreach ($childs as $child) {
 				$round = ($i * 4);
 				$hour = $vdata[$i + $round]; 
 				$teacher = $vdata[$i + $round + 1];
-				$class = $vdata[$i + $round + 2];
-				$room = ($vdata[$i + $round + 3] == '&nbsp;') ? '' : $vdata[$i + $round + 3];
+				$class = get_string_between($vdata[$i + $round + 2], "&nbsp;", "&nbsp;");
+				$room = ($vdata[$i + $round + 3] == '&nbsp;') ? ' ' : $vdata[$i + $round + 3];
 				$data2 .= '{"lesson":' . $hour . ',"subject":"' . $class . '","room":"' . $room . '","teacher":"' . $teacher . '"}';
 			}
 		}

@@ -169,6 +169,7 @@ function getImports(){
 	"elements/admin/admin-general.php", 
 	"elements/admin/admin-analytics.php",
 	"elements/admin/admin-github.php",
+	"elements/admin/sites/webconsole.php",
 	"elements/admin/sites/zoo-app.php",
 
 	"elements/main/home.php", 

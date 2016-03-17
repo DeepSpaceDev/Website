@@ -1,7 +1,7 @@
 function site(){	
 	var params = getUrl();	
 	var returner = "";
-	returner += "<home-home stitle='" + title(params) + "'>" + content(params).replace('>', ' title=" ">') + "</home-home>";	
+	returner += "<home-home stitle='" + title(params) + "'>" + content(params).replace('>', ' title="">') + "</home-home>";	
 	
 	return returner;
 }
@@ -12,13 +12,14 @@ function content(params){
 		case "": site = "<home-projects></home-projects>"; break;
 		case "admin": 
 			switch(params[1]){
+				case "webconsole": site = "<admin-webconsole></admin-webconsole>"; break;
 				case "zoo-app": site = "<zoo-app-admin-questions></zoo-app-admin-questions>"; break;
 				default: site = "<admin-interface></admin-interface>";
 			} break;
 		case "about-us": site = "<home-profile></home-profile>"; break;
 		case "android":
 			switch(params[1]){
-				case "zoo-app": 
+				case "zoo-app":
 					switch(params[2]){
 						case "questions": site = "<zoo-app-questions></zoo-app-questions>"; break;
 						default: site = "<zoo-app></zoo-app>";
