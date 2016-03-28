@@ -36,7 +36,7 @@
 			}
 		</style>
 		
-		<paper-drawer-panel force-Narrow id="pdp"> 
+		<paper-drawer-panel force-narrow id="pdp"> 
 			<paper-header-panel id="drawer-drawer" drawer><!-- header weil scrollable-->
 				<home-navigation></home-navigation>
 			</paper-header-panel>

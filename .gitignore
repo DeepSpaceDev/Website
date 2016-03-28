@@ -4,3 +4,9 @@ bower_components
 .editorconfig
 scripts/pw.php
 media/dl/
+dist
+elements/elements.html
+elements/elements.vulcanized.html
+elements/polymer.html
+elements/polymer.vulcanized.html
+tasks/ensure-files.js

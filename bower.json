@@ -37,11 +37,13 @@
     "stacky": "PolymerLabs/stacky#^1.2.4",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0",
     "web-component-tester": "*",
-    "polymer": "Polymer/polymer#~1.2.0"
+    "polymer": "Polymer/polymer#~1.2.0",
+    "paper-datatable": "^0.9.8"
   },
   "resolutions": {
     "chai": "^3.2.0",
-    "polymer": "^1.1.0",
-    "async": "^1.5.0"
+    "polymer": "~1.2.0",
+    "async": "^1.5.0",
+    "paper-styles": "^1.1.0"
   }
 }
