@@ -2,13 +2,13 @@
   "name": "Deepspace.onl",
   "authors": [
     "Xeselaro <sese.tailor@gmx.net>",
-    "IchordeDionysos <kugelmann.dennis@gmail.com>"
+    "Dennis Kugelmann <kugelmann.dennis@gmail.com>"
   ],
   "description": "",
   "main": "index.php",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "deepspace.onl",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -41,9 +41,8 @@
     "paper-datatable": "^0.9.8"
   },
   "resolutions": {
-    "chai": "^3.2.0",
-    "polymer": "~1.2.0",
     "async": "^1.5.0",
-    "paper-styles": "^1.1.0"
+    "chai": "^3.2.0",
+    "paper-styles": "^1.0.0"
   }
 }
