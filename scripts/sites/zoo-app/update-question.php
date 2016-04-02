@@ -12,7 +12,7 @@
 	$type_sort = "sort";
 	$type_text = "text";
 	$type_creative = "creative";
-
+	
 	switch ($type) {
 		case $type_slider:
 			$question = $_POST["question"];
@@ -67,7 +67,7 @@
 				"UPDATE questions_text SET question = '$question', answer = '$answer', accepted = $accepted WHERE id = $id");
 			echo(true);
 			break;
-		case $type_trueFalse:
+		case $type_task:
 			$task = $_POST["task"];
 
 			mysqli_query($db_zoo_app, 

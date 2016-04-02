@@ -3,6 +3,7 @@ bower_components
 .tmp
 .editorconfig
 scripts/pw.php
+scripts/pw.js
 media/dl/
 dist
 elements/elements.html

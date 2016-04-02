@@ -5,8 +5,6 @@ var nodemailer = require("nodemailer");
 
 var testJob;
 
-newman();
-
 function startNewman() {
 	testJob = schedule.scheduleJob("* * 1 * * *", newman);
 }
