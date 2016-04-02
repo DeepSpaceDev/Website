@@ -56,13 +56,6 @@ function warn(message) {
 }
 
 function sendMail(options) {
-	var transporter = nodemailer.createTransport({
-		service: "gmail",
-		auth: {
-			user: "kugelmann.dennis@gmail.com",
-			pass: new Buffer("aWNoIGJpbjopMTk5OA==", "base64").toString("ascii");
-		}
-	});
 
 	transporter.sendMail(options, function(error, info) {
 		if(error) {
