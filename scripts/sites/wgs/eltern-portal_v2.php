@@ -160,7 +160,7 @@ foreach ($childs as $child) {
 				$hour = $vdata[$i + $round]; 
 				$teacher = $vdata[$i + $round + 1];
 				$class = get_string_between($vdata[$i + $round + 2], "&nbsp;", "&nbsp;");;
-				$room = ($vdata[$i + $round + 3] == '&nbsp;>') ? ' ' : $vdata[$i + $round + 3];
+				$room = ($vdata[$i + $round + 3] == '&nbsp;') ? ' ' : $vdata[$i + $round + 3];
 				$data1 .= '{"lesson":' . $hour . ',"subject":"' . $class . '","room":"' . $room . '","teacher":"' . $teacher . '"}';
 			}
 		}
