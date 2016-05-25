@@ -16,8 +16,8 @@
   }],
   
   "display": "standalone",
-  "backgroud-color": "#EEEEEE",
-  "theme-color": "#3f51b5",
+  "backgroud_color": "#EEEEEE",
+  "theme_color": "#3f51b5",
   "orientation": "any",
   
   "related_applications": [{
